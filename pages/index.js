@@ -26,7 +26,7 @@ const Home = () => {
         marginTop: 10
       }}
     >
-      <Link href="/about">
+      <Link href="/dashboard">
         <StyledButton type="primary" shape="round">
           Go to About page
         </StyledButton>
