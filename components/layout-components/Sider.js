@@ -1,3 +1,4 @@
+import { useEffect, useRef, Component } from 'react'
 import { Layout } from 'antd'
 import styled from 'styled-components'
 
@@ -15,15 +16,25 @@ const FixedSider = styled(Sider)`
   }
 `
 
-export default ({ collapsed, setCollapsed, children }) => (
-  <FixedSider
-    trigger={null}
-    width={256}
-    collapsible
-    collapsed={collapsed}
-    breakpoint="lg"
-    onBreakpoint={collapsed => setCollapsed(collapsed)}
-  >
-    {children}
-  </FixedSider>
-)
+export default ({ collapsed, setCollapsed, children }) => {
+  let firstMounted = useRef(false)
+
+  useEffect(() => {
+    firstMounted.current = true
+  }, [])
+
+  return (
+    <FixedSider
+      trigger={null}
+      width={256}
+      collapsible
+      collapsed={collapsed}
+      breakpoint="lg"
+      onBreakpoint={collapsed => {
+        firstMounted.current && setCollapsed(collapsed)
+      }}
+    >
+      {children}
+    </FixedSider>
+  )
+}

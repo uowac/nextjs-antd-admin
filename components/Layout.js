@@ -49,15 +49,14 @@ class MyLayout extends React.Component {
       >
         <FixedSider
           collapsed={collapsed}
-          setCollapsed={collapsed =>
-            this.setState({ collapsed }, () =>
-              sessionStorage.setItem('collapsed', collapsed)
-            )
-          }
+          setCollapsed={collapsed => {
+            this.setState({ collapsed })
+            sessionStorage.setItem('collapsed', collapsed)
+          }}
         >
           <LogoTitle />
 
-          <Menu />
+          <Menu collapsed={collapsed} />
         </FixedSider>
 
         <MainLayout collapsed={collapsed}>

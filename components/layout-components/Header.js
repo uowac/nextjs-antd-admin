@@ -1,11 +1,30 @@
-import { Icon, Layout, Dropdown, Menu, Button } from 'antd'
+import { Icon, Layout, Dropdown, Menu } from 'antd'
 const { Header } = Layout
 import styled from 'styled-components'
+import antd_logo from '../../public/antd-logo'
+import { Logo } from './LogoTitle'
+import Link from 'next/link'
 
-const HeaderBlock = styled.div`
+const TriggerBlock = styled.div`
   display: inline-block;
-  padding: 0 12px;
   height: 100%;
+`
+
+const StyledImageBlock = styled(TriggerBlock)`
+  @media (min-width: 576px) {
+    display: none !important;
+  }
+
+  padding-left: 24px;
+  cursor: pointer;
+`
+
+const MobileLogo = styled(Logo)`
+  vertical-align: -10px;
+`
+
+const HeaderBlock = styled(TriggerBlock)`
+  padding: 0 12px;
   cursor: pointer;
   transition: all 0.3s;
 
@@ -37,11 +56,23 @@ export default ({ collapsed, handleToggle }) => (
       display: 'flex'
     }}
   >
-    <Icon
-      className="trigger"
-      type={collapsed ? 'menu-unfold' : 'menu-fold'}
-      onClick={handleToggle}
-    />
+    <Link href="/dashboard">
+      <StyledImageBlock>
+        <MobileLogo src={antd_logo} alt="logo" />
+      </StyledImageBlock>
+    </Link>
+
+    <TriggerBlock>
+      <Icon
+        className="trigger"
+        type={collapsed ? 'menu-unfold' : 'menu-fold'}
+        onClick={handleToggle}
+        style={{
+          fontSize: 20,
+          verticalAlign: 'middle'
+        }}
+      />
+    </TriggerBlock>
 
     <div
       style={{
@@ -50,14 +81,12 @@ export default ({ collapsed, handleToggle }) => (
     >
       <Dropdown overlay={menu} placement="bottomRight">
         <HeaderBlock>
-          <div>
-            <Icon
-              type="user"
-              style={{ fontSize: 16, marginRight: 8 }}
-              title="User"
-            />
-            <span>Admin</span>
-          </div>
+          <Icon
+            type="user"
+            style={{ fontSize: 16, marginRight: 8 }}
+            title="User"
+          />
+          <span>Admin</span>
         </HeaderBlock>
       </Dropdown>
     </div>
