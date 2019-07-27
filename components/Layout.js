@@ -1,6 +1,6 @@
 import React from 'react'
 import '../public/index.css'
-import { Layout, Menu } from 'antd'
+import { Layout } from 'antd'
 const { Content } = Layout
 
 import FixedSider from './layout-components/Sider'
@@ -8,7 +8,7 @@ import MainLayout from './layout-components/Main'
 import Header from './layout-components/Header'
 import LogoTitle from './layout-components/LogoTitle'
 import Drawer from './layout-components/Drawer'
-import menuItems from './layout-components/menu-items'
+import Menu from './layout-components/Menu'
 
 class MyLayout extends React.Component {
   state = {
@@ -16,11 +16,20 @@ class MyLayout extends React.Component {
     drawerVisible: false
   }
 
+  componentDidMount() {
+    this.setState({
+      collapsed: JSON.parse(sessionStorage.getItem('collapsed')) || false
+    })
+  }
+
   toggle = () => {
     if (window.innerWidth >= 576) {
-      this.setState(state => ({
-        collapsed: !state.collapsed
-      }))
+      this.setState(
+        state => ({
+          collapsed: !state.collapsed
+        }),
+        () => sessionStorage.setItem('collapsed', this.state.collapsed)
+      )
     } else {
       this.setState(state => ({
         drawerVisible: !state.drawerVisible
@@ -40,31 +49,20 @@ class MyLayout extends React.Component {
       >
         <FixedSider
           collapsed={collapsed}
-          setCollapsed={collapsed => this.setState({ collapsed })}
+          setCollapsed={collapsed =>
+            this.setState({ collapsed }, () =>
+              sessionStorage.setItem('collapsed', collapsed)
+            )
+          }
         >
           <LogoTitle />
 
-          <Menu
-            theme="dark"
-            mode="inline"
-            defaultSelectedKeys={['1']}
-            style={{ padding: '16px 0' }}
-          >
-            {menuItems}
-          </Menu>
+          <Menu />
         </FixedSider>
 
         <MainLayout collapsed={collapsed}>
           <Header collapsed={collapsed} handleToggle={this.toggle} />
-          <Content
-            style={{
-              margin: 24,
-              padding: 24,
-              background: '#fff'
-            }}
-          >
-            {children}
-          </Content>
+          <Content>{children}</Content>
         </MainLayout>
 
         <Drawer
@@ -73,17 +71,7 @@ class MyLayout extends React.Component {
         >
           <LogoTitle />
 
-          <Menu
-            theme="dark"
-            mode="inline"
-            defaultSelectedKeys={['1']}
-            style={{
-              minHeight: '100vh',
-              padding: '16px 0'
-            }}
-          >
-            {menuItems}
-          </Menu>
+          <Menu style={{ minHeight: '100vh' }} />
         </Drawer>
       </Layout>
     )

@@ -22,7 +22,7 @@ export default ({ collapsed, setCollapsed, children }) => (
     collapsible
     collapsed={collapsed}
     breakpoint="lg"
-    onBreakpoint={collapsed => setCollapsed(collapsed)}
+    // onBreakpoint={collapsed => setCollapsed(collapsed)}
   >
     {children}
   </FixedSider>

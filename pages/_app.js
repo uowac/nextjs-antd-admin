@@ -7,6 +7,11 @@ class MyApp extends App {
     b: 222
   }
 
+  componentDidMount() {
+    // clean up
+    sessionStorage.removeItem('collapsed')
+  }
+
   render() {
     const { Component, pageProps } = this.props
     // console.log('app rendered!', this.props.router.pathname)
