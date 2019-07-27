@@ -12,19 +12,19 @@
       "import",
       {
         "libraryName": "antd",
-        "style": "css"
+        "style": true
       },
       "antd"
+    ],
+    [
+      "import",
+      {
+        "libraryName": "ant-design-pro",
+        "libraryDirectory": "lib",
+        "style": true,
+        "camel2DashComponentName": false
+      },
+      "ant-design-pro"
     ]
-    // [
-    //   "import",
-    //   {
-    //     "libraryName": "ant-design-pro",
-    //     "libraryDirectory": "lib",
-    //     "style": true,
-    //     "camel2DashComponentName": false
-    //   },
-    //   "ant-design-pro"
-    // ]
   ]
 }

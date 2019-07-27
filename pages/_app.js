@@ -1,6 +1,17 @@
 import React from 'react'
 import App, { Container } from 'next/app'
-import { withRouter } from 'next/router'
+import Router, { withRouter } from 'next/router'
+
+// dev fix for css loader
+if (process.env.NODE_ENV !== 'production') {
+  Router.events.on('routeChangeComplete', () => {
+    const path = '/_next/static/css/styles.chunk.css'
+    const chunksSelector = `link[href*="${path}"]`
+    const chunksNodes = document.querySelectorAll(chunksSelector)
+    const timestamp = new Date().valueOf()
+    chunksNodes[0].href = `${path}?${timestamp}`
+  })
+}
 
 class MyApp extends App {
   state = {
