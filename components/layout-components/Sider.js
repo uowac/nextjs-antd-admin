@@ -1,4 +1,4 @@
-import { useEffect, useRef, Component } from 'react'
+import { useEffect, useRef } from 'react'
 import { Layout } from 'antd'
 import styled from 'styled-components'
 
