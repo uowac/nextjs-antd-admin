@@ -2,7 +2,7 @@ import { Menu, Icon } from 'antd'
 import { useRouter } from 'next/router'
 
 const menu = [
-  <Menu.Item key="/dashboard">
+  <Menu.Item key="/">
     <Icon type="dashboard" />
     <span>Dashboard</span>
   </Menu.Item>,

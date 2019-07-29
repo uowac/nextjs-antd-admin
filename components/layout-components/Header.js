@@ -1,7 +1,7 @@
 import { Icon, Layout, Dropdown, Menu } from 'antd'
 const { Header } = Layout
 import styled from 'styled-components'
-import antd_logo from '../../public/antd-logo'
+import antd_logo from '../shared/antd-logo'
 import { Logo } from './LogoTitle'
 import Link from 'next/link'
 
@@ -16,7 +16,7 @@ const StyledImageBlock = styled(TriggerBlock)`
   }
 
   padding-left: 24px;
-  cursor: pointer;
+  ${'' /* cursor: pointer; */}
 `
 
 const MobileLogo = styled(Logo)`
@@ -56,10 +56,12 @@ export default ({ collapsed, handleToggle }) => (
       display: 'flex'
     }}
   >
-    <Link href="/dashboard">
-      <StyledImageBlock>
-        <MobileLogo src={antd_logo} alt="logo" />
-      </StyledImageBlock>
+    <Link href="/">
+      <a>
+        <StyledImageBlock>
+          <MobileLogo src={antd_logo} alt="logo" />
+        </StyledImageBlock>
+      </a>
     </Link>
 
     <TriggerBlock>

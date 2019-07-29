@@ -1,6 +1,7 @@
 import React from 'react'
 import App, { Container } from 'next/app'
 import Router, { withRouter } from 'next/router'
+import NProgress from 'nprogress'
 
 // dev fix for css loader
 if (process.env.NODE_ENV !== 'production') {
@@ -12,6 +13,12 @@ if (process.env.NODE_ENV !== 'production') {
     chunksNodes[0].href = `${path}?${timestamp}`
   })
 }
+
+NProgress.configure({ showSpinner: false })
+
+Router.events.on('routeChangeStart', () => NProgress.start())
+Router.events.on('routeChangeComplete', () => NProgress.done())
+Router.events.on('routeChangeError', () => NProgress.done())
 
 class MyApp extends App {
   state = {
@@ -32,8 +39,8 @@ class MyApp extends App {
         {/* {this.props.router.pathname !== '/_error' && (
           <div>Current state - {this.state.b}</div>
         )} */}
-
         <Component {...pageProps} />
+
         <style jsx global>
           {`
             body {

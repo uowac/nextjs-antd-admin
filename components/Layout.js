@@ -1,5 +1,5 @@
 import React from 'react'
-import '../public/index.css'
+import '../static/index.css'
 import { Layout } from 'antd'
 const { Content } = Layout
 
