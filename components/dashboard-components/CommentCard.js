@@ -31,14 +31,12 @@ export default ({
     </div>
 
     <BarContainer>
-      {process.browser && (
-        <MiniArea
-          line
-          data={COMMENT_DATA}
-          borderColor="rgb(205, 34, 255)"
-          color="#feedff"
-        />
-      )}
+      <MiniArea
+        line
+        data={COMMENT_DATA}
+        borderColor="rgb(205, 34, 255)"
+        color="#feedff"
+      />
     </BarContainer>
 
     <CardDivider />

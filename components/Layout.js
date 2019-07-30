@@ -1,5 +1,6 @@
 import React from 'react'
 import '../static/index.css'
+import 'ant-design-pro/lib/Charts/style/index.less'
 import { Layout } from 'antd'
 const { Content } = Layout
 

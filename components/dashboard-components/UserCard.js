@@ -24,19 +24,13 @@ export default ({
 }) => {
   return (
     <CardStyled>
-      {/* <Skeleton
-      loading={true}
-      active
-      title={false}
-      paragraph={{ rows: 3, width: ['55%', '80%', '100%'] }}
-    > */}
       <div style={{ display: 'flex' }}>
         <MainIcon type="team" style={{ color: 'rgb(24, 144, 255)' }} />
         <NumberInfoStyled subTitle="Total users" total={TOTAL_USERS} />
       </div>
 
       <BarContainer>
-        {process.browser && <MiniArea line data={USER_DATA} />}
+        <MiniArea line data={USER_DATA} />
       </BarContainer>
 
       <CardDivider />
@@ -46,7 +40,6 @@ export default ({
         value={DAILY_USERS}
         change={DAILY_USERS_CHANGE}
       />
-      {/* </Skeleton> */}
     </CardStyled>
   )
 }

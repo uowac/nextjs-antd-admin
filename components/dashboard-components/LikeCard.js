@@ -26,9 +26,7 @@ export default ({
     </div>
 
     <BarContainer>
-      {process.browser && (
-        <MiniArea line data={LIKE_DATA} borderColor="#eb2f96" color="#fff0f6" />
-      )}
+      <MiniArea line data={LIKE_DATA} borderColor="#eb2f96" color="#fff0f6" />
     </BarContainer>
 
     <CardDivider />

@@ -28,14 +28,7 @@ export default ({
     </div>
 
     <BarContainer>
-      {process.browser && (
-        <MiniArea
-          line
-          data={VISIT_DATA}
-          borderColor="#F73F3F"
-          color="#fff2f0"
-        />
-      )}
+      <MiniArea line data={VISIT_DATA} borderColor="#F73F3F" color="#fff2f0" />
     </BarContainer>
 
     <CardDivider />

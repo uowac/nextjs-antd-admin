@@ -5,6 +5,7 @@ import styled from 'styled-components'
 export const CardStyled = props => (
   <Card
     bodyStyle={{ padding: '20px 24px 8px' }}
+    bordered={false}
     // style={{ height: 131 }}
     {...props}
   />
@@ -76,8 +77,6 @@ export const CardDivider = styled(Divider)`
 `
 
 export const BarContainer = styled.div`
-  margin-top: -26px;
-  margin-bottom: 35px;
-  margin-left: -4px;
-  margin-right: -4px;
+  margin-top: 10px;
+  margin-bottom: -10px;
 `

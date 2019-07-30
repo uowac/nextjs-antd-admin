@@ -6,9 +6,9 @@ const menu = [
     <Icon type="dashboard" />
     <span>Dashboard</span>
   </Menu.Item>,
-  <Menu.Item key="/nav2">
-    <Icon type="video-camera" />
-    <span>nav 2</span>
+  <Menu.Item key="/sculptures">
+    <Icon type="table" />
+    <span>Sculptures</span>
   </Menu.Item>,
   <Menu.Item key="nav3">
     <Icon type="upload" />
