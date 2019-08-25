@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
-import { Row, Typography, Card, Tooltip, Input, Empty } from 'antd'
-const { Text, Title } = Typography
+import { Row, Card, Typography, Tooltip, Input, Empty } from 'antd'
+// const { Text } = Typography
 const { Meta } = Card
 const { Search } = Input
 import Link from 'next/link'
-
 import { ColStyled, CardStyled, DescriptionIcon } from './style'
+
+const heyDude = Typography.Text
+const heyheyhey = Typography.Paragraph
 
 const SculptureCard = ({ idx, info: { name } }) => {
   return (
@@ -45,9 +47,7 @@ const SculptureCardDescription = () => {
         />
       </Tooltip>
 
-      <Text type="secondary" style={{ marginRight: 8 }}>
-        15
-      </Text>
+      <span style={{ marginRight: 8 }}>15</span>
       <Tooltip placement="top" title="Comments">
         <DescriptionIcon
           type="message"
@@ -56,18 +56,14 @@ const SculptureCardDescription = () => {
           style={{ marginRight: 4 }}
         />
       </Tooltip>
-      <Text type="secondary" style={{ marginRight: 5 }}>
-        20
-      </Text>
+      <span style={{ marginRight: 5 }}>20</span>
       <Tooltip placement="top" title="Visits">
         <DescriptionIcon
           type="environment"
           style={{ color: '#F73F3F', marginRight: 3 }}
         />
       </Tooltip>
-      <Text type="secondary" style={{ marginRight: 4 }}>
-        25
-      </Text>
+      <span style={{ marginRight: 4 }}>25</span>
     </>
   )
 }
@@ -138,4 +134,4 @@ const SculptureGrid = () => {
   )
 }
 
-export default SculptureGrid
+export default () => 'hello world'

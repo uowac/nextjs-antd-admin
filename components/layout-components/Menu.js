@@ -9,10 +9,6 @@ const menu = [
   <Menu.Item key="/sculptures">
     <Icon type="table" />
     <span>Sculptures</span>
-  </Menu.Item>,
-  <Menu.Item key="nav3">
-    <Icon type="upload" />
-    <span>nav 3</span>
   </Menu.Item>
 ]
 

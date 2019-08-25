@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p $PORT"
   },
   "keywords": [],
   "author": "",
@@ -18,21 +18,23 @@
     "antd": "^3.20.5",
     "axios": "^0.19.0",
     "babel-plugin-import": "^1.12.0",
+    "indexof": "0.0.1",
     "less": "^3.9.0",
     "moment": "^2.24.0",
-    "next": "^9.0.2",
+    "next": "^9.0.5-canary.3",
     "nprogress": "^0.2.0",
     "null-loader": "^3.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "styled-components": "^4.3.2"
+    "react-ssr-prepass": "^1.0.6",
+    "styled-components": "^4.3.2",
+    "webpack-filter-warnings-plugin": "^1.2.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.2",
     "babel-plugin-styled-components": "^1.10.6",
     "eslint": "^6.1.0",
     "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-react-hooks": "^1.6.1",
-    "webpack-filter-warnings-plugin": "^1.2.1"
+    "eslint-plugin-react-hooks": "^1.6.1"
   }
 }

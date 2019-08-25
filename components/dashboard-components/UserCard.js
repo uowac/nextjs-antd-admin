@@ -8,10 +8,6 @@ import {
 } from './style'
 
 import dynamic from 'next/dynamic'
-const MiniBar = dynamic(
-  import('ant-design-pro/lib/Charts').then(mod => mod.MiniBar),
-  { ssr: false }
-)
 const MiniArea = dynamic(
   import('ant-design-pro/lib/Charts').then(mod => mod.MiniArea),
   { ssr: false }
