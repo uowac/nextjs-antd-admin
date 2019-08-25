@@ -3,12 +3,7 @@ import { NumberInfo } from 'ant-design-pro'
 import styled from 'styled-components'
 
 export const CardStyled = props => (
-  <Card
-    bodyStyle={{ padding: '20px 24px 8px' }}
-    bordered={false}
-    // style={{ height: 131 }}
-    {...props}
-  />
+  <Card bodyStyle={{ padding: '20px 24px 8px' }} bordered={false} {...props} />
 )
 
 export const NumberInfoStyled = props => (

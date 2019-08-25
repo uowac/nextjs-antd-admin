@@ -5,7 +5,8 @@ import {
   NumberInfoStyled,
   CardFooter,
   BarContainer
-} from '../shared'
+} from './style'
+
 import dynamic from 'next/dynamic'
 
 const MiniArea = dynamic(

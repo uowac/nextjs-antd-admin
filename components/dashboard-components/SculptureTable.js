@@ -1,5 +1,5 @@
 import { Table } from 'antd'
-import { CardStyled } from '../shared/'
+import { CardStyled } from './style'
 import styled from 'styled-components'
 
 const StyledTable = styled(Table)`

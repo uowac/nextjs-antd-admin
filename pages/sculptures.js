@@ -1,3 +1,10 @@
+import { SculptureGrid } from '../components/sculpture-components'
+import Layout from '../components/Layout'
+
 export default () => {
-  return 'hello'
+  return (
+    <Layout>
+      <SculptureGrid />
+    </Layout>
+  )
 }

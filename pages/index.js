@@ -1,14 +1,16 @@
 import { Row } from 'antd'
 import Layout from '../components/Layout'
-import styled from 'styled-components'
-import { ColStyled } from '../components/shared/'
-import UserCard from '../components/dashboard-components/UserCard'
-import VisitCard from '../components/dashboard-components/VisitCard'
-import LikeCard from '../components/dashboard-components/LikeCard'
-import CommentCard from '../components/dashboard-components/CommentCard'
+import {
+  ColStyled,
+  UserCard,
+  VisitCard,
+  LikeCard,
+  CommentCard,
+  SculptureTable,
+  UserPieChart
+} from '../components/dashboard-components'
+
 import moment from 'moment'
-import SculptureTable from '../components/dashboard-components/SculptureTable'
-import UserPieChart from '../components/dashboard-components/UserPieChart'
 
 const Dashboard = ({
   TOTAL_USERS,
