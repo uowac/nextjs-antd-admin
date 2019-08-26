@@ -2,6 +2,8 @@ import dynamic from 'next/dynamic'
 const Pie = dynamic(import('ant-design-pro/lib/Charts').then(mod => mod.Pie), {
   ssr: false
 })
+
+// import { Pie } from 'ant-design-pro/lib/Charts'
 import { CardStyled } from './style'
 
 const userPieData = [
@@ -17,8 +19,6 @@ const total = userPieData
 
 export default () => (
   <CardStyled title="Proportion of Users">
-    {/* <Exception type="404" /> */}
-    {/* <WaterWave height={161} title="补贴资金剩余" percent={34} /> */}
     <Pie
       hasLegend
       title="Total Users"

@@ -35,7 +35,7 @@ class MyApp extends App {
     // console.log('app rendered!', this.props.router.pathname)
 
     return (
-      <Container>
+      <>
         {/* {this.props.router.pathname !== '/_error' && (
           <div>Current state - {this.state.b}</div>
         )} */}
@@ -65,7 +65,7 @@ class MyApp extends App {
             }
           `}
         </style>
-      </Container>
+      </>
     )
   }
 }

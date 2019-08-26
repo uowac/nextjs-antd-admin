@@ -69,12 +69,7 @@ export default () => {
       dataIndex: 'name',
       sorter: (a, b) => a.name.localeCompare(b.name)
     },
-    {
-      title: 'Visits',
-      dataIndex: 'visits',
-      sorter: (a, b) => a.visits - b.visits,
-      sortDirections: ['descend', 'ascend']
-    },
+
     {
       title: 'Likes',
       dataIndex: 'likes',
@@ -85,6 +80,12 @@ export default () => {
       title: 'Comments',
       dataIndex: 'comments',
       sorter: (a, b) => a.comments - b.comments,
+      sortDirections: ['descend', 'ascend']
+    },
+    {
+      title: 'Visits',
+      dataIndex: 'visits',
+      sorter: (a, b) => a.visits - b.visits,
       sortDirections: ['descend', 'ascend']
     }
   ]

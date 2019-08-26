@@ -1,5 +1,6 @@
-import { Row } from 'antd'
+import { Row, Spin } from 'antd'
 import Layout from '../components/Layout'
+import 'ant-design-pro/lib/Charts/style/index.less'
 import {
   ColStyled,
   UserCard,
@@ -11,6 +12,7 @@ import {
 } from '../components/dashboard-components'
 
 import moment from 'moment'
+import { useState, useEffect } from 'react'
 
 const Dashboard = ({
   TOTAL_USERS,
@@ -30,15 +32,34 @@ const Dashboard = ({
   LIKE_DATA,
   COMMENT_DATA
 }) => {
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 300)
+  }, [])
+
   return (
     <Layout>
+      <div
+        style={{
+          height: loading ? '100%' : 0,
+          visibility: loading ? 'visible' : 'hidden',
+          display: 'flex',
+          justifyContent: 'center',
+          paddingTop: loading ? 100 : 0
+        }}
+      >
+        <Spin size="large" />
+      </div>
+
       <Row
         gutter={16}
         style={{
-          marginTop: 20,
-          marginLeft: 12,
-          marginRight: 12,
-          marginBottom: 15
+          margin: loading ? 0 : '20px 12px 15px 12px',
+          visibility: loading ? 'hidden' : 'visible',
+          height: loading ? 0 : '100%',
+          overflow: loading ? 'hidden' : 'visible'
+          // display: loading ? 'none' : 'block'
         }}
       >
         <ColStyled xs={24} sm={12}>

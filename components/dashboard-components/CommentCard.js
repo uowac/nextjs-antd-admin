@@ -19,32 +19,34 @@ export default ({
   DAILY_COMMENTS,
   DAILY_COMMENTS_CHANGE,
   COMMENT_DATA
-}) => (
-  <CardStyled>
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <MainIcon
-        type="message"
-        theme="twoTone"
-        twoToneColor="rgb(205, 34, 255)"
+}) => {
+  return (
+    <CardStyled>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <MainIcon
+          type="message"
+          theme="twoTone"
+          twoToneColor="rgb(205, 34, 255)"
+        />
+        <NumberInfoStyled subTitle="Comments" total={TOTAL_COMMENTS} />
+      </div>
+
+      <BarContainer>
+        <MiniArea
+          line
+          data={COMMENT_DATA}
+          borderColor="rgb(205, 34, 255)"
+          color="#feedff"
+        />
+      </BarContainer>
+
+      <CardDivider />
+
+      <CardFooter
+        title="Daily comments"
+        value={DAILY_COMMENTS}
+        change={DAILY_COMMENTS_CHANGE}
       />
-      <NumberInfoStyled subTitle="Comments" total={TOTAL_COMMENTS} />
-    </div>
-
-    <BarContainer>
-      <MiniArea
-        line
-        data={COMMENT_DATA}
-        borderColor="rgb(205, 34, 255)"
-        color="#feedff"
-      />
-    </BarContainer>
-
-    <CardDivider />
-
-    <CardFooter
-      title="Daily comments"
-      value={DAILY_COMMENTS}
-      change={DAILY_COMMENTS_CHANGE}
-    />
-  </CardStyled>
-)
+    </CardStyled>
+  )
+}
