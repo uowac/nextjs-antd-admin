@@ -2,6 +2,7 @@ import React from 'react'
 import App, { Container } from 'next/app'
 import Router, { withRouter } from 'next/router'
 import NProgress from 'nprogress'
+import Layout from '../components/Layout'
 
 // dev fix for css loader
 if (process.env.NODE_ENV !== 'production') {
@@ -25,13 +26,25 @@ class MyApp extends App {
     b: 222
   }
 
-  componentDidMount() {
-    // clean up
-    sessionStorage.removeItem('collapsed')
+  static async getInitialProps({ Component, ctx }) {
+    let pageProps = {}
+
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx)
+    }
+
+    let collapsed = process.env.NODE_ENV === 'development' ? true : false
+
+    if (!ctx.res) {
+      // client-side
+      collapsed = JSON.parse(sessionStorage.getItem('collapsed')) || false
+    }
+
+    return { pageProps, collapsed }
   }
 
   render() {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps, collapsed } = this.props
     // console.log('app rendered!', this.props.router.pathname)
 
     return (
@@ -39,7 +52,9 @@ class MyApp extends App {
         {/* {this.props.router.pathname !== '/_error' && (
           <div>Current state - {this.state.b}</div>
         )} */}
-        <Component {...pageProps} />
+        <Layout collapsed={collapsed}>
+          <Component {...pageProps} />
+        </Layout>
 
         <style jsx global>
           {`

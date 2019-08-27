@@ -1,5 +1,4 @@
 import { Row, Spin } from 'antd'
-import Layout from '../components/Layout'
 import 'ant-design-pro/lib/Charts/style/index.less'
 import {
   ColStyled,
@@ -33,58 +32,56 @@ const Dashboard = ({
   COMMENT_DATA
 }) => {
   return (
-    <Layout>
-      <Row
-        gutter={16}
-        style={{
-          margin: '20px 12px 15px 12px'
-        }}
-      >
-        <ColStyled xs={24} sm={12}>
-          <UserCard
-            TOTAL_USERS={TOTAL_USERS}
-            DAILY_USERS={DAILY_USERS}
-            DAILY_USERS_CHANGE={DAILY_USERS_CHANGE}
-            USER_DATA={USER_DATA}
-          />
-        </ColStyled>
+    <Row
+      gutter={16}
+      style={{
+        margin: '20px 12px 15px 12px'
+      }}
+    >
+      <ColStyled xs={24} sm={12}>
+        <UserCard
+          TOTAL_USERS={TOTAL_USERS}
+          DAILY_USERS={DAILY_USERS}
+          DAILY_USERS_CHANGE={DAILY_USERS_CHANGE}
+          USER_DATA={USER_DATA}
+        />
+      </ColStyled>
 
-        <ColStyled xs={24} sm={12}>
-          <VisitCard
-            TOTAL_VISITS={TOTAL_VISITS}
-            DAILY_VISITS={DAILY_VISITS}
-            DAILY_VISITS_CHANGE={DAILY_VISITS_CHANGE}
-            VISIT_DATA={VISIT_DATA}
-          />
-        </ColStyled>
+      <ColStyled xs={24} sm={12}>
+        <VisitCard
+          TOTAL_VISITS={TOTAL_VISITS}
+          DAILY_VISITS={DAILY_VISITS}
+          DAILY_VISITS_CHANGE={DAILY_VISITS_CHANGE}
+          VISIT_DATA={VISIT_DATA}
+        />
+      </ColStyled>
 
-        <ColStyled xs={24} sm={12}>
-          <LikeCard
-            TOTAL_LIKES={TOTAL_LIKES}
-            DAILY_LIKES={DAILY_LIKES}
-            DAILY_LIKES_CHANGE={DAILY_LIKES_CHANGE}
-            LIKE_DATA={LIKE_DATA}
-          />
-        </ColStyled>
+      <ColStyled xs={24} sm={12}>
+        <LikeCard
+          TOTAL_LIKES={TOTAL_LIKES}
+          DAILY_LIKES={DAILY_LIKES}
+          DAILY_LIKES_CHANGE={DAILY_LIKES_CHANGE}
+          LIKE_DATA={LIKE_DATA}
+        />
+      </ColStyled>
 
-        <ColStyled xs={24} sm={12}>
-          <CommentCard
-            TOTAL_COMMENTS={TOTAL_COMMENTS}
-            DAILY_COMMENTS={DAILY_COMMENTS}
-            DAILY_COMMENTS_CHANGE={DAILY_COMMENTS_CHANGE}
-            COMMENT_DATA={COMMENT_DATA}
-          />
-        </ColStyled>
+      <ColStyled xs={24} sm={12}>
+        <CommentCard
+          TOTAL_COMMENTS={TOTAL_COMMENTS}
+          DAILY_COMMENTS={DAILY_COMMENTS}
+          DAILY_COMMENTS_CHANGE={DAILY_COMMENTS_CHANGE}
+          COMMENT_DATA={COMMENT_DATA}
+        />
+      </ColStyled>
 
-        <ColStyled xs={24}>
-          <SculptureTable />
-        </ColStyled>
+      <ColStyled xs={24}>
+        <SculptureTable />
+      </ColStyled>
 
-        <ColStyled xs={24}>
-          <UserPieChart />
-        </ColStyled>
-      </Row>
-    </Layout>
+      <ColStyled xs={24}>
+        <UserPieChart />
+      </ColStyled>
+    </Row>
   )
 }
 

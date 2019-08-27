@@ -12,14 +12,8 @@ import Menu from './layout-components/Menu'
 
 class MyLayout extends React.Component {
   state = {
-    collapsed: false,
+    collapsed: this.props.collapsed,
     drawerVisible: false
-  }
-
-  componentDidMount() {
-    this.setState({
-      collapsed: JSON.parse(sessionStorage.getItem('collapsed')) || false
-    })
   }
 
   toggle = () => {
@@ -56,7 +50,7 @@ class MyLayout extends React.Component {
         >
           <LogoTitle />
 
-          <Menu collapsed={collapsed} />
+          <Menu />
         </FixedSider>
 
         <MainLayout collapsed={collapsed}>
