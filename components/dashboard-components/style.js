@@ -72,6 +72,7 @@ export const CardDivider = styled(Divider)`
 `
 
 export const BarContainer = styled.div`
+  height: 90px;
   margin-top: 10px;
   margin-bottom: -10px;
 `
