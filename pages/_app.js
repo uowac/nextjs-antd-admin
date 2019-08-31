@@ -3,6 +3,7 @@ import App, { Container } from 'next/app'
 import Router, { withRouter } from 'next/router'
 import NProgress from 'nprogress'
 import Layout from '../components/Layout'
+import Error from 'next/error'
 
 // dev fix for css loader
 if (process.env.NODE_ENV !== 'production') {
@@ -49,17 +50,19 @@ class MyApp extends App {
 
     return (
       <>
-        {/* {this.props.router.pathname !== '/_error' && (
-          <div>Current state - {this.state.b}</div>
-        )} */}
-        <Layout collapsed={collapsed}>
-          <Component {...pageProps} />
-        </Layout>
+        {this.props.router.pathname !== '/_error' ? (
+          <Layout collapsed={collapsed}>
+            <Component {...pageProps} />
+          </Layout>
+        ) : (
+          <Error statusCode="404" />
+        )}
 
         <style jsx global>
           {`
             body {
               margin: 0;
+              line-height: normal;
             }
 
             * {

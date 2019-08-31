@@ -32,12 +32,7 @@ const Dashboard = ({
   COMMENT_DATA
 }) => {
   return (
-    <Row
-      gutter={16}
-      style={{
-        margin: '20px 12px 15px 12px'
-      }}
-    >
+    <Row gutter={16}>
       <ColStyled xs={24} sm={12}>
         <UserCard
           TOTAL_USERS={TOTAL_USERS}

@@ -55,7 +55,13 @@ class MyLayout extends React.Component {
 
         <MainLayout collapsed={collapsed}>
           <Header collapsed={collapsed} handleToggle={this.toggle} />
-          <Content>{children}</Content>
+          <Content
+            style={{
+              margin: '20px 16px 15px 16px'
+            }}
+          >
+            {children}
+          </Content>
         </MainLayout>
 
         <Drawer
