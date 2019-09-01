@@ -226,9 +226,13 @@ const SculptureGrid = () => {
         <CardStyled
           title="Sculpture Collection"
           extra={
-            <Button type="primary" icon="plus" href="/sculptures/create">
-              Add new sculpture
-            </Button>
+            <Link href="/sculptures/create">
+              <a>
+                <Button type="primary" icon="plus">
+                  Add new sculpture
+                </Button>
+              </a>
+            </Link>
           }
         >
           <div

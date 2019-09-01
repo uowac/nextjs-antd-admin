@@ -41,6 +41,8 @@ class MyApp extends App {
       collapsed = JSON.parse(sessionStorage.getItem('collapsed')) || false
     }
 
+    // console.log('cac to') // called every time
+
     return { pageProps, collapsed }
   }
 

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Card, Col, Icon } from 'antd'
+import { Card, Col, Icon, Form } from 'antd'
 
 export const CardStyled = props => (
   <Card bodyStyle={{ padding: '20px 24px 20px' }} bordered={false} {...props} />
@@ -26,4 +26,17 @@ export const ShadowCard = styled(CardStyled)`
     cursor: pointer;
     transition: all 150ms ease-in-out 0s;
   }
+`
+
+export const CustomFormItem = styled(Form.Item)`
+  margin-bottom: 8px;
+
+  &.ant-form-item-with-help {
+    margin-bottom: 5px;
+  }
+`
+
+export const FormCol = styled(Col)`
+  padding-left: 0px;
+  padding-right: 0px;
 `

@@ -30,3 +30,13 @@
     display: block;
   }
 }
+
+.ant-form-item-label {
+  line-height: 25px !important;
+}
+
+@media (max-width: 575px) {
+  .ant-form-item-label {
+    padding: 0 !important;
+  }
+}
