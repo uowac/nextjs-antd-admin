@@ -32,6 +32,7 @@ const SculptureCard = ({
             src={key % 2 === 1 ? '/static/img1.jpg' : '/static/img2.jpg'}
             style={{
               height: 250,
+              width: '100%',
               objectFit: 'cover'
             }}
           />

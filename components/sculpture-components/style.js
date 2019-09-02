@@ -37,6 +37,6 @@ export const CustomFormItem = styled(Form.Item)`
 `
 
 export const FormCol = styled(Col)`
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 `

@@ -7,7 +7,6 @@ const Pie = dynamic(import('ant-design-pro/lib/Charts').then(mod => mod.Pie), {
 import { CardStyled } from './style'
 
 const userPieData = [
-  { x: 'Anonymous', y: 15 },
   { x: 'Email', y: 20 },
   { x: 'Google', y: 25 },
   { x: 'Facebook', y: 12 }
@@ -27,7 +26,7 @@ export default () => (
       data={userPieData}
       valueFormat={val => val.toLocaleString()}
       height={294}
-      colors={['#FBDB5A', '#A97BE9', '#EA4335', '#1890FF']}
+      colors={['#A97BE9', '#EA4335', '#1890FF']}
     />
   </CardStyled>
 )

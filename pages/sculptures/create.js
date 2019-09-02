@@ -18,8 +18,8 @@ const SculptureCreatePage = props => {
 //   }
 // }
 
-const WrappedSculptureCreatePage = Form.create({ name: 'normal_login' })(
-  SculptureCreatePage
-)
+const WrappedSculptureCreatePage = Form.create({
+  name: 'sculpture_create_form'
+})(SculptureCreatePage)
 
 export default WrappedSculptureCreatePage

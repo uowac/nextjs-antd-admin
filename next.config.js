@@ -6,6 +6,10 @@ const FilterWarningsPlugin = require('webpack-filter-warnings-plugin')
 module.exports = withLess(
   withCss({
     target: 'serverless',
+    env: {
+      MAPBOX_ACCESS_TOKEN:
+        'pk.eyJ1IjoieW53dyIsImEiOiJjanlyNmg4dDYwN3Z6M210a3E2ZmJoemprIn0.yDLDtTyLhPBSI_qnjes0kw'
+    },
     lessLoaderOptions: {
       javascriptEnabled: true
     },
