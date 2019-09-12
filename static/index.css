@@ -57,3 +57,71 @@
 .mapboxgl-user-location-dot {
   transform: translate(-50%, -100%);
 }
+
+.ant-upload-list-picture .ant-upload-list-item,
+.ant-upload-list-picture-card .ant-upload-list-item {
+  /* height: 300px !important; */
+  /* float: none !important; */
+}
+
+.ant-upload-list-picture-card .ant-upload-list-item {
+  width: 150px !important;
+  height: 150px !important;
+}
+
+/* you can make up upload button and sample style by using stylesheets */
+.ant-upload-select-picture-card i {
+  font-size: 32px;
+  color: #999;
+}
+
+.ant-upload-select-picture-card .ant-upload-text {
+  margin-top: 8px;
+  color: #666;
+}
+
+.ant-upload.ant-upload-select-picture-card {
+  width: 150px !important;
+  height: 150px !important;
+}
+
+.ant-upload-list-picture-card .ant-upload-list-item-uploading-text {
+  margin-top: 30px !important;
+  text-align: center;
+}
+
+.custom-modal .ant-modal-close {
+  display: none;
+}
+
+.ant-modal-confirm .ant-modal-body {
+  padding: 24px !important;
+}
+
+.ant-card-meta-detail > div:not(:last-child) {
+  margin-bottom: 0 !important;
+}
+
+@media (min-width: 576px) {
+  .latitude-input {
+    padding-right: 8px !important;
+  }
+
+  .longitude-input {
+    padding-left: 8px !important;
+  }
+}
+
+/* For demo */
+.ant-carousel .slick-slide {
+  /* text-align: center; */
+  /* height: 400px !important; */
+  /* background: #364d79; */
+  overflow: hidden;
+}
+
+.ant-carousel .slick-slide img {
+  height: 350px;
+  width: 100%;
+  object-fit: cover;
+}

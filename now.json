@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+      "MAPBOX_ACCESS_TOKEN": "@mapbox_access_token"
+    }
+  }
+}

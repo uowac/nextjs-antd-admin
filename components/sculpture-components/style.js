@@ -1,5 +1,7 @@
 import styled from 'styled-components'
-import { Card, Col, Icon, Form } from 'antd'
+import { Card, Col, Icon, Form, Typography } from 'antd'
+
+const { Text } = Typography
 
 export const CardStyled = props => (
   <Card bodyStyle={{ padding: '20px 24px 20px' }} bordered={false} {...props} />
@@ -39,4 +41,9 @@ export const CustomFormItem = styled(Form.Item)`
 export const FormCol = styled(Col)`
   padding-left: 0px !important;
   padding-right: 0px !important;
+`
+
+export const Subtitle = styled(Text)`
+  display: block;
+  margin-bottom: 12px;
 `

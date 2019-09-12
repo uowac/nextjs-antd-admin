@@ -51,7 +51,7 @@ const Map = ({ view, setView, marker, setMarker }) => {
         longitude={markerLng}
         latitude={markerLat}
         draggable
-        onDrag={({ lngLat: [markerLng, markerLat] }) =>
+        onDragEnd={({ lngLat: [markerLng, markerLat] }) =>
           setMarker({ markerLat, markerLng })
         }
       >

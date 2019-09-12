@@ -34,7 +34,8 @@
     "react/display-name": [0],
     "react/react-in-jsx-scope": "off",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+	"require-atomic-updates": "off"
   },
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "settings": {

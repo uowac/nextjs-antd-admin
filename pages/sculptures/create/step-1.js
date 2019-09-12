@@ -1,4 +1,4 @@
-import { SculptureCreate } from '../../components/sculpture-components'
+import SculptureCreate from '../../../components/sculpture-components/SculptureCreate'
 import { Form } from 'antd'
 
 const SculptureCreatePage = props => {

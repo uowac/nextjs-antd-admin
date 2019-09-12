@@ -2,13 +2,13 @@
 const withCss = require('@zeit/next-css')
 const withLess = require('@zeit/next-less')
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin')
+require('dotenv').config()
 
 module.exports = withLess(
   withCss({
     target: 'serverless',
     env: {
-      MAPBOX_ACCESS_TOKEN:
-        'pk.eyJ1IjoieW53dyIsImEiOiJjanlyNmg4dDYwN3Z6M210a3E2ZmJoemprIn0.yDLDtTyLhPBSI_qnjes0kw'
+      MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN
     },
     lessLoaderOptions: {
       javascriptEnabled: true

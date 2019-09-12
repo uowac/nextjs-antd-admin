@@ -5,7 +5,10 @@ import { FlyToInterpolator } from 'react-map-gl'
 import Map from '../../map-components'
 import TextFields from './CreateFormTextFields'
 
-const SculptureCreate = ({ form, form: { getFieldDecorator } }) => {
+const SculptureCreate = ({
+  form,
+  form: { getFieldDecorator, setFieldsValue }
+}) => {
   const [view, setView] = useState({
     latitude: -34.40581053569814,
     longitude: 150.87842788963476,
@@ -13,9 +16,13 @@ const SculptureCreate = ({ form, form: { getFieldDecorator } }) => {
     pitch: 50
   })
 
-  const [marker, setMarker] = useState({
+  const initialData = {
     markerLat: -34.40581053569814,
     markerLng: 150.87842788963476
+  }
+
+  const [marker, setMarker] = useState({
+    ...initialData
   })
 
   const flyTo = (latitude, longitude) => {
@@ -36,6 +43,7 @@ const SculptureCreate = ({ form, form: { getFieldDecorator } }) => {
 
   const showLocationOnMap = () => {
     form.validateFields(['latitude', 'longitude'], (errors, values) => {
+      console.log('hey')
       if (!errors) {
         const { latitude, longitude } = values
         flyTo(+latitude, +longitude)
@@ -44,9 +52,13 @@ const SculptureCreate = ({ form, form: { getFieldDecorator } }) => {
   }
 
   const handleSubmit = e => {
+    console.log(1234)
     e.preventDefault()
     form.validateFields((err, values) => {
+      console.log(err)
+      console.log(values)
       if (!err) {
+        // remember to convert lat and long to numeric type
         console.log('Received values of form: ', values)
       }
     })
@@ -59,7 +71,10 @@ const SculptureCreate = ({ form, form: { getFieldDecorator } }) => {
           <Form onSubmit={handleSubmit} autoComplete="off">
             <ColStyled xs={24} md={12}>
               {/* long repeated list of text fields */}
-              <TextFields getFieldDecorator={getFieldDecorator} />
+              <TextFields
+                getFieldDecorator={getFieldDecorator}
+                initialData={initialData}
+              />
               <FormCol xs={24}>
                 <Button onClick={showLocationOnMap}>Show on map</Button>
               </FormCol>
@@ -77,14 +92,20 @@ const SculptureCreate = ({ form, form: { getFieldDecorator } }) => {
                 view={view}
                 marker={marker}
                 setView={setView}
-                setMarker={setMarker}
+                setMarker={({ markerLat, markerLng }) => {
+                  setMarker({ markerLat, markerLng })
+                  setFieldsValue({
+                    latitude: String(markerLat),
+                    longitude: String(markerLng)
+                  })
+                }}
               />
             </ColStyled>
 
             <ColStyled xs={24}>
               <FormCol xs={24}>
                 <CustomFormItem style={{ marginBottom: 0, marginTop: 8 }}>
-                  <Button type="primary" htmlType="submit" size="large">
+                  <Button type="primary" htmlType="submit">
                     Submit
                   </Button>
                 </CustomFormItem>

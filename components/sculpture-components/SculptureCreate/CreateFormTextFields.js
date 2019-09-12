@@ -3,7 +3,10 @@ const { TextArea } = Input
 import { FormCol, CustomFormItem } from '../style'
 import { validateLatitude, validateLongitude } from '../../shared/utils'
 
-export default ({ getFieldDecorator }) => {
+export default ({
+  getFieldDecorator,
+  initialData: { markerLat, markerLng }
+}) => {
   return (
     <>
       <FormCol>
@@ -136,11 +139,7 @@ export default ({ getFieldDecorator }) => {
       </FormCol>
 
       <FormCol xs={24} sm={12}>
-        <CustomFormItem
-          label="Latitude"
-          hasFeedback
-          style={{ paddingRight: 8 }}
-        >
+        <CustomFormItem label="Latitude" hasFeedback className="latitude-input">
           {getFieldDecorator('latitude', {
             rules: [
               {
@@ -151,7 +150,8 @@ export default ({ getFieldDecorator }) => {
               {
                 validator: validateLatitude
               }
-            ]
+            ],
+            initialValue: String(markerLat)
           })(
             <Input
               prefix={
@@ -168,7 +168,7 @@ export default ({ getFieldDecorator }) => {
         <CustomFormItem
           label="Longitude"
           hasFeedback
-          style={{ paddingLeft: 8 }}
+          className="longitude-input"
         >
           {getFieldDecorator('longitude', {
             rules: [
@@ -180,7 +180,8 @@ export default ({ getFieldDecorator }) => {
               {
                 validator: validateLongitude
               }
-            ]
+            ],
+            initialValue: String(markerLng)
           })(
             <Input
               prefix={

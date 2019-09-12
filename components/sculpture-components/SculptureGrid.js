@@ -15,7 +15,13 @@ const { Text } = Typography
 const { Meta } = Card
 const { Search } = Input
 import Link from 'next/link'
-import { ColStyled, CardStyled, DescriptionIcon, ShadowCard } from './style'
+import {
+  ColStyled,
+  CardStyled,
+  DescriptionIcon,
+  ShadowCard,
+  Subtitle
+} from './style'
 import styled from 'styled-components'
 
 const SculptureCard = ({
@@ -58,6 +64,7 @@ const SculptureCard = ({
 const SculptureCardDescription = ({ likes, comments, visits }) => {
   return (
     <>
+      <Subtitle type="secondary">Author 1</Subtitle>
       <Tooltip placement="top" title="Likes">
         <DescriptionIcon
           type="heart"
@@ -227,7 +234,7 @@ const SculptureGrid = () => {
         <CardStyled
           title="Sculpture Collection"
           extra={
-            <Link href="/sculptures/create">
+            <Link href="/sculptures/create/step-1">
               <a>
                 <Button type="primary" icon="plus">
                   Add new sculpture
