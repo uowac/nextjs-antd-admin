@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react'
-import { Row, Input, Button, Form } from 'antd'
+import { Row, Button, Form } from 'antd'
 import { ColStyled, CardStyled, FormCol, CustomFormItem } from '../style'
 import { FlyToInterpolator } from 'react-map-gl'
 import Map from '../../map-components'
 import TextFields from './CreateFormTextFields'
+import api from '../../../api'
+import Loading from '../../Loading'
+import Error from 'next/error'
+import Router from 'next/router'
 
 const SculptureCreate = ({
   form,
-  form: { getFieldDecorator, setFieldsValue }
+  form: { getFieldDecorator, setFieldsValue },
+  setStep,
+  setSculpture
 }) => {
   const [view, setView] = useState({
     latitude: -34.40581053569814,
@@ -24,6 +30,36 @@ const SculptureCreate = ({
   const [marker, setMarker] = useState({
     ...initialData
   })
+
+  const [makerList, setMakerList] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState(null)
+
+  const addMaker = maker => {
+    setMakerList([...makerList, maker])
+    setFieldsValue({
+      primaryMakerId: maker.id
+    })
+  }
+
+  useEffect(() => {
+    const fetchMakerList = async () => {
+      try {
+        const data = (await api.get('/maker/')).data
+        console.log(data)
+        setMakerList(data)
+      } catch (e) {
+        const { statusCode, message } = e.response.data
+        setError({
+          statusCode,
+          message
+        })
+      }
+      setLoading(false)
+    }
+    fetchMakerList()
+  }, [])
 
   const flyTo = (latitude, longitude) => {
     setView({
@@ -52,17 +88,44 @@ const SculptureCreate = ({
   }
 
   const handleSubmit = e => {
-    console.log(1234)
     e.preventDefault()
-    form.validateFields((err, values) => {
-      console.log(err)
-      console.log(values)
+    form.validateFields(async (err, values) => {
       if (!err) {
         // remember to convert lat and long to numeric type
         console.log('Received values of form: ', values)
+        for (let key in values) {
+          if (!values[key]) {
+            delete values[key]
+          }
+        }
+
+        if (values.latitude) {
+          values.latitude = Number(values.latitude)
+        }
+
+        if (values.longitude) {
+          values.longitude = Number(values.longitude)
+        }
+
+        console.log('after', values)
+
+        setSubmitting(true)
+        try {
+          const _result = (await api.post('/sculpture', values)).data
+          setSubmitting(false)
+          setSculpture({ ...values })
+          setStep(s => s + 1)
+        } catch (e) {
+          setSubmitting(false)
+          console.log(e.response.data.message)
+        }
       }
     })
   }
+
+  if (loading) return <Loading />
+  if (error)
+    return <Error statusCode={error.statusCode} title={error.message} />
 
   return (
     <Row gutter={16}>
@@ -74,6 +137,8 @@ const SculptureCreate = ({
               <TextFields
                 getFieldDecorator={getFieldDecorator}
                 initialData={initialData}
+                makerList={makerList}
+                addMaker={addMaker}
               />
               <FormCol xs={24}>
                 <Button onClick={showLocationOnMap}>Show on map</Button>
@@ -105,7 +170,7 @@ const SculptureCreate = ({
             <ColStyled xs={24}>
               <FormCol xs={24}>
                 <CustomFormItem style={{ marginBottom: 0, marginTop: 8 }}>
-                  <Button type="primary" htmlType="submit">
+                  <Button type="primary" htmlType="submit" loading={submitting}>
                     Submit
                   </Button>
                 </CustomFormItem>
@@ -118,4 +183,6 @@ const SculptureCreate = ({
   )
 }
 
-export default SculptureCreate
+export default Form.create({
+  name: 'sculpture_create_form'
+})(SculptureCreate)

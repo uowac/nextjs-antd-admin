@@ -20,51 +20,66 @@ import {
   CardStyled,
   DescriptionIcon,
   ShadowCard,
-  Subtitle
+  Subtitle,
+  EmptyImage
 } from './style'
-import styled from 'styled-components'
+import Loading from '../Loading'
+import Error from 'next/error'
+import api from '../../api'
 
 const SculptureCard = ({
-  idx,
-  info: { key, name, visits, likes, comments }
+  info: { accessionId, name, visits, likes, comments, primaryMaker, images }
 }) => {
+  const makerName = primaryMaker.firstName + ' ' + primaryMaker.lastName
   return (
-    // <Link href="https://twitch.tv/">
-    <a style={{ display: 'inline-block', width: '100%' }}>
-      <ShadowCard
-        cover={
-          <img
-            alt="example"
-            src={key % 2 === 1 ? '/static/img1.jpg' : '/static/img2.jpg'}
-            style={{
-              height: 250,
-              width: '100%',
-              objectFit: 'cover'
-            }}
-          />
-        }
-        bordered={true}
-      >
-        <Meta
-          title={name}
-          description={
-            <SculptureCardDescription
-              visits={visits}
-              likes={likes}
-              comments={comments}
-            />
+    <Link href={`/sculptures/id/${accessionId}`}>
+      <a style={{ display: 'inline-block', width: '100%' }}>
+        <ShadowCard
+          cover={
+            images.length ? (
+              <div style={{ height: 450 }}>
+                <img
+                  src={images[0].url}
+                  style={{
+                    height: '100%',
+                    width: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
+              </div>
+            ) : (
+              <EmptyImage image={Empty.PRESENTED_IMAGE_SIMPLE} />
+              // <div style={{ height: 450, border: '1px solid black' }}>hey</div>
+            )
           }
-        />
-      </ShadowCard>
-    </a>
-    // </Link>
+          bordered={true}
+        >
+          <Meta
+            title={name}
+            description={
+              <SculptureCardDescription
+                visits={visits}
+                likes={likes}
+                comments={comments}
+                makerName={makerName}
+              />
+            }
+          />
+        </ShadowCard>
+      </a>
+    </Link>
   )
 }
 
-const SculptureCardDescription = ({ likes, comments, visits }) => {
+export const SculptureCardDescription = ({
+  likes,
+  comments,
+  visits,
+  makerName
+}) => {
   return (
     <>
-      <Subtitle type="secondary">Author 1</Subtitle>
+      <Subtitle type="secondary">{makerName}</Subtitle>
       <Tooltip placement="top" title="Likes">
         <DescriptionIcon
           type="heart"
@@ -102,82 +117,6 @@ const SculptureCardDescription = ({ likes, comments, visits }) => {
   )
 }
 
-// sample data list
-const originalList = [
-  {
-    key: '1',
-    name: 'Sculpture Name 1',
-    visits: 5,
-    likes: 36,
-    comments: 5
-  },
-  {
-    key: '2',
-    name: 'Sculpture Name 2',
-    visits: 44,
-    likes: 10,
-    comments: 6
-  },
-  {
-    key: '3',
-    name: 'Sculpture Name 3',
-    visits: 15,
-    likes: 19,
-    comments: 10
-  },
-  {
-    key: '4',
-    name: 'Sculpture Name 4',
-    visits: 5,
-    likes: 6,
-    comments: 2
-  },
-  {
-    key: '5',
-    name: 'Sculpture Name 5',
-    visits: 22,
-    likes: 12,
-    comments: 4
-  },
-  {
-    key: '6',
-    name: 'Sculpture Name 6',
-    visits: 19,
-    likes: 8,
-    comments: 3
-  },
-  {
-    key: '7',
-    name: 'Sculpture Name 7',
-    visits: 16,
-    likes: 25,
-    comments: 135
-  },
-  {
-    key: '8',
-    name: 'Sculpture Name 8',
-    visits: 42,
-    likes: 92,
-    comments: 50
-  },
-  {
-    key: '9',
-    name: 'Sculpture Name 30',
-    visits: 32,
-    likes: 17,
-    comments: 11
-  },
-  {
-    key: '10',
-    name: 'Sculpture Name 10',
-    visits: 12,
-    likes: 41,
-    comments: 5
-  }
-]
-
-originalList.sort((a, b) => a.name.localeCompare(b.name))
-
 // custom sort function
 const sortBy = (list, criterion) => {
   switch (criterion) {
@@ -193,9 +132,33 @@ const sortBy = (list, criterion) => {
 }
 
 const SculptureGrid = () => {
+  const [originalList, setOriginalList] = useState([])
   const [filteredList, setFilteredList] = useState(originalList.slice())
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   const [currentSort, setSort] = useState('Default')
+
+  useEffect(() => {
+    const fetchSculpture = async () => {
+      try {
+        let { data } = await api.get('/sculpture')
+        data.sort((a, b) => a.name.localeCompare(b.name))
+        console.log(data)
+        setOriginalList(data)
+        setFilteredList(data)
+      } catch (e) {
+        const { statusCode, message } = e.response.data
+        setError({
+          statusCode,
+          message
+        })
+      }
+      setLoading(false)
+    }
+
+    fetchSculpture()
+  }, [])
 
   // Menu handler
   function handleMenuClick(e) {
@@ -227,6 +190,10 @@ const SculptureGrid = () => {
       }
     }
   }
+
+  if (loading) return <Loading />
+  if (error)
+    return <Error statusCode={error.statusCode} title={error.message} />
 
   return (
     <Row gutter={16}>
@@ -261,7 +228,6 @@ const SculptureGrid = () => {
               }}
             />
 
-            {/* drop down menu */}
             <Dropdown overlay={menu} trigger={['click']}>
               <Button size="large">
                 <Icon type="sort-ascending" /> {currentSort}{' '}
@@ -269,6 +235,7 @@ const SculptureGrid = () => {
               </Button>
             </Dropdown>
           </div>
+
           <>
             {!filteredList.length ? (
               <Empty
@@ -279,7 +246,7 @@ const SculptureGrid = () => {
             ) : (
               filteredList.map(sculpture => {
                 return (
-                  <ColStyled xs={24} sm={12} md={8} key={sculpture.key}>
+                  <ColStyled xs={24} sm={12} md={8} key={sculpture.accessionId}>
                     <SculptureCard info={sculpture} />
                   </ColStyled>
                 )

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Card, Col, Icon, Form, Typography } from 'antd'
+import { Card, Col, Icon, Form, Typography, Empty } from 'antd'
 
 const { Text } = Typography
 
@@ -46,4 +46,14 @@ export const FormCol = styled(Col)`
 export const Subtitle = styled(Text)`
   display: block;
   margin-bottom: 12px;
+`
+
+export const EmptyImage = styled(Empty)`
+  height: 230px;
+  margin: 0;
+  border-bottom: 0.3px solid rgba(0, 0, 0, 0.25);
+
+  & .ant-empty-image {
+    margin-top: 220px;
+  }
 `

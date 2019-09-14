@@ -1,9 +1,11 @@
-import React from 'react'
-import App, { Container } from 'next/app'
+import NextApp from 'next/app'
 import Router, { withRouter } from 'next/router'
 import NProgress from 'nprogress'
 import Layout from '../components/Layout'
 import Error from 'next/error'
+import { Auth0Provider, useAuth0 } from '../components/auth0-components'
+import { Spin } from 'antd'
+import Loading from '../components/Loading'
 
 // dev fix for css loader
 if (process.env.NODE_ENV !== 'production') {
@@ -16,17 +18,33 @@ if (process.env.NODE_ENV !== 'production') {
   })
 }
 
+// UI loading top bar
 NProgress.configure({ showSpinner: false })
-
 Router.events.on('routeChangeStart', () => NProgress.start())
 Router.events.on('routeChangeComplete', () => NProgress.done())
 Router.events.on('routeChangeError', () => NProgress.done())
 
-class MyApp extends App {
-  state = {
-    b: 222
-  }
+// A function that routes the user to the right place
+// after login
+const onRedirectCallback = appState => {
+  window.history.replaceState(
+    {},
+    document.title,
+    appState && appState.targetUrl
+      ? appState.targetUrl
+      : window.location.pathname
+  )
+}
 
+const App = ({ children }) => {
+  const { loading } = useAuth0()
+
+  if (loading) return <Loading />
+
+  return <>{children}</>
+}
+
+class AppWrapper extends NextApp {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
 
@@ -35,59 +53,48 @@ class MyApp extends App {
     }
 
     let collapsed = process.env.NODE_ENV === 'development' ? true : false
+    let protocol =
+      process.env.NODE_ENV === 'development' ? 'http://' : 'https://'
+    let redirect_uri = ''
+    if (ctx.req) {
+      redirect_uri = protocol + ctx.req.headers.host
+    } else {
+      redirect_uri = window.location.origin
+    }
 
-    if (!ctx.res) {
+    if (!ctx.req) {
       // client-side
       collapsed = JSON.parse(sessionStorage.getItem('collapsed')) || false
     }
 
     // console.log('cac to') // called every time
 
-    return { pageProps, collapsed }
+    return { pageProps, collapsed, redirect_uri }
   }
 
   render() {
-    const { Component, pageProps, collapsed } = this.props
+    const { Component, pageProps, collapsed, router, redirect_uri } = this.props
     // console.log('app rendered!', this.props.router.pathname)
 
-    return (
-      <>
-        {this.props.router.pathname !== '/_error' ? (
-          <Layout collapsed={collapsed}>
-            <Component {...pageProps} />
-          </Layout>
-        ) : (
-          <Error statusCode="404" />
-        )}
+    if (router.pathname !== '/_error') {
+      return (
+        <Auth0Provider
+          domain={process.env.AUTH0_DOMAIN}
+          client_id={process.env.AUTH0_CLIENT_ID}
+          redirect_uri={redirect_uri}
+          onRedirectCallback={onRedirectCallback}
+        >
+          <App>
+            <Layout collapsed={collapsed}>
+              <Component {...pageProps} />
+            </Layout>
+          </App>
+        </Auth0Provider>
+      )
+    }
 
-        <style jsx global>
-          {`
-            body {
-              margin: 0;
-              line-height: normal;
-            }
-
-            * {
-              padding: 0;
-              margin: 0;
-            }
-
-            html {
-              -webkit-font-smoothing: antialiased;
-              -moz-osx-font-smoothing: grayscale;
-              box-sizing: border-box;
-            }
-
-            *,
-            *::before,
-            *::after {
-              box-sizing: inherit;
-            }
-          `}
-        </style>
-      </>
-    )
+    return <Error statusCode="404" />
   }
 }
 
-export default withRouter(MyApp)
+export default withRouter(AppWrapper)

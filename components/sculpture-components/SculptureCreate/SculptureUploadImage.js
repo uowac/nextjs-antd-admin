@@ -34,11 +34,13 @@ const defaultFileList = [
   }
 ]
 
-const SculptureUploadImage = () => {
+const SculptureUploadImage = ({ sculpture }) => {
   const [state, setState] = useState({
     previewVisible: false,
     previewImage: ''
   })
+
+  const { accessionId, name } = sculpture
 
   const handleCancel = () => setState({ ...state, previewVisible: false })
 

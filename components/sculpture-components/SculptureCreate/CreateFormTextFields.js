@@ -1,22 +1,33 @@
-import { Input, Icon } from 'antd'
+import { useState } from 'react'
+import { Input, Icon, Select, Modal, Divider, Button } from 'antd'
 const { TextArea } = Input
 import { FormCol, CustomFormItem } from '../style'
 import { validateLatitude, validateLongitude } from '../../shared/utils'
+import MakerCreate from './MakerCreate'
+
+const { Option } = Select
 
 export default ({
   getFieldDecorator,
-  initialData: { markerLat, markerLng }
+  initialData: { markerLat, markerLng },
+  makerList,
+  addMaker
 }) => {
+  const [showModal, setShowModal] = useState(false)
+
+  const openModal = () => setShowModal(true)
+  const handleCancel = () => setShowModal(false)
+
   return (
     <>
       <FormCol>
-        <CustomFormItem label="Sculpture title" hasFeedback>
-          {getFieldDecorator('title', {
+        <CustomFormItem label="Sculpture name" hasFeedback>
+          {getFieldDecorator('name', {
             rules: [
               {
                 required: true,
                 whitespace: true,
-                message: 'Please fill in the sculpture title!'
+                message: 'Please fill in the sculpture name!'
               }
             ]
           })(
@@ -25,7 +36,29 @@ export default ({
                 <Icon type="trophy" style={{ color: 'rgba(0,0,0,.25)' }} />
               }
               type="text"
-              placeholder="Sculpture title"
+              placeholder="Sculpture name"
+            />
+          )}
+        </CustomFormItem>
+      </FormCol>
+
+      <FormCol>
+        <CustomFormItem label="Accession ID" hasFeedback>
+          {getFieldDecorator('accessionId', {
+            rules: [
+              {
+                required: true,
+                whitespace: true,
+                message: 'Please fill in the unique accession ID!'
+              }
+            ]
+          })(
+            <Input
+              prefix={
+                <Icon type="number" style={{ color: 'rgba(0,0,0,.25)' }} />
+              }
+              type="text"
+              placeholder="Accession ID"
             />
           )}
         </CustomFormItem>
@@ -33,7 +66,7 @@ export default ({
 
       <FormCol>
         <CustomFormItem label="Primary maker" hasFeedback>
-          {getFieldDecorator('maker', {
+          {getFieldDecorator('primaryMakerId', {
             rules: [
               {
                 required: true,
@@ -42,32 +75,41 @@ export default ({
               }
             ]
           })(
-            <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              type="text"
+            <Select
               placeholder="Primary maker"
-            />
+              dropdownRender={menu => (
+                <div>
+                  {menu}
+                  <Divider style={{ margin: '4px 0' }} />
+                  <div
+                    style={{ padding: '8px', cursor: 'pointer' }}
+                    onMouseDown={e => e.preventDefault()} // fix
+                    onClick={openModal}
+                  >
+                    <Icon type="plus" /> Add new maker
+                  </div>
+                </div>
+              )}
+            >
+              {makerList.map(maker => (
+                <Option key={maker.id} value={maker.id}>
+                  {maker.firstName + ' ' + maker.lastName}
+                </Option>
+              ))}
+            </Select>
           )}
         </CustomFormItem>
       </FormCol>
 
       <FormCol>
-        <CustomFormItem label="Created date" hasFeedback>
-          {getFieldDecorator('createdDate', {
-            rules: [
-              {
-                required: true,
-                whitespace: true,
-                message: 'Please fill in the created date!'
-              }
-            ]
-          })(
+        <CustomFormItem label="Production date" hasFeedback>
+          {getFieldDecorator('productionDate')(
             <Input
               prefix={
                 <Icon type="calendar" style={{ color: 'rgba(0,0,0,.25)' }} />
               }
               type="text"
-              placeholder="Created date"
+              placeholder="Production date"
             />
           )}
         </CustomFormItem>
@@ -75,15 +117,7 @@ export default ({
 
       <FormCol>
         <CustomFormItem label="Material" hasFeedback>
-          {getFieldDecorator('material', {
-            rules: [
-              {
-                required: true,
-                whitespace: true,
-                message: 'Please fill in the material!'
-              }
-            ]
-          })(
+          {getFieldDecorator('material')(
             <Input
               prefix={
                 <Icon
@@ -100,15 +134,7 @@ export default ({
 
       <FormCol>
         <CustomFormItem label="Credit line" hasFeedback>
-          {getFieldDecorator('creditLine', {
-            rules: [
-              {
-                required: true,
-                whitespace: true,
-                message: 'Please fill in the credit line!'
-              }
-            ]
-          })(
+          {getFieldDecorator('creditLine')(
             <TextArea
               placeholder="Credit line"
               autosize={{ minRows: 3, maxRows: 5 }}
@@ -120,15 +146,7 @@ export default ({
 
       <FormCol>
         <CustomFormItem label="Location details" hasFeedback>
-          {getFieldDecorator('locationDetails', {
-            rules: [
-              {
-                required: true,
-                whitespace: true,
-                message: 'Please fill in the location details!'
-              }
-            ]
-          })(
+          {getFieldDecorator('locationNotes')(
             <TextArea
               placeholder="Location details"
               autosize={{ minRows: 3, maxRows: 5 }}
@@ -142,11 +160,6 @@ export default ({
         <CustomFormItem label="Latitude" hasFeedback className="latitude-input">
           {getFieldDecorator('latitude', {
             rules: [
-              {
-                required: true,
-                whitespace: true,
-                message: 'Please fill in the latitude!'
-              },
               {
                 validator: validateLatitude
               }
@@ -173,11 +186,6 @@ export default ({
           {getFieldDecorator('longitude', {
             rules: [
               {
-                required: true,
-                whitespace: true,
-                message: 'Please fill in the longitude'
-              },
-              {
                 validator: validateLongitude
               }
             ],
@@ -193,6 +201,12 @@ export default ({
           )}
         </CustomFormItem>
       </FormCol>
+
+      <MakerCreate
+        visible={showModal}
+        handleCancel={handleCancel}
+        addMaker={addMaker}
+      />
     </>
   )
 }

@@ -8,7 +8,9 @@ module.exports = withLess(
   withCss({
     target: 'serverless',
     env: {
-      MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN
+      MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN,
+      AUTH0_DOMAIN: process.env.AUTH0_DOMAIN,
+      AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID
     },
     lessLoaderOptions: {
       javascriptEnabled: true

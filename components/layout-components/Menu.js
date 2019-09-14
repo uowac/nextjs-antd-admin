@@ -1,16 +1,25 @@
 import { Menu, Icon } from 'antd'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const keys = ['/', '/sculptures']
 
 const menu = [
   <Menu.Item key={keys[0]}>
-    <Icon type="dashboard" />
-    <span>Dashboard</span>
+    <Link href={keys[0]}>
+      <a>
+        <Icon type="dashboard" />
+        <span>Dashboard</span>
+      </a>
+    </Link>
   </Menu.Item>,
   <Menu.Item key={keys[1]}>
-    <Icon type="table" />
-    <span>Sculptures</span>
+    <Link href={keys[1]}>
+      <a>
+        <Icon type="table" />
+        <span>Sculptures</span>
+      </a>
+    </Link>
   </Menu.Item>
 ]
 

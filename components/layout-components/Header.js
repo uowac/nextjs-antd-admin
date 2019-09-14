@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import antd_logo from '../shared/antd-logo'
 import { Logo } from './LogoTitle'
 import Link from 'next/link'
+import { useAuth0 } from '../auth0-components'
 
 const TriggerBlock = styled.div`
   display: inline-block;
@@ -33,64 +34,74 @@ const HeaderBlock = styled(TriggerBlock)`
   }
 `
 
-const menu = (
-  <Menu>
-    <Menu.Item key="1">
-      <Icon type="setting" />
-      Change password
-    </Menu.Item>
-    <Menu.Divider />
-    <Menu.Item key="2">
-      <Icon type="logout" />
-      Logout
-    </Menu.Item>
-  </Menu>
-)
-
-export default ({ collapsed, handleToggle }) => (
-  <Header
-    style={{
-      background: '#fff',
-      padding: 0,
-      boxShadow: '0 1px 4px rgba(0,21,41,.08)',
-      display: 'flex'
-    }}
-  >
-    <Link href="/">
-      <a>
-        <StyledImageBlock>
-          <MobileLogo src={antd_logo} alt="logo" />
-        </StyledImageBlock>
-      </a>
-    </Link>
-
-    <TriggerBlock>
-      <Icon
-        className="trigger"
-        type={collapsed ? 'menu-unfold' : 'menu-fold'}
-        onClick={handleToggle}
-        style={{
-          fontSize: 20,
-          verticalAlign: 'middle'
-        }}
-      />
-    </TriggerBlock>
-
-    <div
-      style={{
-        marginLeft: 'auto'
+const MyMenu = () => {
+  const { logout } = useAuth0()
+  return (
+    <Menu
+      onClick={item => {
+        if (item.key == 'logout') {
+          logout()
+        }
       }}
     >
-      <Dropdown overlay={menu} placement="bottomRight">
-        <HeaderBlock>
-          <Icon
-            type="user"
-            style={{ fontSize: 16, marginRight: 8 }}
-            title="User"
-          />
-          <span>Admin</span>
-        </HeaderBlock>
-      </Dropdown>
-    </div>
-  </Header>
-)
+      <Menu.Item key="logout">
+        <Icon type="logout" />
+        Logout
+      </Menu.Item>
+    </Menu>
+  )
+}
+
+export default ({ collapsed, handleToggle }) => {
+  const { isAuthenticated } = useAuth0()
+
+  return (
+    <Header
+      style={{
+        background: '#fff',
+        padding: 0,
+        boxShadow: '0 1px 4px rgba(0,21,41,.08)',
+        display: 'flex'
+      }}
+    >
+      <Link href="/">
+        <a>
+          <StyledImageBlock>
+            <MobileLogo src={antd_logo} alt="logo" />
+          </StyledImageBlock>
+        </a>
+      </Link>
+
+      <TriggerBlock>
+        <Icon
+          className="trigger"
+          type={collapsed ? 'menu-unfold' : 'menu-fold'}
+          onClick={handleToggle}
+          style={{
+            fontSize: 20,
+            verticalAlign: 'middle'
+          }}
+        />
+      </TriggerBlock>
+
+      {isAuthenticated && (
+        <div
+          style={{
+            marginLeft: 'auto'
+          }}
+        >
+          <Dropdown overlay={<MyMenu />} placement="bottomRight">
+            <HeaderBlock>
+              <Icon
+                type="user"
+                style={{ fontSize: 16, marginRight: 8 }}
+                title="User"
+              />
+              <span>Admin</span>
+            </HeaderBlock>
+          </Dropdown>
+        </div>
+      )}
+    </Header>
+  )
+}
