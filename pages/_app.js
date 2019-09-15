@@ -6,7 +6,7 @@ import Error from 'next/error'
 import { Auth0Provider, useAuth0 } from '../components/auth0-components'
 import { Spin } from 'antd'
 import Loading from '../components/Loading'
-import Head from 'next/Head'
+import Head from 'next/head'
 
 // dev fix for css loader
 if (process.env.NODE_ENV !== 'production') {

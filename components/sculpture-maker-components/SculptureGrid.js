@@ -180,9 +180,17 @@ const SculptureGrid = () => {
   const handleChange = e => {
     const input = e.target.value
     if (input.length >= 3) {
-      let newList = originalList.filter(sculpture =>
-        sculpture.name.toLowerCase().includes(input.toLowerCase())
-      )
+      let newList = originalList.filter(sculpture => {
+        let makerName =
+          sculpture.primaryMaker.firstName +
+          ' ' +
+          sculpture.primaryMaker.lastName
+
+        return (
+          sculpture.name.toLowerCase().includes(input.toLowerCase()) ||
+          makerName.toLowerCase().includes(input.toLowerCase())
+        )
+      })
       setFilteredList(sortBy(newList, currentSort))
     } else {
       if (filteredList.length !== originalList.length) {
