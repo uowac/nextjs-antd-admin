@@ -1,5 +1,3 @@
-import SculptureCreate from '../../../../components/sculpture-maker-components/CreateForm'
+import { SculptureEditForm } from '../../../../components/sculpture-maker-components/EditForm'
 
-export default () => {
-  return <SculptureCreate mode="edit" />
-}
+export default SculptureEditForm

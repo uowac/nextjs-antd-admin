@@ -7,14 +7,12 @@ import TextFields from './CreateFormTextFields'
 import api from '../../../api'
 import Loading from '../../Loading'
 import Error from 'next/error'
-import Router from 'next/router'
 
 const SculptureCreate = ({
   form,
   form: { getFieldDecorator, setFieldsValue },
   setStep,
-  setSculpture,
-  mode
+  setSculpture
 }) => {
   const [view, setView] = useState({
     latitude: -34.40581053569814,
@@ -182,10 +180,6 @@ const SculptureCreate = ({
       </ColStyled>
     </Row>
   )
-}
-
-SculptureCreate.defaultProps = {
-  mode: 'create'
 }
 
 export default Form.create({

@@ -3,22 +3,33 @@ import { Input, Form, Button, Modal, message } from 'antd'
 import { CustomFormItem } from '../style'
 import api from '../../../api'
 
-const MakerCreate = ({
-  form: { getFieldDecorator, validateFields },
+const MakerEdit = ({
+  form: { getFieldDecorator, validateFields, resetFields },
   visible,
   handleCancel,
-  addMaker
+  getCurrentMaker,
+  editMaker
 }) => {
   const [submitting, setSubmitting] = useState(false)
+
+  const {
+    firstName,
+    lastName,
+    nationality,
+    birthYear,
+    deathYear,
+    wikiUrl,
+    id
+  } = getCurrentMaker()
 
   const handleOk = e => {
     e.preventDefault()
     validateFields(async (err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values)
+        console.log('Received values of maker form: ', values)
         for (let key in values) {
           if (!values[key]) {
-            delete values[key]
+            values[key] = null
           }
         }
 
@@ -29,15 +40,17 @@ const MakerCreate = ({
           values.deathYear = Number(values.deathYear)
         }
 
+        values.id = id
+        console.log('after maker', values)
+
         setSubmitting(true)
         try {
-          const result = (await api.post('/maker', values)).data
-          addMaker(result)
+          const _result = (await api.patch('/maker', values)).data
           setSubmitting(false)
+          editMaker(values)
           handleCancel()
-          message.success('Created new maker succesfully!', 2)
+          message.success('Updated maker details successfully!', 2)
         } catch (e) {
-          console.log(e)
           setSubmitting(false)
           console.log(e.response.data.message)
         }
@@ -48,13 +61,13 @@ const MakerCreate = ({
   return (
     <Modal
       visible={visible}
-      title="Add new maker"
+      title="Edit maker details"
       onOk={handleOk}
       onCancel={handleCancel}
       maskClosable={false}
       footer={[
-        <Button key="back" onClick={handleCancel}>
-          Cancel
+        <Button key="back" onClick={() => resetFields()}>
+          Reset
         </Button>,
         <Button
           key="submit"
@@ -75,7 +88,8 @@ const MakerCreate = ({
                 whitespace: true,
                 message: 'Please fill in the first name!'
               }
-            ]
+            ],
+            initialValue: firstName
           })(<Input type="text" placeholder="First name" />)}
         </CustomFormItem>
 
@@ -87,14 +101,15 @@ const MakerCreate = ({
                 whitespace: true,
                 message: 'Please fill in the last name!'
               }
-            ]
+            ],
+            initialValue: lastName
           })(<Input type="text" placeholder="Last name" />)}
         </CustomFormItem>
 
         <CustomFormItem label="Nationality" hasFeedback>
-          {getFieldDecorator('nationality')(
-            <Input type="text" placeholder="Nationality" />
-          )}
+          {getFieldDecorator('nationality', {
+            initialValue: nationality
+          })(<Input type="text" placeholder="Nationality" />)}
         </CustomFormItem>
 
         <CustomFormItem label="Birth year" hasFeedback>
@@ -104,7 +119,8 @@ const MakerCreate = ({
                 pattern: '^[0-9]{4}$',
                 message: 'Please fill in a valid birth year!'
               }
-            ]
+            ],
+            initialValue: birthYear ? String(birthYear) : ''
           })(<Input type="text" placeholder="Birth year" />)}
         </CustomFormItem>
 
@@ -115,7 +131,8 @@ const MakerCreate = ({
                 pattern: '^[0-9]{4}$',
                 message: 'Please fill in a valid death year!'
               }
-            ]
+            ],
+            initialValue: deathYear ? String(deathYear) : ''
           })(<Input type="text" placeholder="Death year" />)}
         </CustomFormItem>
 
@@ -126,7 +143,8 @@ const MakerCreate = ({
                 type: 'url',
                 message: 'Please fill in a valid URL!'
               }
-            ]
+            ],
+            initialValue: wikiUrl
           })(<Input type="text" placeholder="URL" />)}
         </CustomFormItem>
       </Form>
@@ -135,5 +153,5 @@ const MakerCreate = ({
 }
 
 export default Form.create({
-  name: 'maker_create_form'
-})(MakerCreate)
+  name: 'maker_edit_form'
+})(MakerEdit)

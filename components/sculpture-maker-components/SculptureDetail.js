@@ -7,6 +7,7 @@ import api from '../../api'
 import Loading from '../Loading'
 import Error from 'next/error'
 import MyStaticMap from '../map-components/StaticMap'
+import Link from 'next/link'
 
 const { Text, Title, Paragraph } = Typography
 
@@ -68,8 +69,14 @@ const SculptureDetail = () => {
     <Row gutter={16}>
       <ColStyled xs={24} lg={15}>
         <CardStyled
-          title="Sculpture Detail"
-          extra={<Button icon="edit">Edit sculpture</Button>}
+          title="Sculpture Details"
+          extra={
+            <Link href={`/sculptures/id/${id}/edit`}>
+              <a>
+                <Button icon="edit">Edit details</Button>
+              </a>
+            </Link>
+          }
         >
           <Carousel
             draggable
@@ -124,13 +131,27 @@ const SculptureDetail = () => {
               <List.Item>
                 <List.Item.Meta
                   title="Credit Line"
-                  description={creditLine ? creditLine : 'N/A'}
+                  description={
+                    creditLine
+                      ? creditLine
+                          .trim()
+                          .split('\n')
+                          .map((line, idx) => <div key={idx}>{line}</div>)
+                      : 'N/A'
+                  }
                 />
               </List.Item>
               <List.Item>
                 <List.Item.Meta
                   title="Location Details"
-                  description={locationNotes ? locationNotes : 'N/A'}
+                  description={
+                    locationNotes
+                      ? locationNotes
+                          .trim()
+                          .split('\n')
+                          .map((line, idx) => <div key={idx}>{line}</div>)
+                      : 'N/A'
+                  }
                 />
               </List.Item>
             </List>
@@ -140,11 +161,7 @@ const SculptureDetail = () => {
       {/* Maker detail */}
       <ColStyled xs={24} lg={9}>
         <MyStaticMap markerLat={markerLat} markerLng={markerLng} />
-        <CardStyled
-          title="Primary maker detail"
-          style={{ marginTop: 10 }}
-          extra={<Button icon="edit">Edit maker</Button>}
-        >
+        <CardStyled title="Primary maker details" style={{ marginTop: 10 }}>
           <List
             itemLayout="horizontal"
             style={{

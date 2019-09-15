@@ -6,11 +6,8 @@ import Router from 'next/router'
 
 const { confirm } = Modal
 
-const defaultFileList = []
-
-const SculptureUploadImage = ({ sculpture }) => {
-  const [fileList, setFileList] = useState([...defaultFileList])
-  const { accessionId, name } = sculpture
+const EditImage = ({ accessionId, name, images }) => {
+  const [fileList, setFileList] = useState([...images])
 
   const handleRemove = file => {
     return new Promise((resolve, reject) => {
@@ -92,28 +89,25 @@ const SculptureUploadImage = ({ sculpture }) => {
   return (
     <Row gutter={16}>
       <ColStyled xs={24}>
-        <CardStyled title={`Upload sculpture image for ${name}`}>
-          <Upload
-            defaultFileList={[...defaultFileList]}
-            accept="image/*"
-            listType="picture-card"
-            customRequest={customRequest}
-            onRemove={handleRemove}
-            fileList={fileList}
-          >
-            {uploadButton}
-          </Upload>
+        <Upload
+          accept="image/*"
+          listType="picture-card"
+          customRequest={customRequest}
+          onRemove={handleRemove}
+          fileList={fileList}
+        >
+          {uploadButton}
+        </Upload>
 
-          <Button
-            type="primary"
-            onClick={() => Router.push(`/sculptures/id/${accessionId}`)}
-          >
-            Finish
-          </Button>
-        </CardStyled>
+        <Button
+          type="primary"
+          onClick={() => Router.push(`/sculptures/id/${accessionId}`)}
+        >
+          Finish
+        </Button>
       </ColStyled>
     </Row>
   )
 }
 
-export default SculptureUploadImage
+export default EditImage
