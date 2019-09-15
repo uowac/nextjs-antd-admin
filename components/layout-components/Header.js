@@ -39,7 +39,13 @@ const MyMenu = () => {
     <Menu
       onClick={item => {
         if (item.key == 'logout') {
-          logout()
+          logout({
+            returnTo:
+              process.env.NODE_ENV === 'development'
+                ? 'http://localhost:3000'
+                : 'https://hello-next.aaazureee.now.sh',
+            client_id: process.env.AUTH0_CLIENT_ID
+          })
         }
       }}
     >
