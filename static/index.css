@@ -65,8 +65,8 @@
 }
 
 .ant-upload-list-picture-card .ant-upload-list-item {
-  width: 150px !important;
-  height: 150px !important;
+  width: 250px !important;
+  height: 250px !important;
 }
 
 /* you can make up upload button and sample style by using stylesheets */
@@ -81,8 +81,8 @@
 }
 
 .ant-upload.ant-upload-select-picture-card {
-  width: 150px !important;
-  height: 150px !important;
+  width: 250px !important;
+  height: 250px !important;
 }
 
 .ant-upload-list-picture-card .ant-upload-list-item-uploading-text {
@@ -125,6 +125,12 @@
 .ant-upload-list-picture .ant-upload-list-item-thumbnail,
 .ant-upload-list-picture-card .ant-upload-list-item-thumbnail {
   opacity: 1 !important;
+}
+
+.ant-upload-list-picture-card .ant-upload-list-item-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 body {

@@ -66,7 +66,7 @@ const SculptureDetail = () => {
 
   return (
     <Row gutter={16}>
-      <ColStyled xs={24} lg={12}>
+      <ColStyled xs={24} lg={15}>
         <CardStyled
           title="Sculpture Detail"
           extra={<Button icon="edit">Edit sculpture</Button>}
@@ -138,7 +138,7 @@ const SculptureDetail = () => {
         </CardStyled>
       </ColStyled>
       {/* Maker detail */}
-      <ColStyled xs={24} lg={12}>
+      <ColStyled xs={24} lg={9}>
         <MyStaticMap markerLat={markerLat} markerLng={markerLng} />
         <CardStyled
           title="Primary maker detail"

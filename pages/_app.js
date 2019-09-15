@@ -6,6 +6,7 @@ import Error from 'next/error'
 import { Auth0Provider, useAuth0 } from '../components/auth0-components'
 import { Spin } from 'antd'
 import Loading from '../components/Loading'
+import Head from 'next/Head'
 
 // dev fix for css loader
 if (process.env.NODE_ENV !== 'production') {
@@ -74,26 +75,30 @@ class AppWrapper extends NextApp {
 
   render() {
     const { Component, pageProps, collapsed, router, redirect_uri } = this.props
-    // console.log('app rendered!', this.props.router.pathname)
 
-    if (router.pathname !== '/_error') {
-      return (
-        <Auth0Provider
-          domain={process.env.AUTH0_DOMAIN}
-          client_id={process.env.AUTH0_CLIENT_ID}
-          redirect_uri={redirect_uri}
-          onRedirectCallback={onRedirectCallback}
-        >
-          <App>
-            <Layout collapsed={collapsed}>
-              <Component {...pageProps} />
-            </Layout>
-          </App>
-        </Auth0Provider>
-      )
-    }
-
-    return <Error statusCode="404" />
+    return (
+      <>
+        <Head>
+          <title>UOW Sculptures</title>
+        </Head>
+        {router.pathname !== '/_error' ? (
+          <Auth0Provider
+            domain={process.env.AUTH0_DOMAIN}
+            client_id={process.env.AUTH0_CLIENT_ID}
+            redirect_uri={redirect_uri}
+            onRedirectCallback={onRedirectCallback}
+          >
+            <App>
+              <Layout collapsed={collapsed}>
+                <Component {...pageProps} />
+              </Layout>
+            </App>
+          </Auth0Provider>
+        ) : (
+          <Error statusCode="404" />
+        )}
+      </>
+    )
   }
 }
 

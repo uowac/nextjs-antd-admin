@@ -13,7 +13,8 @@ const SculptureCreate = ({
   form,
   form: { getFieldDecorator, setFieldsValue },
   setStep,
-  setSculpture
+  setSculpture,
+  mode
 }) => {
   const [view, setView] = useState({
     latitude: -34.40581053569814,
@@ -181,6 +182,10 @@ const SculptureCreate = ({
       </ColStyled>
     </Row>
   )
+}
+
+SculptureCreate.defaultProps = {
+  mode: 'create'
 }
 
 export default Form.create({

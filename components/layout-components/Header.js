@@ -1,7 +1,6 @@
 import { Icon, Layout, Dropdown, Menu } from 'antd'
 const { Header } = Layout
 import styled from 'styled-components'
-import antd_logo from '../shared/antd-logo'
 import { Logo } from './LogoTitle'
 import Link from 'next/link'
 import { useAuth0 } from '../auth0-components'
@@ -67,7 +66,7 @@ export default ({ collapsed, handleToggle }) => {
       <Link href="/">
         <a>
           <StyledImageBlock>
-            <MobileLogo src={antd_logo} alt="logo" />
+            <MobileLogo src="/static/transparent-logo.png" alt="logo" />
           </StyledImageBlock>
         </a>
       </Link>

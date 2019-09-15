@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import antd_logo from '../shared/antd-logo'
 import Link from 'next/link'
 
 export const Logo = styled.img`
@@ -32,7 +31,7 @@ export default () => (
   <TitleWrapper>
     <Link href="/">
       <a style={{ display: 'inline-block' }}>
-        <Logo src={antd_logo} alt="logo" />
+        <Logo src="/static/transparent-logo.png" alt="logo" />
         <Title>UOW Sculptures</Title>
       </a>
     </Link>
