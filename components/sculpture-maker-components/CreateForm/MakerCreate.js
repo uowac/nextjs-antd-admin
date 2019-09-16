@@ -4,7 +4,7 @@ import { CustomFormItem } from '../style'
 import api from '../../../api'
 
 const MakerCreate = ({
-  form: { getFieldDecorator, validateFields },
+  form: { getFieldDecorator, validateFields, resetFields },
   visible,
   handleCancel,
   addMaker
@@ -35,6 +35,7 @@ const MakerCreate = ({
           addMaker(result)
           setSubmitting(false)
           handleCancel()
+          resetFields()
           message.success('Created new maker succesfully!', 2)
         } catch (e) {
           console.log(e)

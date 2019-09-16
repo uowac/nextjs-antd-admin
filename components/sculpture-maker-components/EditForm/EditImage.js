@@ -8,6 +8,7 @@ const { confirm } = Modal
 
 const EditImage = ({ accessionId, name, images }) => {
   const [fileList, setFileList] = useState([...images])
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleRemove = file => {
     return new Promise((resolve, reject) => {
@@ -24,6 +25,7 @@ const EditImage = ({ accessionId, name, images }) => {
           }
         },
         onOk: async () => {
+          setIsSubmitting(true)
           try {
             const _result = await api.delete(`/sculpture-images/${file.uid}`)
             resolve(true)
@@ -33,6 +35,7 @@ const EditImage = ({ accessionId, name, images }) => {
             console.log(error.response.data.message)
             resolve(false)
           }
+          setIsSubmitting(false)
         },
         onCancel: () => {
           resolve(false)
@@ -59,6 +62,7 @@ const EditImage = ({ accessionId, name, images }) => {
     data.append('images', e.file)
     data.set('accessionId', accessionId)
     const hide = message.loading('Uploading image...', 0)
+    setIsSubmitting(true)
 
     try {
       const _result = await api.post('/sculpture-images', data, config)
@@ -77,6 +81,7 @@ const EditImage = ({ accessionId, name, images }) => {
       console.log(error.response.data)
       e.onError(error.response.data.message)
     }
+    setIsSubmitting(false)
   }
 
   const uploadButton = (
@@ -101,6 +106,7 @@ const EditImage = ({ accessionId, name, images }) => {
 
         <Button
           type="primary"
+          loading={isSubmitting}
           onClick={() => Router.push(`/sculptures/id/${accessionId}`)}
         >
           Finish

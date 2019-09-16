@@ -47,6 +47,15 @@ export default ({
   }
 
   const editMaker = maker => {
+    setMakerList(c =>
+      c.map(m => {
+        if (m.id !== maker.id) {
+          return m
+        }
+
+        return { ...maker }
+      })
+    )
     setFieldsValue({
       primaryMakerId: maker.id
     })

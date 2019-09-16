@@ -49,6 +49,7 @@ const MakerEdit = ({
           setSubmitting(false)
           editMaker(values)
           handleCancel()
+          resetFields()
           message.success('Updated maker details successfully!', 2)
         } catch (e) {
           setSubmitting(false)

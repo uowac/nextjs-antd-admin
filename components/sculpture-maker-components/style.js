@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Card, Col, Icon, Form, Typography, Empty } from 'antd'
+import { Card, Col, Icon, Form, Typography, Empty, Table } from 'antd'
 
 const { Text } = Typography
 
@@ -55,5 +55,13 @@ export const EmptyImage = styled(Empty)`
 
   & .ant-empty-image {
     margin-top: 220px;
+  }
+`
+
+export const StyledTable = styled(Table)`
+  .ant-table table {
+    border-left: 1px solid #e8e8e8;
+    border-top: 1px solid #e8e8e8;
+    border-right: 1px solid #e8e8e8;
   }
 `
