@@ -43,7 +43,7 @@ const MyMenu = () => {
             returnTo:
               process.env.NODE_ENV === 'development'
                 ? 'http://localhost:3000'
-                : 'https://hello-next.aaazureee.now.sh',
+                : 'https://dashboard.uowac.now.sh',
             client_id: process.env.AUTH0_CLIENT_ID
           })
         }
