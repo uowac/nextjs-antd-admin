@@ -24,6 +24,7 @@
     "less": "^3.9.0",
     "moment": "^2.24.0",
     "next": "^9.0.5-canary.3",
+    "nookies": "^2.0.8",
     "nprogress": "^0.2.0",
     "null-loader": "^3.0.0",
     "react": "^16.8.6",

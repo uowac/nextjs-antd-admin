@@ -7,6 +7,7 @@ import { Auth0Provider, useAuth0 } from '../components/auth0-components'
 import { Spin } from 'antd'
 import Loading from '../components/Loading'
 import Head from 'next/head'
+import nookies from 'nookies'
 
 // dev fix for css loader
 if (process.env.NODE_ENV !== 'production') {
@@ -53,7 +54,7 @@ class AppWrapper extends NextApp {
       pageProps = await Component.getInitialProps(ctx)
     }
 
-    let collapsed = process.env.NODE_ENV === 'development' ? true : false
+    let collapsed = false
     let protocol =
       process.env.NODE_ENV === 'development' ? 'http://' : 'https://'
     let redirect_uri = ''
@@ -66,6 +67,11 @@ class AppWrapper extends NextApp {
     if (!ctx.req) {
       // client-side
       collapsed = JSON.parse(sessionStorage.getItem('collapsed')) || false
+    } else {
+      const { collapsed: collapsedCookie } = nookies.get(ctx)
+      if (collapsedCookie) {
+        collapsed = JSON.parse(collapsedCookie)
+      }
     }
 
     // console.log('cac to') // called every time

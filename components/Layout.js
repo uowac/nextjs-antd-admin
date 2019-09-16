@@ -2,6 +2,7 @@ import React from 'react'
 import '../static/index.css'
 import { Layout } from 'antd'
 const { Content } = Layout
+import nookies from 'nookies'
 
 import FixedSider from './layout-components/Sider'
 import MainLayout from './layout-components/Main'
@@ -22,7 +23,7 @@ class MyLayout extends React.Component {
         state => ({
           collapsed: !state.collapsed
         }),
-        () => sessionStorage.setItem('collapsed', this.state.collapsed)
+        () => nookies.set({}, 'collapsed', JSON.stringify(this.state.collapsed))
       )
     } else {
       this.setState(state => ({
@@ -45,7 +46,7 @@ class MyLayout extends React.Component {
           collapsed={collapsed}
           setCollapsed={collapsed => {
             this.setState({ collapsed })
-            sessionStorage.setItem('collapsed', collapsed)
+            nookies.set({}, 'collapsed', JSON.stringify(collapsed))
           }}
         >
           <LogoTitle />
