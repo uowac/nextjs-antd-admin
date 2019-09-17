@@ -50,7 +50,6 @@ const SculptureEditForm = () => {
           message.success('Deleted sculpture successfully!', 2)
           setTimeout(() => Router.push('/sculptures'), 550)
         } catch (error) {
-          console.log(error.response.data.message)
           notification.error({
             message: 'Error',
             description: 'Internal server error.'

@@ -53,7 +53,7 @@ const MakerEdit = ({
           message.success('Updated maker details successfully!', 2)
         } catch (e) {
           setSubmitting(false)
-          console.log(e.response.data.message)
+          message.error(e.response.data.message)
         }
       }
     })

@@ -84,7 +84,6 @@ const MakerList = () => {
           deleteMaker(makerId)
           message.success('Deleted maker successfully!', 2)
         } catch (error) {
-          console.log(error.response.data.message)
           notification.error({
             message: 'Error',
             description:

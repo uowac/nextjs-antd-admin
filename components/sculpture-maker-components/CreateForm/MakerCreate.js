@@ -38,9 +38,8 @@ const MakerCreate = ({
           resetFields()
           message.success('Created new maker succesfully!', 2)
         } catch (e) {
-          console.log(e)
           setSubmitting(false)
-          console.log(e.response.data.message)
+          message.error(e.response.data.message)
         }
       }
     })

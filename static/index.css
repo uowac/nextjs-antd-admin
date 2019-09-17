@@ -133,6 +133,12 @@
   align-items: center;
 }
 
+.ant-btn-danger:hover,
+.ant-btn-danger:focus {
+  background-color: #ff4d4f !important;
+  border-color: #ff4d4f !important;
+}
+
 body {
   margin: 0;
   line-height: normal;

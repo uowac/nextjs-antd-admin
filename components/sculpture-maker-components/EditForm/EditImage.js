@@ -32,7 +32,7 @@ const EditImage = ({ accessionId, name, images }) => {
             setFileList(fileList => fileList.filter(x => x.uid !== file.uid))
             message.success('Deleted image successfully!', 2)
           } catch (error) {
-            console.log(error.response.data.message)
+            message.error(error.response.data.message)
             resolve(false)
           }
           setIsSubmitting(false)
@@ -78,7 +78,7 @@ const EditImage = ({ accessionId, name, images }) => {
       hide()
       message.success('Uploaded image successfully!', 2)
     } catch (error) {
-      console.log(error.response.data)
+      message.error(error.response.data.message)
       e.onError(error.response.data.message)
     }
     setIsSubmitting(false)

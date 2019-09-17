@@ -33,7 +33,7 @@ const SculptureUploadImage = ({ sculpture }) => {
             setFileList(fileList => fileList.filter(x => x.uid !== file.uid))
             message.success('Deleted image successfully!', 2)
           } catch (error) {
-            console.log(error.response.data.message)
+            message.error(error.response.data.message)
             resolve(false)
           }
         },
@@ -77,7 +77,7 @@ const SculptureUploadImage = ({ sculpture }) => {
       hide()
       message.success('Uploaded image successfully!', 2)
     } catch (error) {
-      console.log(error.response.data)
+      message.error(error.response.data.message)
       e.onError(error.response.data.message)
     }
   }

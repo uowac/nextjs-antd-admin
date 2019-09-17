@@ -10,7 +10,8 @@ module.exports = withLess(
     env: {
       MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN,
       AUTH0_DOMAIN: process.env.AUTH0_DOMAIN,
-      AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID
+      AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
+      PASSWORD: process.env.PASSWORD
     },
     lessLoaderOptions: {
       javascriptEnabled: true

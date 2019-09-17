@@ -88,7 +88,7 @@ const SculptureEdit = ({
           )
         } catch (e) {
           setSubmitting(false)
-          console.log(e.response.data.message)
+          message.error(e.response.data.message)
         }
       }
     })

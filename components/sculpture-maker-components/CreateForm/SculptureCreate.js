@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Row, Button, Form } from 'antd'
+import { Row, Button, Form, message } from 'antd'
 import { ColStyled, CardStyled, FormCol, CustomFormItem } from '../style'
 import { FlyToInterpolator } from 'react-map-gl'
 import Map from '../../map-components'
@@ -116,7 +116,7 @@ const SculptureCreate = ({
           setStep(s => s + 1)
         } catch (e) {
           setSubmitting(false)
-          console.log(e.response.data.message)
+          message.error(e.response.data.message)
         }
       }
     })
