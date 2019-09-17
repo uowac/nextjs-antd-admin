@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Row, Divider, Modal, Icon, message, notification } from 'antd'
+import { Row, Divider, Modal, Icon, message, notification, Button } from 'antd'
 import { ColStyled, CardStyled, StyledTable } from './style'
 import MakerEdit from './EditForm/MakerEdit'
 import api from '../../api'
 import Loading from '../Loading'
 import Error from 'next/error'
+import MakerCreate from './CreateForm/MakerCreate'
 
 const { confirm } = Modal
 
@@ -39,13 +40,20 @@ const MakerList = () => {
   const [error, setError] = useState(null)
 
   const [showModal, setShowModal] = useState(false)
+  const [showModalCreate, setShowModalCreate] = useState(false)
+
   const [currentMakerId, setCurrentMakerId] = useState('')
   const openModal = makerId => {
     setCurrentMakerId(makerId)
     setShowModal(true)
   }
 
+  const openModalCreate = () => {
+    setShowModalCreate(true)
+  }
+
   const handleCancel = () => setShowModal(false)
+  const handleCancelCreate = () => setShowModalCreate(false)
 
   const getCurrentMaker = () =>
     makerList.find(x => x.id === currentMakerId) || {}
@@ -63,6 +71,11 @@ const MakerList = () => {
 
   const deleteMaker = makerId => {
     setMakerList(list => list.filter(x => x.id !== makerId))
+  }
+
+  const addMaker = maker => {
+    maker.key = maker.id
+    setMakerList(list => [...list, maker])
   }
 
   const handleDelete = makerId => {
@@ -147,7 +160,14 @@ const MakerList = () => {
   return (
     <Row gutter={16}>
       <ColStyled xs={24}>
-        <CardStyled title="Maker List">
+        <CardStyled
+          title="Maker List"
+          extra={
+            <Button type="primary" icon="plus" onClick={openModalCreate}>
+              Add new maker
+            </Button>
+          }
+        >
           <StyledTable
             dataSource={makerList}
             columns={columns}
@@ -162,6 +182,12 @@ const MakerList = () => {
         handleCancel={handleCancel}
         getCurrentMaker={getCurrentMaker}
         editMaker={editMaker}
+      />
+
+      <MakerCreate
+        visible={showModalCreate}
+        handleCancel={handleCancelCreate}
+        addMaker={addMaker}
       />
     </Row>
   )
