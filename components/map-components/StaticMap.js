@@ -33,7 +33,7 @@ const MyStaticMap = ({ markerLat, markerLng }) => {
   const [vp, setVp] = useState({
     latitude: markerLat ? markerLat : defaultLocation.latitude,
     longitude: markerLng ? markerLng : defaultLocation.longitude,
-    zoom: 14,
+    zoom: 15,
     pitch: 50
   })
 
@@ -48,47 +48,49 @@ const MyStaticMap = ({ markerLat, markerLng }) => {
         setVp(vp => ({ ...vp, ...viewport }))
       }}
     >
-      {markerLat && (
-        <>
-          <Marker longitude={markerLng} latitude={markerLat}>
-            <MapMarker size={22} />
-          </Marker>
+      <div>
+        {markerLat && (
+          <>
+            <Marker longitude={markerLng} latitude={markerLat}>
+              <MapMarker size={22} />
+            </Marker>
 
-          <Popup
-            tipSize={5}
-            anchor="bottom"
-            latitude={markerLat}
-            longitude={markerLng}
-            closeOnClick={false}
-            offsetTop={-20}
-            closeButton={false}
-          >
-            <div
-              style={{
-                marginLeft: 5,
-                marginRight: 5
-              }}
+            <Popup
+              tipSize={5}
+              anchor="bottom"
+              latitude={markerLat}
+              longitude={markerLng}
+              closeOnClick={false}
+              offsetTop={-20}
+              closeButton={false}
             >
-              <div>Latitude: {markerLat}</div>
-              <div>Longitude: {markerLng}</div>
-            </div>
-          </Popup>
+              <div
+                style={{
+                  marginLeft: 5,
+                  marginRight: 5
+                }}
+              >
+                <div>Latitude: {markerLat}</div>
+                <div>Longitude: {markerLng}</div>
+              </div>
+            </Popup>
+          </>
+        )}
 
-          <div className="fullscreen" style={fullscreenControlStyle}>
-            <FullscreenControl />
-          </div>
+        <div className="fullscreen" style={fullscreenControlStyle}>
+          <FullscreenControl />
+        </div>
 
-          <GeolocateControl
-            style={geolocateStyle}
-            positionOptions={{ enableHighAccuracy: true }}
-            trackUserLocation
-            showUserLocation
-            onViewportChange={viewport =>
-              setVp(vp => ({ ...vp, ...viewport, zoom: 13 }))
-            }
-          />
-        </>
-      )}
+        <GeolocateControl
+          style={geolocateStyle}
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation
+          showUserLocation
+          onViewportChange={viewport =>
+            setVp(vp => ({ ...vp, ...viewport, zoom: 14 }))
+          }
+        />
+      </div>
     </ReactMapGL>
   )
 }
