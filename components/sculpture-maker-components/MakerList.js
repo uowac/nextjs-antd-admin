@@ -130,7 +130,7 @@ const MakerList = () => {
       width: '22%'
     },
     {
-      title: 'Birth year - Death year',
+      title: 'Born - Passed away',
       key: 'year',
       width: '28%',
       render: (_, record) => {

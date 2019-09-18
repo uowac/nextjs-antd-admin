@@ -184,19 +184,19 @@ const SculptureDetail = () => {
             </List.Item>
             <List.Item>
               <List.Item.Meta
-                title="Birth year"
+                title="Born"
                 description={birthYear ? birthYear : 'N/A'}
               />
             </List.Item>
             <List.Item>
               <List.Item.Meta
-                title="Death year"
+                title="Passed away"
                 description={deathYear ? deathYear : 'N/A'}
               />
             </List.Item>
             <List.Item>
               <List.Item.Meta
-                title="URL"
+                title="Website"
                 description={
                   wikiUrl ? <a href={`${wikiUrl}`}>{wikiUrl}</a> : 'N/A'
                 }

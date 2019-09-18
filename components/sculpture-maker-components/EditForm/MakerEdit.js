@@ -113,31 +113,31 @@ const MakerEdit = ({
           })(<Input type="text" placeholder="Nationality" />)}
         </CustomFormItem>
 
-        <CustomFormItem label="Birth year" hasFeedback>
+        <CustomFormItem label="Born" hasFeedback>
           {getFieldDecorator('birthYear', {
             rules: [
               {
                 pattern: '^[0-9]{4}$',
-                message: 'Please fill in a valid birth year!'
+                message: 'Please fill in a valid year!'
               }
             ],
             initialValue: birthYear ? String(birthYear) : ''
-          })(<Input type="text" placeholder="Birth year" />)}
+          })(<Input type="text" placeholder="Born" />)}
         </CustomFormItem>
 
-        <CustomFormItem label="Death year" hasFeedback>
+        <CustomFormItem label="Passed away" hasFeedback>
           {getFieldDecorator('deathYear', {
             rules: [
               {
                 pattern: '^[0-9]{4}$',
-                message: 'Please fill in a valid death year!'
+                message: 'Please fill in a valid year!'
               }
             ],
             initialValue: deathYear ? String(deathYear) : ''
-          })(<Input type="text" placeholder="Death year" />)}
+          })(<Input type="text" placeholder="Passed away" />)}
         </CustomFormItem>
 
-        <CustomFormItem label="URL" hasFeedback>
+        <CustomFormItem label="Website" hasFeedback>
           {getFieldDecorator('wikiUrl', {
             rules: [
               {
@@ -146,7 +146,7 @@ const MakerEdit = ({
               }
             ],
             initialValue: wikiUrl
-          })(<Input type="text" placeholder="URL" />)}
+          })(<Input type="text" placeholder="Website" />)}
         </CustomFormItem>
       </Form>
     </Modal>
