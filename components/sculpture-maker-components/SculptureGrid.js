@@ -32,7 +32,7 @@ const SculptureCard = ({
 }) => {
   const makerName = primaryMaker.firstName + ' ' + primaryMaker.lastName
   return (
-    <Link href={`/sculptures/id/${accessionId}`}>
+    <Link href="/sculptures/id/[id]" as={`/sculptures/id/${accessionId}`}>
       <a style={{ display: 'inline-block', width: '100%' }}>
         <ShadowCard
           cover={

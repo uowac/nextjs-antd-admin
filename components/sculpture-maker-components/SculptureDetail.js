@@ -71,7 +71,10 @@ const SculptureDetail = () => {
         <CardStyled
           title="Sculpture Details"
           extra={
-            <Link href={`/sculptures/id/${id}/edit`}>
+            <Link
+              href="/sculptures/id/[id]/edit"
+              as={`/sculptures/id/${id}/edit`}
+            >
               <a>
                 <Button icon="edit">Edit details</Button>
               </a>

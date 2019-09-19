@@ -8,6 +8,7 @@ import { Spin } from 'antd'
 import Loading from '../components/Loading'
 import Head from 'next/head'
 import nookies from 'nookies'
+import { useEffect } from 'react'
 
 // dev fix for css loader
 if (process.env.NODE_ENV !== 'production') {
@@ -39,7 +40,19 @@ const onRedirectCallback = appState => {
 }
 
 const App = ({ children }) => {
-  const { loading } = useAuth0()
+  const { loading, getTokenSilently } = useAuth0()
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      if (!loading) {
+        const token = await getTokenSilently()
+        // console.log('hey', token)
+        nookies.set({}, 'accessToken', token)
+      }
+    }
+
+    fetchToken()
+  }, [getTokenSilently, loading])
 
   if (loading) return <Loading />
 
@@ -92,6 +105,8 @@ class AppWrapper extends NextApp {
             domain={process.env.AUTH0_DOMAIN}
             client_id={process.env.AUTH0_CLIENT_ID}
             redirect_uri={redirect_uri}
+            scope="create:sculpture update:sculpture delete:sculpture delete:all_comment view:all_users"
+            audience="https://uowac-api.herokuapp.com"
             onRedirectCallback={onRedirectCallback}
           >
             <App>
