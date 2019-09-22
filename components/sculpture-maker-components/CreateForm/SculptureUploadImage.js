@@ -106,7 +106,12 @@ const SculptureUploadImage = ({ sculpture }) => {
 
           <Button
             type="primary"
-            onClick={() => Router.push(`/sculptures/id/${accessionId}`)}
+            onClick={() =>
+              Router.push(
+                '/sculptures/id/[id]',
+                `/sculptures/id/${accessionId}`
+              )
+            }
           >
             Finish
           </Button>

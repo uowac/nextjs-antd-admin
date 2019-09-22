@@ -46,8 +46,9 @@ const App = ({ children }) => {
     const fetchToken = async () => {
       if (!loading) {
         const token = await getTokenSilently()
-        // console.log('hey', token)
-        nookies.set({}, 'accessToken', token)
+        nookies.set({}, 'accessToken', token, {
+          path: '/'
+        })
       }
     }
 

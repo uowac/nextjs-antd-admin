@@ -31,7 +31,7 @@ const menu = [
   </Menu.Item>
 ]
 
-export default ({ style }) => {
+export default ({ style, closeDrawer }) => {
   const router = useRouter()
   const currentPath = router.route
   let selectedKeys = []
@@ -49,7 +49,10 @@ export default ({ style }) => {
       mode="inline"
       selectedKeys={selectedKeys}
       style={{ ...style, padding: '16px 0' }}
-      onClick={({ key }) => router.push(key)}
+      onClick={({ key }) => {
+        closeDrawer()
+        router.push(key)
+      }}
     >
       {menu}
     </Menu>

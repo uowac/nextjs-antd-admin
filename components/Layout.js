@@ -23,7 +23,11 @@ class MyLayout extends React.Component {
         state => ({
           collapsed: !state.collapsed
         }),
-        () => nookies.set({}, 'collapsed', JSON.stringify(this.state.collapsed))
+        () => {
+          nookies.set({}, 'collapsed', JSON.stringify(this.state.collapsed), {
+            path: '/'
+          })
+        }
       )
     } else {
       this.setState(state => ({
@@ -46,12 +50,14 @@ class MyLayout extends React.Component {
           collapsed={collapsed}
           setCollapsed={collapsed => {
             this.setState({ collapsed })
-            nookies.set({}, 'collapsed', JSON.stringify(collapsed))
+            nookies.set({}, 'collapsed', JSON.stringify(collapsed), {
+              path: '/'
+            })
           }}
         >
           <LogoTitle />
 
-          <Menu />
+          <Menu closeDrawer={() => this.setState({ drawerVisible: false })} />
         </FixedSider>
 
         <MainLayout collapsed={collapsed}>
@@ -71,7 +77,10 @@ class MyLayout extends React.Component {
         >
           <LogoTitle />
 
-          <Menu style={{ minHeight: '100vh' }} />
+          <Menu
+            style={{ minHeight: '100vh' }}
+            closeDrawer={() => this.setState({ drawerVisible: false })}
+          />
         </Drawer>
       </Layout>
     )

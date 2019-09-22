@@ -28,7 +28,15 @@ import Error from 'next/error'
 import api from '../../api'
 
 const SculptureCard = ({
-  info: { accessionId, name, visits, likes, comments, primaryMaker, images }
+  info: {
+    accessionId,
+    name,
+    totalVisits,
+    totalLikes,
+    totalComments,
+    primaryMaker,
+    images
+  }
 }) => {
   const makerName = primaryMaker.firstName + ' ' + primaryMaker.lastName
   return (
@@ -58,9 +66,9 @@ const SculptureCard = ({
             title={name}
             description={
               <SculptureCardDescription
-                visits={visits}
-                likes={likes}
-                comments={comments}
+                totalLikes={totalLikes}
+                totalComments={totalComments}
+                totalVisits={totalVisits}
                 makerName={makerName}
               />
             }
@@ -72,9 +80,9 @@ const SculptureCard = ({
 }
 
 export const SculptureCardDescription = ({
-  likes,
-  comments,
-  visits,
+  totalLikes,
+  totalComments,
+  totalVisits,
   makerName
 }) => {
   return (
@@ -88,7 +96,7 @@ export const SculptureCardDescription = ({
           style={{ marginRight: 4 }}
         />
         <Text type="secondary" style={{ marginRight: 8 }}>
-          {likes}
+          {totalLikes}
         </Text>
       </Tooltip>
 
@@ -100,7 +108,7 @@ export const SculptureCardDescription = ({
           style={{ marginRight: 4 }}
         />
         <Text type="secondary" style={{ marginRight: 5 }}>
-          {comments}
+          {totalComments}
         </Text>
       </Tooltip>
 
@@ -110,7 +118,7 @@ export const SculptureCardDescription = ({
           style={{ color: '#F73F3F', marginRight: 3 }}
         />
         <Text type="secondary" style={{ marginRight: 4 }}>
-          {visits}
+          {totalVisits}
         </Text>
       </Tooltip>
     </>
@@ -121,11 +129,11 @@ export const SculptureCardDescription = ({
 const sortBy = (list, criterion) => {
   switch (criterion) {
     case 'Likes':
-      return list.slice().sort((a, b) => b.likes - a.likes)
+      return list.slice().sort((a, b) => +b.totalLikes - +a.totalLikes)
     case 'Comments':
-      return list.slice().sort((a, b) => b.comments - a.comments)
+      return list.slice().sort((a, b) => +b.totalComments - +a.totalComments)
     case 'Visits':
-      return list.slice().sort((a, b) => b.visits - a.visits)
+      return list.slice().sort((a, b) => +b.totalVisits - +a.totalVisits)
     case 'Default':
       return list.slice().sort((a, b) => a.name.localeCompare(b.name))
   }

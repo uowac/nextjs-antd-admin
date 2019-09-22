@@ -48,7 +48,7 @@ const SculptureEditForm = () => {
         try {
           const _result = await api.delete(`/sculpture/${sculptureId}`)
           message.success('Deleted sculpture successfully!', 2)
-          setTimeout(() => Router.push('/sculptures'), 550)
+          Router.push('/sculptures')
         } catch (error) {
           notification.error({
             message: 'Error',

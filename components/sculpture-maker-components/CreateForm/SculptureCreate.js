@@ -78,7 +78,6 @@ const SculptureCreate = ({
 
   const showLocationOnMap = () => {
     form.validateFields(['latitude', 'longitude'], (errors, values) => {
-      console.log('hey')
       if (!errors) {
         const { latitude, longitude } = values
         flyTo(+latitude, +longitude)

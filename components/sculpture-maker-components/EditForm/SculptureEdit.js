@@ -82,9 +82,9 @@ const SculptureEdit = ({
           const _result = (await api.patch('/sculpture', values)).data
           message.success('Updated sculpture details successfully!', 2)
           setSubmitting(false)
-          setTimeout(
-            () => Router.push(`/sculptures/id/${values.accessionId}`),
-            550
+          Router.push(
+            '/sculptures/id/[id]',
+            `/sculptures/id/${values.accessionId}`
           )
         } catch (e) {
           setSubmitting(false)

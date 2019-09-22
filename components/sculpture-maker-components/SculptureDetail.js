@@ -51,7 +51,10 @@ const SculptureDetail = () => {
     productionDate,
     material,
     creditLine,
-    locationNotes
+    locationNotes,
+    totalLikes,
+    totalComments,
+    totalVisits
   } = sculpture
 
   const { birthYear, deathYear, nationality, wikiUrl } = primaryMaker
@@ -107,6 +110,9 @@ const SculptureDetail = () => {
               {name}
             </Title>
             <SculptureCardDescription
+              totalLikes={totalLikes}
+              totalComments={totalComments}
+              totalVisits={totalVisits}
               makerName={primaryMaker.firstName + ' ' + primaryMaker.lastName}
             />
 
