@@ -1,4 +1,5 @@
 import 'ant-design-pro/lib/Charts/style/index.less'
+import Head from 'next/head'
 import {
   ColStyled,
   UserCard,
@@ -9,6 +10,7 @@ import {
   UserPieChart
 } from '../components/dashboard-components'
 import { Row, Spin } from 'antd'
+
 import moment from 'moment'
 import { useAuth0 } from '../components/auth0-components'
 
@@ -19,7 +21,7 @@ import Loading from '../components/Loading'
 const Dashboard = () => {
   const [state, setState] = useState({})
   const [loading, setLoading] = useState(true)
-  const { isAuthenticated, user } = useAuth0()
+  const { isAuthenticated } = useAuth0()
 
   useEffect(() => {
     const USER_DATA = []
@@ -101,51 +103,56 @@ const Dashboard = () => {
   if (loading) return <Loading />
 
   return (
-    <Row gutter={16}>
-      <ColStyled xs={24} sm={12}>
-        <UserCard
-          TOTAL_USERS={TOTAL_USERS}
-          DAILY_USERS={DAILY_USERS}
-          DAILY_USERS_CHANGE={DAILY_USERS_CHANGE}
-          USER_DATA={USER_DATA}
-        />
-      </ColStyled>
+    <>
+      <Head>
+        <title>Dashboard - UOW Sculptures</title>
+      </Head>
+      <Row gutter={16}>
+        <ColStyled xs={24} sm={12}>
+          <UserCard
+            TOTAL_USERS={TOTAL_USERS}
+            DAILY_USERS={DAILY_USERS}
+            DAILY_USERS_CHANGE={DAILY_USERS_CHANGE}
+            USER_DATA={USER_DATA}
+          />
+        </ColStyled>
 
-      <ColStyled xs={24} sm={12}>
-        <VisitCard
-          TOTAL_VISITS={TOTAL_VISITS}
-          DAILY_VISITS={DAILY_VISITS}
-          DAILY_VISITS_CHANGE={DAILY_VISITS_CHANGE}
-          VISIT_DATA={VISIT_DATA}
-        />
-      </ColStyled>
+        <ColStyled xs={24} sm={12}>
+          <VisitCard
+            TOTAL_VISITS={TOTAL_VISITS}
+            DAILY_VISITS={DAILY_VISITS}
+            DAILY_VISITS_CHANGE={DAILY_VISITS_CHANGE}
+            VISIT_DATA={VISIT_DATA}
+          />
+        </ColStyled>
 
-      <ColStyled xs={24} sm={12}>
-        <LikeCard
-          TOTAL_LIKES={TOTAL_LIKES}
-          DAILY_LIKES={DAILY_LIKES}
-          DAILY_LIKES_CHANGE={DAILY_LIKES_CHANGE}
-          LIKE_DATA={LIKE_DATA}
-        />
-      </ColStyled>
+        <ColStyled xs={24} sm={12}>
+          <LikeCard
+            TOTAL_LIKES={TOTAL_LIKES}
+            DAILY_LIKES={DAILY_LIKES}
+            DAILY_LIKES_CHANGE={DAILY_LIKES_CHANGE}
+            LIKE_DATA={LIKE_DATA}
+          />
+        </ColStyled>
 
-      <ColStyled xs={24} sm={12}>
-        <CommentCard
-          TOTAL_COMMENTS={TOTAL_COMMENTS}
-          DAILY_COMMENTS={DAILY_COMMENTS}
-          DAILY_COMMENTS_CHANGE={DAILY_COMMENTS_CHANGE}
-          COMMENT_DATA={COMMENT_DATA}
-        />
-      </ColStyled>
+        <ColStyled xs={24} sm={12}>
+          <CommentCard
+            TOTAL_COMMENTS={TOTAL_COMMENTS}
+            DAILY_COMMENTS={DAILY_COMMENTS}
+            DAILY_COMMENTS_CHANGE={DAILY_COMMENTS_CHANGE}
+            COMMENT_DATA={COMMENT_DATA}
+          />
+        </ColStyled>
 
-      <ColStyled xs={24}>
-        <SculptureTable />
-      </ColStyled>
+        <ColStyled xs={24}>
+          <SculptureTable />
+        </ColStyled>
 
-      <ColStyled xs={24}>
-        <UserPieChart />
-      </ColStyled>
-    </Row>
+        <ColStyled xs={24}>
+          <UserPieChart />
+        </ColStyled>
+      </Row>
+    </>
   )
 }
 

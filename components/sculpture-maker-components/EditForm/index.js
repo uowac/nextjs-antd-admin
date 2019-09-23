@@ -7,6 +7,7 @@ import api from '../../../api'
 import Loading from '../../Loading'
 import Error from 'next/error'
 import EditImage from './EditImage'
+import Head from 'next/head'
 
 const defaultPosition = [-34.40581053569814, 150.87842788963476]
 const { confirm } = Modal
@@ -92,46 +93,51 @@ const SculptureEditForm = () => {
     return <Error statusCode={error.statusCode} title={error.message} />
 
   return (
-    <Row gutter={16}>
-      <ColStyled xs={24}>
-        <CardStyled
-          title={`Edit details for ${initialData.name}`}
-          tabList={tabList}
-          activeTabKey={tabKey}
-          onTabChange={handleTabChange}
-          extra={
-            <Button icon="delete" type="danger" onClick={handleDelete}>
-              Delete
-            </Button>
-          }
-        >
-          <div style={{ display: tabKey === 'tab1' ? 'block' : 'none' }}>
-            <SculptureEdit
-              defaultPosition={defaultPosition}
-              initialData={initialData}
-              makerList={makerList}
-              setMakerList={setMakerList}
-            />
-          </div>
+    <>
+      <Head>
+        <title>Edit {initialData.name}- UOW Sculptures</title>
+      </Head>
+      <Row gutter={16}>
+        <ColStyled xs={24}>
+          <CardStyled
+            title={`Edit details for ${initialData.name}`}
+            tabList={tabList}
+            activeTabKey={tabKey}
+            onTabChange={handleTabChange}
+            extra={
+              <Button icon="delete" type="danger" onClick={handleDelete}>
+                Delete
+              </Button>
+            }
+          >
+            <div style={{ display: tabKey === 'tab1' ? 'block' : 'none' }}>
+              <SculptureEdit
+                defaultPosition={defaultPosition}
+                initialData={initialData}
+                makerList={makerList}
+                setMakerList={setMakerList}
+              />
+            </div>
 
-          <div style={{ display: tabKey === 'tab2' ? 'block' : 'none' }}>
-            <EditImage
-              accessionId={initialData.accessionId}
-              name={initialData.name}
-              images={initialData.images.map(img => {
-                let formattedImg = { ...img }
-                formattedImg.uid = img.id
-                formattedImg.url = img.url
-                formattedImg.thumbUrl = img.url
-                formattedImg.preview = img.url
-                formattedImg.status = 'done'
-                return formattedImg
-              })}
-            />
-          </div>
-        </CardStyled>
-      </ColStyled>
-    </Row>
+            <div style={{ display: tabKey === 'tab2' ? 'block' : 'none' }}>
+              <EditImage
+                accessionId={initialData.accessionId}
+                name={initialData.name}
+                images={initialData.images.map(img => {
+                  let formattedImg = { ...img }
+                  formattedImg.uid = img.id
+                  formattedImg.url = img.url
+                  formattedImg.thumbUrl = img.url
+                  formattedImg.preview = img.url
+                  formattedImg.status = 'done'
+                  return formattedImg
+                })}
+              />
+            </div>
+          </CardStyled>
+        </ColStyled>
+      </Row>
+    </>
   )
 }
 

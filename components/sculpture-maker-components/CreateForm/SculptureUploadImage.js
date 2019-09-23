@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { CardStyled, ColStyled } from '../style'
 import api from '../../../api'
 import Router from 'next/router'
+import Head from 'next/head'
 
 const { confirm } = Modal
 
@@ -90,34 +91,39 @@ const SculptureUploadImage = ({ sculpture }) => {
   )
 
   return (
-    <Row gutter={16}>
-      <ColStyled xs={24}>
-        <CardStyled title={`Upload sculpture image for ${name}`}>
-          <Upload
-            defaultFileList={[...defaultFileList]}
-            accept="image/*"
-            listType="picture-card"
-            customRequest={customRequest}
-            onRemove={handleRemove}
-            fileList={fileList}
-          >
-            {uploadButton}
-          </Upload>
+    <>
+      <Head>
+        <title>Upload images - UOW Sculptures</title>
+      </Head>
+      <Row gutter={16}>
+        <ColStyled xs={24}>
+          <CardStyled title={`Upload sculpture image for ${name}`}>
+            <Upload
+              defaultFileList={[...defaultFileList]}
+              accept="image/*"
+              listType="picture-card"
+              customRequest={customRequest}
+              onRemove={handleRemove}
+              fileList={fileList}
+            >
+              {uploadButton}
+            </Upload>
 
-          <Button
-            type="primary"
-            onClick={() =>
-              Router.push(
-                '/sculptures/id/[id]',
-                `/sculptures/id/${accessionId}`
-              )
-            }
-          >
-            Finish
-          </Button>
-        </CardStyled>
-      </ColStyled>
-    </Row>
+            <Button
+              type="primary"
+              onClick={() =>
+                Router.push(
+                  '/sculptures/id/[id]',
+                  `/sculptures/id/${accessionId}`
+                )
+              }
+            >
+              Finish
+            </Button>
+          </CardStyled>
+        </ColStyled>
+      </Row>
+    </>
   )
 }
 

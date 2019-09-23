@@ -8,6 +8,7 @@ import Loading from '../Loading'
 import Error from 'next/error'
 import MyStaticMap from '../map-components/StaticMap'
 import Link from 'next/link'
+import Head from 'next/head'
 
 const { Text, Title, Paragraph } = Typography
 
@@ -69,152 +70,158 @@ const SculptureDetail = () => {
   ))
 
   return (
-    <Row gutter={16}>
-      <ColStyled xs={24} lg={15}>
-        <CardStyled
-          title="Sculpture Details"
-          extra={
-            <Link
-              href="/sculptures/id/[id]/edit"
-              as={`/sculptures/id/${id}/edit`}
-            >
-              <a>
-                <Button icon="edit">Edit details</Button>
-              </a>
-            </Link>
-          }
-        >
-          <Carousel
-            draggable
-            style={{
-              width: '100%'
-            }}
-          >
-            {images.length ? (
-              imageList
-            ) : (
-              <div>
-                <Empty
-                  image={Empty.PRESENTED_IMAGE_SIMPLE}
-                  style={{ height: 100, marginTop: 100 }}
-                />
-              </div>
-            )}
-          </Carousel>
-          <div
-            style={{
-              marginTop: 15
-            }}
-          >
-            <Title level={4} style={{ marginBottom: 0 }}>
-              {name}
-            </Title>
-            <SculptureCardDescription
-              totalLikes={totalLikes}
-              totalComments={totalComments}
-              totalVisits={totalVisits}
-              makerName={primaryMaker.firstName + ' ' + primaryMaker.lastName}
-            />
+    <>
+      <Head>
+        <title>{name} - UOW Sculptures</title>
+      </Head>
 
-            <List itemLayout="horizontal">
+      <Row gutter={16}>
+        <ColStyled xs={24} lg={15}>
+          <CardStyled
+            title="Sculpture Details"
+            extra={
+              <Link
+                href="/sculptures/id/[id]/edit"
+                as={`/sculptures/id/${id}/edit`}
+              >
+                <a>
+                  <Button icon="edit">Edit details</Button>
+                </a>
+              </Link>
+            }
+          >
+            <Carousel
+              draggable
+              style={{
+                width: '100%'
+              }}
+            >
+              {images.length ? (
+                imageList
+              ) : (
+                <div>
+                  <Empty
+                    image={Empty.PRESENTED_IMAGE_SIMPLE}
+                    style={{ height: 100, marginTop: 100 }}
+                  />
+                </div>
+              )}
+            </Carousel>
+            <div
+              style={{
+                marginTop: 15
+              }}
+            >
+              <Title level={4} style={{ marginBottom: 0 }}>
+                {name}
+              </Title>
+              <SculptureCardDescription
+                totalLikes={totalLikes}
+                totalComments={totalComments}
+                totalVisits={totalVisits}
+                makerName={primaryMaker.firstName + ' ' + primaryMaker.lastName}
+              />
+
+              <List itemLayout="horizontal">
+                <List.Item>
+                  <List.Item.Meta
+                    title="Accession ID"
+                    description={
+                      !accessionId.includes('unknown') ? accessionId : 'N/A'
+                    }
+                  />
+                </List.Item>
+                <List.Item>
+                  <List.Item.Meta
+                    title="Production Date"
+                    description={productionDate ? productionDate : 'N/A'}
+                  />
+                </List.Item>
+                <List.Item>
+                  <List.Item.Meta
+                    title="Material"
+                    description={material ? material : 'N/A'}
+                  />
+                </List.Item>
+                <List.Item>
+                  <List.Item.Meta
+                    title="Credit Line"
+                    description={
+                      creditLine
+                        ? creditLine
+                            .trim()
+                            .split('\n')
+                            .map((line, idx) => <div key={idx}>{line}</div>)
+                        : 'N/A'
+                    }
+                  />
+                </List.Item>
+                <List.Item>
+                  <List.Item.Meta
+                    title="Location Details"
+                    description={
+                      locationNotes
+                        ? locationNotes
+                            .trim()
+                            .split('\n')
+                            .map((line, idx) => <div key={idx}>{line}</div>)
+                        : 'N/A'
+                    }
+                  />
+                </List.Item>
+              </List>
+            </div>
+          </CardStyled>
+        </ColStyled>
+        {/* Maker detail */}
+        <ColStyled xs={24} lg={9}>
+          <MyStaticMap markerLat={markerLat} markerLng={markerLng} />
+          <CardStyled title="Primary maker details" style={{ marginTop: 10 }}>
+            <List
+              itemLayout="horizontal"
+              style={{
+                marginTop: -20
+              }}
+            >
               <List.Item>
                 <List.Item.Meta
-                  title="Accession ID"
+                  title="Full Name"
                   description={
-                    !accessionId.includes('unknown') ? accessionId : 'N/A'
+                    primaryMaker.firstName + ' ' + primaryMaker.lastName
                   }
                 />
               </List.Item>
               <List.Item>
                 <List.Item.Meta
-                  title="Production Date"
-                  description={productionDate ? productionDate : 'N/A'}
+                  title="Nationality"
+                  description={nationality ? nationality : 'N/A'}
                 />
               </List.Item>
               <List.Item>
                 <List.Item.Meta
-                  title="Material"
-                  description={material ? material : 'N/A'}
+                  title="Born"
+                  description={birthYear ? birthYear : 'N/A'}
                 />
               </List.Item>
               <List.Item>
                 <List.Item.Meta
-                  title="Credit Line"
+                  title="Passed away"
+                  description={deathYear ? deathYear : 'N/A'}
+                />
+              </List.Item>
+              <List.Item>
+                <List.Item.Meta
+                  title="Website"
                   description={
-                    creditLine
-                      ? creditLine
-                          .trim()
-                          .split('\n')
-                          .map((line, idx) => <div key={idx}>{line}</div>)
-                      : 'N/A'
-                  }
-                />
-              </List.Item>
-              <List.Item>
-                <List.Item.Meta
-                  title="Location Details"
-                  description={
-                    locationNotes
-                      ? locationNotes
-                          .trim()
-                          .split('\n')
-                          .map((line, idx) => <div key={idx}>{line}</div>)
-                      : 'N/A'
+                    wikiUrl ? <a href={`${wikiUrl}`}>{wikiUrl}</a> : 'N/A'
                   }
                 />
               </List.Item>
             </List>
-          </div>
-        </CardStyled>
-      </ColStyled>
-      {/* Maker detail */}
-      <ColStyled xs={24} lg={9}>
-        <MyStaticMap markerLat={markerLat} markerLng={markerLng} />
-        <CardStyled title="Primary maker details" style={{ marginTop: 10 }}>
-          <List
-            itemLayout="horizontal"
-            style={{
-              marginTop: -20
-            }}
-          >
-            <List.Item>
-              <List.Item.Meta
-                title="Full Name"
-                description={
-                  primaryMaker.firstName + ' ' + primaryMaker.lastName
-                }
-              />
-            </List.Item>
-            <List.Item>
-              <List.Item.Meta
-                title="Nationality"
-                description={nationality ? nationality : 'N/A'}
-              />
-            </List.Item>
-            <List.Item>
-              <List.Item.Meta
-                title="Born"
-                description={birthYear ? birthYear : 'N/A'}
-              />
-            </List.Item>
-            <List.Item>
-              <List.Item.Meta
-                title="Passed away"
-                description={deathYear ? deathYear : 'N/A'}
-              />
-            </List.Item>
-            <List.Item>
-              <List.Item.Meta
-                title="Website"
-                description={
-                  wikiUrl ? <a href={`${wikiUrl}`}>{wikiUrl}</a> : 'N/A'
-                }
-              />
-            </List.Item>
-          </List>
-        </CardStyled>
-      </ColStyled>
-    </Row>
+          </CardStyled>
+        </ColStyled>
+      </Row>
+    </>
   )
 }
 
