@@ -6,27 +6,35 @@ const Pie = dynamic(import('ant-design-pro/lib/Charts').then(mod => mod.Pie), {
 // import { Pie } from 'ant-design-pro/lib/Charts'
 import { CardStyled } from './style'
 
-const userPieData = [
-  { x: 'Email', y: 20 },
-  { x: 'Google', y: 25 },
-  { x: 'Facebook', y: 12 }
-]
+export default ({ users }) => {
+  const userPieData = [
+    { x: 'Email', y: 0 },
+    { x: 'Google', y: 0 },
+    { x: 'Facebook', y: 0 }
+  ]
 
-const total = userPieData
-  .reduce((total, cur) => total + cur.y, 0)
-  .toLocaleString()
+  users.forEach(x => {
+    if (x.userId.includes('auth0')) {
+      userPieData.find(elem => elem.x === 'Email').y++
+    } else if (x.userId.includes('google')) {
+      userPieData.find(elem => elem.x === 'Google').y++
+    } else {
+      userPieData.find(elem => elem.x === 'Facebook').y++
+    }
+  })
 
-export default () => (
-  <CardStyled title="Proportion of Users">
-    <Pie
-      hasLegend
-      title="Total Users"
-      subTitle="Total Users"
-      total={() => total}
-      data={userPieData}
-      valueFormat={val => val.toLocaleString()}
-      height={294}
-      colors={['#A97BE9', '#EA4335', '#1890FF']}
-    />
-  </CardStyled>
-)
+  return (
+    <CardStyled title="Proportion of Users">
+      <Pie
+        hasLegend
+        title="Total Users"
+        subTitle="Total Users"
+        total={() => users.length}
+        data={userPieData}
+        valueFormat={val => val.toLocaleString()}
+        height={294}
+        colors={['#A97BE9', '#EA4335', '#1890FF']}
+      />
+    </CardStyled>
+  )
+}

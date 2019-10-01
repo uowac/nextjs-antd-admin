@@ -33,13 +33,13 @@ export const MainIcon = props => (
 
 export const CardFooter = props => {
   return (
-    <div>
+    <div style={{ position: 'relative', zIndex: 99 }}>
       <span>{props.title}:</span>
       <span style={{ marginLeft: 8, color: 'rgba(0,0,0,.85)' }}>
         {props.value.toLocaleString()}
       </span>
-      <span style={{ marginLeft: 16 }}>
-        <Tooltip title="Change compared to yesterday">
+      <Tooltip title="Change compared to yesterday">
+        <span style={{ marginLeft: 16 }}>
           <span style={{ color: 'rgba(0,0,0,.55)', marginRight: 2 }}>
             {props.change.toLocaleString()}
           </span>
@@ -56,8 +56,8 @@ export const CardFooter = props => {
               style={{ color: '#52c41a', verticalAlign: 'middle' }}
             />
           )}
-        </Tooltip>
-      </span>
+        </span>
+      </Tooltip>
     </div>
   )
 }

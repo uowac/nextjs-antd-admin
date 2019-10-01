@@ -15,11 +15,13 @@ const MakerList = () => {
       try {
         const data = (await api.get('/maker/')).data
 
-        const formattedData = data.map(maker => {
+        let formattedData = data.map(maker => {
           let formattedMaker = { ...maker }
           formattedMaker.key = maker.id
           return formattedMaker
         })
+
+        formattedData.sort((a, b) => a.firstName.localeCompare(b.firstName))
 
         console.log(formattedData)
         setMakerList(formattedData)
@@ -119,9 +121,7 @@ const MakerList = () => {
           return <span>{makerName}</span>
         }
         return <a href={wikiUrl}>{makerName}</a>
-      },
-      sorter: (a, b) => a.firstName.localeCompare(b.firstName),
-      defaultSortOrder: 'ascend'
+      }
     },
 
     {
@@ -171,7 +171,7 @@ const MakerList = () => {
           <StyledTable
             dataSource={makerList}
             columns={columns}
-            pagination={false}
+            pagination={{ pageSize: 25 }}
             style={{ maxWidth: 750 }}
           />
         </CardStyled>

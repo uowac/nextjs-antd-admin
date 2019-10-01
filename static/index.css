@@ -139,6 +139,19 @@
   border-color: #ff4d4f !important;
 }
 
+.ant-comment-inner {
+  padding: 0 !important;
+}
+
+.comment .ant-comment-inner {
+  margin-bottom: 16px !important;
+}
+
+.user-table tbody tr,
+.sculpture-table tbody tr {
+  cursor: pointer !important;
+}
+
 body {
   margin: 0;
   line-height: normal;

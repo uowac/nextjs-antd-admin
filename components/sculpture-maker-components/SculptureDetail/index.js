@@ -1,28 +1,39 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { Row, Carousel, Typography, List, Empty, Button } from 'antd'
-import { ColStyled, CardStyled } from './style'
-import { SculptureCardDescription } from './SculptureGrid'
-import api from '../../api'
-import Loading from '../Loading'
+import { Row, Carousel, Typography, List, Empty, Button, Tooltip } from 'antd'
+import { ColStyled, CardStyled } from '../style'
+import { SculptureCardDescription } from '../SculptureGrid'
+import api from '../../../api'
+import Loading from '../../Loading'
 import Error from 'next/error'
-import MyStaticMap from '../map-components/StaticMap'
+import MyStaticMap from '../../map-components/StaticMap'
 import Link from 'next/link'
 import Head from 'next/head'
+import SculptureComment from './SculptureComment'
+import { format } from 'path'
+import moment from 'moment'
 
 const { Text, Title, Paragraph } = Typography
 
 const SculptureDetail = () => {
   const [sculpture, setSculpture] = useState({})
+  const [comments, setComments] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    const fetchSculpture = async () => {
+    const fetchData = async () => {
       try {
-        const data = (await api.get(`/sculpture/${id}`)).data
-        console.log(data)
-        setSculpture(data)
+        const sculpturePromise = api.get(`/sculpture/${id}`)
+        const commentPromise = api.get(`/comment/sculpture-id/${id}`)
+
+        const [rawSculpture, rawComments] = await Promise.all([
+          sculpturePromise,
+          commentPromise
+        ])
+
+        setComments(rawComments.data)
+        setSculpture(rawSculpture.data)
       } catch (e) {
         const { statusCode, message } = e.response.data
         setError({
@@ -32,7 +43,8 @@ const SculptureDetail = () => {
       }
       setLoading(false)
     }
-    fetchSculpture()
+
+    fetchData()
   }, [id])
 
   const router = useRouter()
@@ -172,6 +184,15 @@ const SculptureDetail = () => {
               </List>
             </div>
           </CardStyled>
+
+          <CardStyled
+            title="Trends"
+            style={{
+              marginTop: 12
+            }}
+          >
+            To do
+          </CardStyled>
         </ColStyled>
         {/* Maker detail */}
         <ColStyled xs={24} lg={9}>
@@ -219,6 +240,8 @@ const SculptureDetail = () => {
               </List.Item>
             </List>
           </CardStyled>
+
+          <SculptureComment comments={comments} />
         </ColStyled>
       </Row>
     </>
