@@ -2,7 +2,7 @@ import { Menu, Icon } from 'antd'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-const keys = ['/', '/sculptures', '/makers', '/users']
+const keys = ['/', '/sculptures', '/makers', '/users', '/activity']
 
 const menu = [
   <Menu.Item key={keys[0]}>
@@ -34,6 +34,14 @@ const menu = [
       <a>
         <Icon type="team" />
         <span>Users</span>
+      </a>
+    </Link>
+  </Menu.Item>,
+  <Menu.Item key={keys[4]}>
+    <Link href={keys[4]}>
+      <a>
+        <Icon type="history" />
+        <span>Recent Activity</span>
       </a>
     </Link>
   </Menu.Item>

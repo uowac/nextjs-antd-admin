@@ -1,7 +1,7 @@
-import { useAuth0 } from '../components/auth0-components'
-import AuthPage from '../components/AuthPage'
+import { useAuth0 } from '../../components/auth0-components'
+import AuthPage from '../../components/AuthPage'
 import Head from 'next/head'
-import UserList from '../components/user-components'
+import UserList from '../../components/user-components'
 
 export default () => {
   const { isAuthenticated } = useAuth0()

@@ -1,19 +1,12 @@
-import { useState, useEffect } from 'react'
-import {
-  Row,
-  Divider,
-  Modal,
-  Icon,
-  message,
-  notification,
-  Button,
-  Comment
-} from 'antd'
+import { useState, useEffect, useRef } from 'react'
+import { Row, Comment, Icon, Input, Button } from 'antd'
 import { ColStyled, CardStyled, StyledTable } from './style'
 import api from '../../api'
 import Loading from '../Loading'
 import Error from 'next/error'
 import moment from 'moment'
+import Router from 'next/router'
+import { convertNonAccent } from '../shared/utils'
 
 const UserList = () => {
   useEffect(() => {
@@ -47,8 +40,67 @@ const UserList = () => {
   }, [])
 
   const [userList, setUserList] = useState([])
+  const searchInput = useRef(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  const getUserSearchProps = () => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters
+    }) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          ref={searchInput}
+          placeholder="Search user"
+          value={selectedKeys[0]}
+          onChange={e =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() => handleSearch(selectedKeys, confirm)}
+          style={{ width: 188, marginBottom: 8, display: 'block' }}
+        />
+        <Button
+          type="primary"
+          onClick={() => handleSearch(selectedKeys, confirm)}
+          style={{ width: 90, marginRight: 8 }}
+        >
+          Search
+        </Button>
+        <Button onClick={() => handleReset(clearFilters)} style={{ width: 90 }}>
+          Reset
+        </Button>
+      </div>
+    ),
+    filterIcon: filtered => (
+      <Icon type="search" style={{ color: filtered ? '#1890ff' : '#7E7E7E' }} />
+    ),
+    onFilter: (value, record) => {
+      const { email, name, nickname, userId } = record
+      let author = name
+      if (userId.includes('auth0')) author = nickname
+
+      return (
+        convertNonAccent(author.toLowerCase()).includes(value.toLowerCase()) ||
+        convertNonAccent(email.toLowerCase()).includes(value.toLowerCase())
+      )
+    },
+    onFilterDropdownVisibleChange: visible => {
+      if (visible) {
+        setTimeout(() => searchInput.current.select())
+      }
+    }
+  })
+
+  const handleSearch = (selectedKeys, confirm) => {
+    confirm()
+  }
+
+  const handleReset = clearFilters => {
+    clearFilters()
+  }
 
   const columns = [
     {
@@ -76,8 +128,8 @@ const UserList = () => {
               <img
                 src={picture}
                 style={{
-                  width: 40,
-                  height: 40,
+                  width: 42,
+                  height: 42,
                   borderRadius: '50%'
                 }}
               />
@@ -93,7 +145,8 @@ const UserList = () => {
             }
           />
         )
-      }
+      },
+      ...getUserSearchProps()
     },
     {
       title: 'Connection type',
@@ -108,14 +161,32 @@ const UserList = () => {
           connection = 'Email'
         }
         return <span>{connection}</span>
-      }
+      },
+      filters: [
+        {
+          text: 'Email',
+          value: 'auth0'
+        },
+        {
+          text: 'Google',
+          value: 'google'
+        },
+        {
+          text: 'Facebook',
+          value: 'facebook'
+        }
+      ],
+      onFilter: (value, record) => record.userId.includes(value)
     },
     {
       title: 'Join date',
       key: 'joinDate',
       render: (_, record) => {
         return <span>{moment(record.joinDate).format('D MMMM YYYY')}</span>
-      }
+      },
+      sorter: (a, b) =>
+        new Date(a.joinDate).getTime() - new Date(b.joinDate).getTime(),
+      sortDirections: ['ascend', 'descend']
     }
   ]
 
@@ -130,9 +201,18 @@ const UserList = () => {
           <StyledTable
             dataSource={userList}
             columns={columns}
-            pagination={{ pageSize: 20 }}
+            pagination={{ pageSize: 25, hideOnSinglePage: true }}
             className="user-table"
-            // style={{ maxWidth: 750 }}
+            onRow={(record, _) => {
+              return {
+                onClick: () => {
+                  Router.push('/users/id/[id]', `/users/id/${record.key}`)
+                }
+              }
+            }}
+            onChange={(pagination, filters, sorter, { currentDataSource }) => {
+              console.log('cur', currentDataSource)
+            }}
           />
         </CardStyled>
       </ColStyled>

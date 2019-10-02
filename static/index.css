@@ -152,6 +152,29 @@
   cursor: pointer !important;
 }
 
+.ant-descriptions-item-label {
+  font-weight: 500 !important;
+}
+
+.ant-descriptions-item-content {
+  margin-bottom: 12px !important;
+}
+
+.ant-descriptions-row > th,
+.ant-descriptions-row > td {
+  padding-bottom: 0px !important;
+}
+
+.ant-comment-content-author-time {
+  flex: 1 !important;
+}
+
+.comment-list .ant-list-pagination {
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 body {
   margin: 0;
   line-height: normal;

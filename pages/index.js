@@ -35,7 +35,7 @@ const Dashboard = () => {
     const COMMENT_DATA = []
     const LIKE_DATA = []
     const beginDay = new Date().getTime()
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 30; i++) {
       const x = moment(new Date(beginDay - 1000 * 60 * 60 * 24 * i)).format(
         'YYYY-MM-DD'
       )

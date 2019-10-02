@@ -47,6 +47,14 @@ const SculptureDetail = () => {
     fetchData()
   }, [id])
 
+  const deleteComment = commentId => {
+    setComments(c => c.filter(x => x.commentId !== commentId))
+    setSculpture(x => ({
+      ...x,
+      totalComments: x.totalComments - 1
+    }))
+  }
+
   const router = useRouter()
   const id = router.query.id
 
@@ -241,7 +249,7 @@ const SculptureDetail = () => {
             </List>
           </CardStyled>
 
-          <SculptureComment comments={comments} />
+          <SculptureComment comments={comments} deleteComment={deleteComment} />
         </ColStyled>
       </Row>
     </>

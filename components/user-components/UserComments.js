@@ -1,27 +1,23 @@
-import { CardStyled } from '../style'
+import { CardStyled } from './style'
 import moment from 'moment'
 import {
   Tooltip,
   List,
   Comment,
   Card,
-  Icon,
   Dropdown,
+  Icon,
+  message,
   Menu,
-  Modal,
-  message
+  Modal
 } from 'antd'
-import Link from 'next/link'
-import api from '../../../api'
-import { useState, useEffect } from 'react'
+
 const { confirm } = Modal
 
-const SculptureComment = ({ comments, deleteComment }) => {
-  comments.sort(
-    (a, b) =>
-      new Date(b.updatedTime).getTime() - new Date(a.updatedTime).getTime()
-  )
+import Link from 'next/link'
+import api from '../../api'
 
+const UserComments = ({ comments, deleteComment }) => {
   const handleDelete = e => {
     console.log(e.key)
     confirm({
@@ -54,20 +50,21 @@ const SculptureComment = ({ comments, deleteComment }) => {
     </Menu>
   )
 
+  comments.sort(
+    (a, b) =>
+      new Date(b.updatedTime).getTime() - new Date(a.updatedTime).getTime()
+  )
   const formattedComments = comments.map(x => ({
-    commentId: x.commentId,
     author: (
-      <Link href="/users/id/[id]" as={`/users/id/${x.user.userId}`}>
-        <a
-          style={{
-            fontSize: 14,
-            fontWeight: 500,
-            color: 'rgba(0, 0, 0, 0.65)'
-          }}
-        >
-          {x.user.userId.includes('auth0') ? x.user.nickname : x.user.name}
-        </a>
-      </Link>
+      <span
+        style={{
+          fontSize: 14,
+          fontWeight: 500,
+          color: 'rgba(0, 0, 0, 0.65)'
+        }}
+      >
+        {x.user.userId.includes('auth0') ? x.user.nickname : x.user.name}
+      </span>
     ),
     avatar: (
       <img
@@ -99,16 +96,33 @@ const SculptureComment = ({ comments, deleteComment }) => {
           display: 'flex'
         }}
       >
-        <Tooltip title={moment(x.updatedTime).format('D MMMM YYYY, h:mm:ss a')}>
-          <div
-            style={{
-              fontSize: 14,
-              color: 'rgba(0, 0, 0, 0.35)'
-            }}
+        <div>
+          <Tooltip
+            title={moment(x.updatedTime).format('D MMMM YYYY, h:mm:ss a')}
           >
-            {moment(x.updatedTime).fromNow()}
-          </div>
-        </Tooltip>
+            <span
+              style={{
+                fontSize: 14,
+                color: 'rgba(0, 0, 0, 0.35)'
+              }}
+            >
+              {moment(x.updatedTime).fromNow()} in{' '}
+            </span>
+          </Tooltip>
+          <Link
+            href="/sculptures/id/[id]"
+            as={`/sculptures/id/${x.sculpture.accessionId}`}
+          >
+            <a
+              style={{
+                fontSize: 14
+              }}
+            >
+              {x.sculpture.name}
+            </a>
+          </Link>
+        </div>
+
         <div
           style={{
             fontSize: 14,
@@ -129,7 +143,6 @@ const SculptureComment = ({ comments, deleteComment }) => {
       title="Comments"
       bodyStyle={{ padding: '20px 24px 0px' }}
       bordered={false}
-      style={{ marginTop: 12 }}
     >
       <List
         itemLayout="horizontal"
@@ -152,4 +165,4 @@ const SculptureComment = ({ comments, deleteComment }) => {
   )
 }
 
-export default SculptureComment
+export default UserComments

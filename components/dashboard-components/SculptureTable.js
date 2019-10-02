@@ -51,7 +51,7 @@ export default ({ sculptures }) => {
         columns={columns}
         pagination={{ pageSize: 10 }}
         className="sculpture-table"
-        onRow={(record, rowIndex) => {
+        onRow={(record, _) => {
           return {
             onClick: () => {
               Router.push('/sculptures/id/[id]', `/sculptures/id/${record.key}`)

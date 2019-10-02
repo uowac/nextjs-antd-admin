@@ -171,7 +171,7 @@ const MakerList = () => {
           <StyledTable
             dataSource={makerList}
             columns={columns}
-            pagination={{ pageSize: 25 }}
+            pagination={{ pageSize: 25, hideOnSinglePage: true }}
             style={{ maxWidth: 750 }}
           />
         </CardStyled>
