@@ -17,7 +17,10 @@ const UserList = () => {
           .filter(x => !x.role)
           .map(x => ({
             ...x,
-            key: x.userId
+            key: x.userId,
+            totalLikes: +x.totalLikes,
+            totalComments: +x.totalComments,
+            totalVisits: +x.totalVisits
           }))
 
         users.sort(
@@ -130,7 +133,8 @@ const UserList = () => {
                 style={{
                   width: 42,
                   height: 42,
-                  borderRadius: '50%'
+                  borderRadius: '50%',
+                  objectFit: 'cover'
                 }}
               />
             }
@@ -146,6 +150,7 @@ const UserList = () => {
           />
         )
       },
+      width: '30%',
       ...getUserSearchProps()
     },
     {
@@ -176,7 +181,8 @@ const UserList = () => {
           value: 'facebook'
         }
       ],
-      onFilter: (value, record) => record.userId.includes(value)
+      onFilter: (value, record) => record.userId.includes(value),
+      width: '15%'
     },
     {
       title: 'Join date',
@@ -186,7 +192,29 @@ const UserList = () => {
       },
       sorter: (a, b) =>
         new Date(a.joinDate).getTime() - new Date(b.joinDate).getTime(),
-      sortDirections: ['ascend', 'descend']
+      sortDirections: ['ascend', 'descend'],
+      width: '15%'
+    },
+    {
+      title: 'Likes',
+      dataIndex: 'totalLikes',
+      sorter: (a, b) => a.totalLikes - b.totalLikes,
+      sortDirections: ['descend', 'ascend'],
+      width: '13.33%'
+    },
+    {
+      title: 'Comments',
+      dataIndex: 'totalComments',
+      sorter: (a, b) => a.totalComments - b.totalComments,
+      sortDirections: ['descend', 'ascend'],
+      width: '13.33%'
+    },
+    {
+      title: 'Visits',
+      dataIndex: 'totalVisits',
+      sorter: (a, b) => a.totalVisits - b.totalVisits,
+      sortDirections: ['descend', 'ascend'],
+      width: '13.33%'
     }
   ]
 
@@ -210,8 +238,8 @@ const UserList = () => {
                 }
               }
             }}
-            onChange={(pagination, filters, sorter, { currentDataSource }) => {
-              console.log('cur', currentDataSource)
+            style={{
+              maxWidth: 1100
             }}
           />
         </CardStyled>

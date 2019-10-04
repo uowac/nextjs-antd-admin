@@ -2,7 +2,7 @@ import { Menu, Icon } from 'antd'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-const keys = ['/', '/sculptures', '/makers', '/users', '/activity']
+const keys = ['/', '/sculptures', '/makers', '/users', '/recent-activity']
 
 const menu = [
   <Menu.Item key={keys[0]}>

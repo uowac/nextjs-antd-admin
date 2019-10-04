@@ -106,7 +106,7 @@ class AppWrapper extends NextApp {
             domain={process.env.AUTH0_DOMAIN}
             client_id={process.env.AUTH0_CLIENT_ID}
             redirect_uri={redirect_uri}
-            scope="create:sculpture update:sculpture delete:sculpture delete:all_comment view:all_users"
+            scope="create:sculpture update:sculpture delete:sculpture delete:all_comment view:all_users view:analytics"
             audience="https://uowac-api.herokuapp.com"
             onRedirectCallback={onRedirectCallback}
           >

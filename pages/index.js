@@ -20,6 +20,20 @@ import Loading from '../components/Loading'
 import Error from 'next/error'
 import api from '../api'
 
+const formatDailyData = rawData => {
+  const result = []
+  for (let date of Object.keys(rawData)) {
+    result.push({
+      x: moment(date).format('MMM D YYYY'),
+      y: rawData[date]
+    })
+  }
+  // sort in correct order
+  result.sort((a, b) => moment(a.x).valueOf() - moment(b.x).valueOf)
+
+  return result
+}
+
 const Dashboard = () => {
   const [state, setState] = useState({})
   const [sculptures, setSculptures] = useState([])
@@ -27,52 +41,90 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
+  const defaultStartDate = moment(new Date())
+  const defaultEndDate = moment(defaultStartDate).subtract(7, 'days')
+
+  const [startDate, setStartDate] = useState(defaultStartDate)
+  const [endDate, setEndDate] = useState(defaultEndDate)
+
   const { isAuthenticated } = useAuth0()
 
   useEffect(() => {
-    const USER_DATA = []
-    const VISIT_DATA = []
-    const COMMENT_DATA = []
-    const LIKE_DATA = []
-    const beginDay = new Date().getTime()
-    for (let i = 0; i < 30; i++) {
-      const x = moment(new Date(beginDay - 1000 * 60 * 60 * 24 * i)).format(
-        'YYYY-MM-DD'
-      )
-      USER_DATA.unshift({ x, y: Math.floor(Math.random() * 20) + 1 })
-      VISIT_DATA.unshift({ x, y: Math.floor(Math.random() * 20) + 1 })
-      COMMENT_DATA.unshift({ x, y: Math.floor(Math.random() * 20) + 1 })
-      LIKE_DATA.unshift({ x, y: Math.floor(Math.random() * 20) + 1 })
-    }
-
-    const DAYS = 10 - 1
-
-    const TOTAL_USERS = USER_DATA.reduce((total, cur) => total + cur.y, 0)
-    const DAILY_USERS = USER_DATA[DAYS].y
-    const DAILY_USERS_CHANGE = USER_DATA[DAYS].y - USER_DATA[DAYS - 1].y
-
-    const TOTAL_VISITS = VISIT_DATA.reduce((total, cur) => total + cur.y, 0)
-    const DAILY_VISITS = VISIT_DATA[DAYS].y
-    const DAILY_VISITS_CHANGE = VISIT_DATA[DAYS].y - VISIT_DATA[DAYS - 1].y
-
-    const TOTAL_LIKES = LIKE_DATA.reduce((total, cur) => total + cur.y, 0)
-    const DAILY_LIKES = LIKE_DATA[DAYS].y
-    const DAILY_LIKES_CHANGE = LIKE_DATA[DAYS].y - LIKE_DATA[DAYS - 1].y
-
-    const TOTAL_COMMENTS = COMMENT_DATA.reduce((total, cur) => total + cur.y, 0)
-    const DAILY_COMMENTS = COMMENT_DATA[DAYS].y
-    const DAILY_COMMENTS_CHANGE =
-      COMMENT_DATA[DAYS].y - COMMENT_DATA[DAYS - 1].y
-
     const fetchData = async () => {
       try {
         let sculpturesPromise = api.get('/sculpture')
         let usersPromise = api.get('/user')
+        let totalLikesPromise = api.get('/stats/total/likes')
+        let totalCommentsPromise = api.get('/stats/total/comments')
+        let totalVisitsPromise = api.get('/stats/total/visits')
 
-        const [rawSculptures, rawUsers] = await Promise.all([
+        const today = startDate.format('YYYY-MM-DD')
+        const past = endDate.format('YYYY-MM-DD')
+        console.log('past', past)
+        console.log('today', today)
+
+        const likesPromise = api.get(
+          `/stats/likes?fromDate=${past}&toDate=${today}`
+        )
+        const commentsPromise = api.get(
+          `/stats/comments?fromDate=${past}&toDate=${today}`
+        )
+        const visitPromise = api.get(
+          `/stats/visits?fromDate=${past}&toDate=${today}`
+        )
+        const userStatsPromise = api.get(
+          `/stats/users?fromDate=${past}&toDate=${today}`
+        )
+
+        const [
+          rawSculptures,
+          rawUsers,
+          {
+            data: { totalLikes }
+          },
+          {
+            data: { totalComments }
+          },
+          {
+            data: { totalVisits }
+          },
+          { data: rawLikes },
+          { data: rawComments },
+          { data: rawVisits },
+          { data: rawUserStats }
+        ] = await Promise.all([
           sculpturesPromise,
-          usersPromise
+          usersPromise,
+          totalLikesPromise,
+          totalCommentsPromise,
+          totalVisitsPromise,
+          likesPromise,
+          commentsPromise,
+          visitPromise,
+          userStatsPromise
         ])
+
+        // format daily data statistics
+        const USER_DATA = formatDailyData(rawUserStats)
+        const LIKE_DATA = formatDailyData(rawLikes)
+        const COMMENT_DATA = formatDailyData(rawComments)
+        const VISIT_DATA = formatDailyData(rawVisits)
+
+        const DAILY_USERS = USER_DATA[USER_DATA.length - 1].y
+        const DAILY_USERS_CHANGE =
+          DAILY_USERS - USER_DATA[USER_DATA.length - 2].y
+
+        const DAILY_VISITS = VISIT_DATA[VISIT_DATA.length - 1].y
+        const DAILY_VISITS_CHANGE =
+          DAILY_VISITS - VISIT_DATA[VISIT_DATA.length - 2].y
+
+        const DAILY_LIKES = LIKE_DATA[LIKE_DATA.length - 1].y
+        const DAILY_LIKES_CHANGE =
+          DAILY_LIKES - LIKE_DATA[LIKE_DATA.length - 2].y
+
+        const DAILY_COMMENTS = COMMENT_DATA[COMMENT_DATA.length - 1].y
+        const DAILY_COMMENTS_CHANGE =
+          DAILY_COMMENTS - COMMENT_DATA[COMMENT_DATA.length - 2].y
 
         const formattedSculptures = rawSculptures.data.map(x => ({
           ...x,
@@ -84,10 +136,27 @@ const Dashboard = () => {
 
         const formattedUsers = rawUsers.data.filter(x => !x.role)
 
-        // console.log(formattedSculptures)
-        // console.log(formattedUsers)
         setSculptures(formattedSculptures)
         setUsers(formattedUsers)
+
+        setState({
+          TOTAL_USERS: formattedUsers.length,
+          DAILY_USERS,
+          DAILY_USERS_CHANGE,
+          TOTAL_VISITS: totalVisits,
+          DAILY_VISITS,
+          DAILY_VISITS_CHANGE,
+          TOTAL_LIKES: totalLikes,
+          DAILY_LIKES,
+          DAILY_LIKES_CHANGE,
+          TOTAL_COMMENTS: totalComments,
+          DAILY_COMMENTS,
+          DAILY_COMMENTS_CHANGE,
+          USER_DATA,
+          VISIT_DATA,
+          LIKE_DATA,
+          COMMENT_DATA
+        })
       } catch (e) {
         const { statusCode, message } = e.response.data
         setError({
@@ -98,26 +167,7 @@ const Dashboard = () => {
       setLoading(false)
     }
     fetchData()
-
-    setState({
-      TOTAL_USERS,
-      DAILY_USERS,
-      DAILY_USERS_CHANGE,
-      TOTAL_VISITS,
-      DAILY_VISITS,
-      DAILY_VISITS_CHANGE,
-      TOTAL_LIKES,
-      DAILY_LIKES,
-      DAILY_LIKES_CHANGE,
-      TOTAL_COMMENTS,
-      DAILY_COMMENTS,
-      DAILY_COMMENTS_CHANGE,
-      USER_DATA,
-      VISIT_DATA,
-      LIKE_DATA,
-      COMMENT_DATA
-    })
-  }, [])
+  }, [endDate, startDate])
 
   const {
     TOTAL_USERS,
@@ -155,6 +205,8 @@ const Dashboard = () => {
             DAILY_USERS={DAILY_USERS}
             DAILY_USERS_CHANGE={DAILY_USERS_CHANGE}
             USER_DATA={USER_DATA}
+            startDate={startDate}
+            endDate={endDate}
           />
         </ColStyled>
 
@@ -164,6 +216,8 @@ const Dashboard = () => {
             DAILY_VISITS={DAILY_VISITS}
             DAILY_VISITS_CHANGE={DAILY_VISITS_CHANGE}
             VISIT_DATA={VISIT_DATA}
+            startDate={startDate}
+            endDate={endDate}
           />
         </ColStyled>
 
@@ -173,6 +227,8 @@ const Dashboard = () => {
             DAILY_LIKES={DAILY_LIKES}
             DAILY_LIKES_CHANGE={DAILY_LIKES_CHANGE}
             LIKE_DATA={LIKE_DATA}
+            startDate={startDate}
+            endDate={endDate}
           />
         </ColStyled>
 
@@ -182,6 +238,8 @@ const Dashboard = () => {
             DAILY_COMMENTS={DAILY_COMMENTS}
             DAILY_COMMENTS_CHANGE={DAILY_COMMENTS_CHANGE}
             COMMENT_DATA={COMMENT_DATA}
+            startDate={startDate}
+            endDate={endDate}
           />
         </ColStyled>
 

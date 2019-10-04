@@ -3,33 +3,32 @@ import moment from 'moment'
 import { Tooltip, List, Comment, Card } from 'antd'
 import Link from 'next/link'
 
-const UserLikes = ({ likes }) => {
+const RecentLikes = ({ likes }) => {
   likes.sort(
     (a, b) => new Date(b.likedTime).getTime() - new Date(a.likedTime).getTime()
   )
   const formattedComments = likes.map(x => ({
     author: (
-      <span>
-        <Link href="/sculptures/id/[id]" as={`/sculptures/id/${x.sculptureId}`}>
-          <a
-            style={{
-              fontSize: 14,
-              fontWeight: 500,
-              color: 'rgba(0, 0, 0, 0.65)'
-            }}
-          >
-            {x.sculpture.name}
-          </a>
-        </Link>
-      </span>
+      <Link href="/users/id/[id]" as={`/users/id/${x.user.userId}`}>
+        <a
+          style={{
+            fontSize: 14,
+            fontWeight: 500,
+            color: 'rgba(0, 0, 0, 0.65)'
+          }}
+        >
+          {x.user.userId.includes('auth0') ? x.user.nickname : x.user.name}
+        </a>
+      </Link>
     ),
     avatar: (
       <img
-        src={x.sculpture.images[0].url}
+        src={x.user.picture}
         style={{
           width: 42,
           height: 42,
-          borderRadius: 4
+          borderRadius: '50%',
+          objectFit: 'cover'
         }}
       />
     ),
@@ -50,15 +49,38 @@ const UserLikes = ({ likes }) => {
           </span>
         </Tooltip>
       </div>
+    ),
+    datetime: (
+      <div>
+        <span
+          style={{
+            fontSize: 14,
+            color: 'rgba(0, 0, 0, 0.35)'
+          }}
+        >
+          visited{' '}
+        </span>
+        <Link
+          href="/sculptures/id/[id]"
+          as={`/sculptures/id/${x.sculpture.accessionId}`}
+        >
+          <a
+            style={{
+              fontSize: 14
+            }}
+          >
+            {x.sculpture.name}
+          </a>
+        </Link>
+      </div>
     )
   }))
 
   return (
     <Card
-      title="Likes"
+      title="Recent Likes"
       bodyStyle={{ padding: '20px 24px 0px' }}
       bordered={false}
-      style={{ marginTop: 12 }}
     >
       <List
         itemLayout="horizontal"
@@ -70,6 +92,7 @@ const UserLikes = ({ likes }) => {
               author={item.author}
               avatar={item.avatar}
               content={item.content}
+              datetime={item.datetime}
               className="comment"
             />
           </li>
@@ -80,4 +103,4 @@ const UserLikes = ({ likes }) => {
   )
 }
 
-export default UserLikes
+export default RecentLikes

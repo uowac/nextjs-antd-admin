@@ -102,7 +102,8 @@ const UserProfile = () => {
                   style={{
                     width: 72,
                     height: 72,
-                    borderRadius: '50%'
+                    borderRadius: '50%',
+                    objectFit: 'cover'
                   }}
                 />
               </div>

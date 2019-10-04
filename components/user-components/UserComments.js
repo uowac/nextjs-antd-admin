@@ -72,7 +72,8 @@ const UserComments = ({ comments, deleteComment }) => {
         style={{
           width: 42,
           height: 42,
-          borderRadius: '50%'
+          borderRadius: '50%',
+          objectFit: 'cover'
         }}
       />
     ),
@@ -159,7 +160,7 @@ const UserComments = ({ comments, deleteComment }) => {
             />
           </li>
         )}
-        pagination={{ pageSize: 25, hideOnSinglePage: true }}
+        pagination={{ pageSize: 15, hideOnSinglePage: true }}
       />
     </Card>
   )

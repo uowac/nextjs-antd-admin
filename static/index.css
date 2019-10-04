@@ -175,6 +175,10 @@
   margin-bottom: 20px;
 }
 
+.ant-dropdown-menu.date-menu {
+  padding: 0px !important;
+}
+
 body {
   margin: 0;
   line-height: normal;
