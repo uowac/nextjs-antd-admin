@@ -2,9 +2,15 @@ import { Card, Tooltip, Icon, Divider, Col } from 'antd'
 import { NumberInfo } from 'ant-design-pro'
 import styled from 'styled-components'
 
-export const CardStyled = props => (
-  <Card bodyStyle={{ padding: '20px 24px 8px' }} bordered={false} {...props} />
-)
+export const CardStyled = props => {
+  const bodyStyle = {
+    padding: '20px 24px 8px'
+  }
+  if (props.type === 'stats') {
+    bodyStyle.padding = '20px 16px 16px'
+  }
+  return <Card bodyStyle={bodyStyle} bordered={false} {...props} />
+}
 
 export const NumberInfoStyled = props => (
   <NumberInfo
@@ -75,4 +81,19 @@ export const BarContainer = styled.div`
   height: 90px;
   margin-top: 10px;
   margin-bottom: -10px;
+`
+
+export const ShadowCard = styled(CardStyled)`
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 9px 24px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(242, 242, 242);
+  border-radius: 3px;
+  transition: all 150ms ease-in-out 0s;
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 9px 24px;
+    cursor: pointer;
+    transition: all 150ms ease-in-out 0s;
+  }
 `

@@ -177,6 +177,7 @@
 
 .ant-dropdown-menu.date-menu {
   padding: 0px !important;
+  box-shadow: none !important;
 }
 
 body {

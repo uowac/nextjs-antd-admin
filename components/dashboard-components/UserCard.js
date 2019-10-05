@@ -20,7 +20,7 @@ export default ({
   USER_DATA
 }) => {
   return (
-    <CardStyled>
+    <>
       <div style={{ display: 'flex' }}>
         <MainIcon type="team" style={{ color: 'rgb(24, 144, 255)' }} />
         <NumberInfoStyled subTitle="Total users" total={TOTAL_USERS} />
@@ -37,6 +37,6 @@ export default ({
         value={DAILY_USERS}
         change={DAILY_USERS_CHANGE}
       />
-    </CardStyled>
+    </>
   )
 }

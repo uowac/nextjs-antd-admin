@@ -21,7 +21,7 @@ export default ({
   COMMENT_DATA
 }) => {
   return (
-    <CardStyled>
+    <>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <MainIcon
           type="message"
@@ -47,6 +47,6 @@ export default ({
         value={DAILY_COMMENTS}
         change={DAILY_COMMENTS_CHANGE}
       />
-    </CardStyled>
+    </>
   )
 }

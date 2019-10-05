@@ -20,7 +20,7 @@ export default ({
   DAILY_LIKES_CHANGE,
   LIKE_DATA
 }) => (
-  <CardStyled>
+  <>
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <MainIcon type="heart" theme="twoTone" twoToneColor="#eb2f96" />
       <NumberInfoStyled subTitle="Likes" total={TOTAL_LIKES} />
@@ -37,5 +37,5 @@ export default ({
       value={DAILY_LIKES}
       change={DAILY_LIKES_CHANGE}
     />
-  </CardStyled>
+  </>
 )
