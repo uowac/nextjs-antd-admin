@@ -58,7 +58,7 @@ const RecentLikes = ({ likes }) => {
             color: 'rgba(0, 0, 0, 0.35)'
           }}
         >
-          visited{' '}
+          liked{' '}
         </span>
         <Link
           href="/sculptures/id/[id]"

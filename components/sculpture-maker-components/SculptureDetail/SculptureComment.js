@@ -19,7 +19,7 @@ const { confirm } = Modal
 const SculptureComment = ({ comments, deleteComment }) => {
   comments.sort(
     (a, b) =>
-      new Date(b.updatedTime).getTime() - new Date(a.updatedTime).getTime()
+      new Date(b.createdTime).getTime() - new Date(a.createdTime).getTime()
   )
 
   const handleDelete = e => {
@@ -100,14 +100,14 @@ const SculptureComment = ({ comments, deleteComment }) => {
           display: 'flex'
         }}
       >
-        <Tooltip title={moment(x.updatedTime).format('D MMMM YYYY, h:mm:ss a')}>
+        <Tooltip title={moment(x.createdTime).format('D MMMM YYYY, h:mm:ss a')}>
           <div
             style={{
               fontSize: 14,
               color: 'rgba(0, 0, 0, 0.35)'
             }}
           >
-            {moment(x.updatedTime).fromNow()}
+            {moment(x.createdTime).fromNow()}
           </div>
         </Tooltip>
         <div

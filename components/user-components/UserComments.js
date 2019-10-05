@@ -52,7 +52,7 @@ const UserComments = ({ comments, deleteComment }) => {
 
   comments.sort(
     (a, b) =>
-      new Date(b.updatedTime).getTime() - new Date(a.updatedTime).getTime()
+      new Date(b.createdTime).getTime() - new Date(a.createdTime).getTime()
   )
   const formattedComments = comments.map(x => ({
     author: (
@@ -99,7 +99,7 @@ const UserComments = ({ comments, deleteComment }) => {
       >
         <div>
           <Tooltip
-            title={moment(x.updatedTime).format('D MMMM YYYY, h:mm:ss a')}
+            title={moment(x.createdTime).format('D MMMM YYYY, h:mm:ss a')}
           >
             <span
               style={{
@@ -107,7 +107,7 @@ const UserComments = ({ comments, deleteComment }) => {
                 color: 'rgba(0, 0, 0, 0.35)'
               }}
             >
-              {moment(x.updatedTime).fromNow()} in{' '}
+              {moment(x.createdTime).fromNow()} in{' '}
             </span>
           </Tooltip>
           <Link

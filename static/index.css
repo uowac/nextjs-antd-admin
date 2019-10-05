@@ -180,6 +180,11 @@
   box-shadow: none !important;
 }
 
+.ant-comment-content-author > a,
+.ant-comment-content-author > span {
+  padding-right: 4px !important;
+}
+
 body {
   margin: 0;
   line-height: normal;
