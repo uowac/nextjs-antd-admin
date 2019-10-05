@@ -40,20 +40,15 @@ const onRedirectCallback = appState => {
 }
 
 const App = ({ children }) => {
-  const { loading, getTokenSilently } = useAuth0()
+  const { loading, isAuthenticated, getTokenSilently } = useAuth0()
 
-  useEffect(() => {
-    const fetchToken = async () => {
-      if (!loading) {
-        const token = await getTokenSilently()
-        nookies.set({}, 'accessToken', token, {
-          path: '/'
-        })
-      }
-    }
-
-    fetchToken()
-  }, [getTokenSilently, loading])
+  if (isAuthenticated) {
+    getTokenSilently().then(token => {
+      nookies.set({}, 'accessToken', token, {
+        path: '/'
+      })
+    })
+  }
 
   if (loading) return <Loading />
 

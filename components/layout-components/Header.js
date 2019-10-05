@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Logo } from './LogoTitle'
 import Link from 'next/link'
 import { useAuth0 } from '../auth0-components'
+import nookies from 'nookies'
 
 const TriggerBlock = styled.div`
   display: inline-block;
@@ -46,6 +47,8 @@ const MyMenu = () => {
                 : 'https://dashboard.uowac.now.sh',
             client_id: process.env.AUTH0_CLIENT_ID
           })
+          nookies.destroy({}, 'auth0.is.authenticated')
+          nookies.destroy({}, 'accessToken')
         }
       }}
     >
