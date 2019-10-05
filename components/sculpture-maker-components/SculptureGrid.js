@@ -39,6 +39,9 @@ const SculptureCard = ({
   }
 }) => {
   const makerName = primaryMaker.firstName + ' ' + primaryMaker.lastName
+  images.sort(
+    (a, b) => new Date(a.created).getTime() - new Date(b.created).getTime()
+  )
   return (
     <Link href="/sculptures/id/[id]" as={`/sculptures/id/${accessionId}`}>
       <a style={{ display: 'inline-block', width: '100%' }}>

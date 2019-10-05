@@ -84,6 +84,9 @@ const SculptureDetail = () => {
   const markerLat = Number(latitude)
   const markerLng = Number(longitude)
 
+  images.sort(
+    (a, b) => new Date(a.created).getTime() - new Date(b.created).getTime()
+  )
   const imageList = images.map((image, idx) => (
     <div key={idx}>
       <img src={image.url} />

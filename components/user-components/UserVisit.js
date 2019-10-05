@@ -7,6 +7,12 @@ const UserVisit = ({ visits }) => {
   visits.sort(
     (a, b) => new Date(b.visitTime).getTime() - new Date(a.visitTime).getTime()
   )
+  visits.forEach(x => {
+    x.sculpture.images.sort(
+      (a, b) => new Date(a.created).getTime() - new Date(b.created).getTime()
+    )
+  })
+
   const formattedComments = visits.map(x => ({
     author: (
       <span>
@@ -29,7 +35,8 @@ const UserVisit = ({ visits }) => {
         style={{
           width: 42,
           height: 42,
-          borderRadius: 4
+          borderRadius: 4,
+          objectFit: 'cover'
         }}
       />
     ),

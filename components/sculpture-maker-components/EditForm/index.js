@@ -92,6 +92,10 @@ const SculptureEditForm = () => {
   if (error)
     return <Error statusCode={error.statusCode} title={error.message} />
 
+  initialData.images.sort(
+    (a, b) => new Date(a.created).getTime() - new Date(b.created).getTime()
+  )
+
   return (
     <>
       <Head>

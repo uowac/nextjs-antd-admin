@@ -7,6 +7,13 @@ const UserLikes = ({ likes }) => {
   likes.sort(
     (a, b) => new Date(b.likedTime).getTime() - new Date(a.likedTime).getTime()
   )
+
+  likes.forEach(x => {
+    x.sculpture.images.sort(
+      (a, b) => new Date(a.created).getTime() - new Date(b.created).getTime()
+    )
+  })
+
   const formattedComments = likes.map(x => ({
     author: (
       <span>
@@ -29,6 +36,7 @@ const UserLikes = ({ likes }) => {
         style={{
           width: 42,
           height: 42,
+          objectFit: 'cover',
           borderRadius: 4
         }}
       />
