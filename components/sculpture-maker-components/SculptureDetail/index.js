@@ -12,6 +12,7 @@ import Head from 'next/head'
 import SculptureComment from './SculptureComment'
 import { format } from 'path'
 import moment from 'moment'
+import SculptureTrend from './SculptureTrend'
 
 const { Text, Title, Paragraph } = Typography
 
@@ -193,14 +194,12 @@ const SculptureDetail = () => {
             </div>
           </CardStyled>
 
-          <CardStyled
-            title="Trends"
-            style={{
-              marginTop: 12
-            }}
-          >
-            To do
-          </CardStyled>
+          <SculptureTrend
+            totalLikes={totalLikes}
+            totalComments={totalComments}
+            totalVisits={totalVisits}
+            sculptureId={id}
+          />
         </ColStyled>
         {/* Maker detail */}
         <ColStyled xs={24} lg={9}>
