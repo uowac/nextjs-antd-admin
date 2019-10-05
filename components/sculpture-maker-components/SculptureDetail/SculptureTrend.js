@@ -119,7 +119,7 @@ const SculptureTrend = ({
 
   const generateMenu = (startDate, endDate) => {
     const disabledDate = current => {
-      return current.valueOf() > endDate.valueOf()
+      return current.valueOf() > staticToday.valueOf()
     }
 
     return (
