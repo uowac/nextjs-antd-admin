@@ -219,6 +219,7 @@ const Editor = ({
               content: value
             })).data
             setSubmitting(false)
+            setValue('')
             console.log(result)
             addComment(result)
           } catch (e) {
