@@ -59,7 +59,10 @@ const SculptureCard = ({
                 />
               </div>
             ) : (
-              <EmptyImage image={Empty.PRESENTED_IMAGE_SIMPLE} />
+              <EmptyImage
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                description="No Images"
+              />
               // <div style={{ height: 450, border: '1px solid black' }}>hey</div>
             )
           }

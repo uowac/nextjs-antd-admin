@@ -1,6 +1,6 @@
-import { CardStyled } from './style'
+import { CardStyled, EmptyImage } from './style'
 import moment from 'moment'
-import { Tooltip, List, Comment, Card } from 'antd'
+import { Tooltip, List, Comment, Card, Empty } from 'antd'
 import Link from 'next/link'
 
 const UserVisit = ({ visits }) => {
@@ -30,15 +30,21 @@ const UserVisit = ({ visits }) => {
       </span>
     ),
     avatar: (
-      <img
-        src={x.sculpture.images[0].url}
-        style={{
-          width: 42,
-          height: 42,
-          borderRadius: 4,
-          objectFit: 'cover'
-        }}
-      />
+      <div>
+        <img
+          src={
+            x.sculpture.images.length
+              ? x.sculpture.images[0].url
+              : '../../static/no-image.png'
+          }
+          style={{
+            width: 42,
+            height: 42,
+            objectFit: 'cover',
+            borderRadius: 4
+          }}
+        />
+      </div>
     ),
     content: (
       <div

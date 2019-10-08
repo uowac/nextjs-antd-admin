@@ -9,14 +9,22 @@ import {
   Dropdown,
   Menu,
   Modal,
-  message
+  message,
+  Form,
+  Button
 } from 'antd'
 import Link from 'next/link'
 import api from '../../../api'
 import { useState, useEffect } from 'react'
+import TextArea from 'antd/lib/input/TextArea'
 const { confirm } = Modal
 
-const SculptureComment = ({ comments, deleteComment }) => {
+const SculptureComment = ({
+  comments,
+  deleteComment,
+  addComment,
+  sculptureId
+}) => {
   comments.sort(
     (a, b) =>
       new Date(b.createdTime).getTime() - new Date(a.createdTime).getTime()
@@ -47,6 +55,9 @@ const SculptureComment = ({ comments, deleteComment }) => {
       }
     })
   }
+
+  const [submitting, setSubmitting] = useState(false)
+  const [value, setValue] = useState('')
 
   const getMenu = commentId => (
     <Menu onClick={handleDelete}>
@@ -147,10 +158,80 @@ const SculptureComment = ({ comments, deleteComment }) => {
             />
           </li>
         )}
-        pagination={{ pageSize: 15, hideOnSinglePage: true }}
+        pagination={{ pageSize: 15, hideOnSinglePage: false }}
+      />
+      <Comment
+        className="admin-comment"
+        avatar={
+          <img
+            src={'../../../static/avatar.png'}
+            style={{
+              width: 42,
+              height: 42,
+              borderRadius: '50%',
+              objectFit: 'cover'
+            }}
+          />
+        }
+        content={
+          <Editor
+            value={value}
+            setValue={setValue}
+            submitting={submitting}
+            setSubmitting={setSubmitting}
+            sculptureId={sculptureId}
+            addComment={addComment}
+          />
+        }
       />
     </Card>
   )
 }
+
+const Editor = ({
+  value,
+  setValue,
+  setSubmitting,
+  submitting,
+  sculptureId,
+  addComment
+}) => (
+  <>
+    <div style={{ marginBottom: 12 }}>
+      <TextArea
+        autosize={{ minRows: 2 }}
+        onChange={e => {
+          setValue(e.target.value)
+        }}
+        value={value}
+      />
+    </div>
+    <div style={{ marginBottom: 16 }}>
+      <Button
+        htmlType="submit"
+        disabled={value.trim() === ''}
+        loading={submitting}
+        onClick={async () => {
+          setSubmitting(true)
+          try {
+            const result = (await api.post('/comment', {
+              sculptureId,
+              content: value
+            })).data
+            setSubmitting(false)
+            console.log(result)
+            addComment(result)
+          } catch (e) {
+            setSubmitting(false)
+            message.error(e.response.data.message)
+          }
+        }}
+        type="primary"
+      >
+        Post
+      </Button>
+    </div>
+  </>
+)
 
 export default SculptureComment

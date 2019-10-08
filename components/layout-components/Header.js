@@ -5,6 +5,7 @@ import { Logo } from './LogoTitle'
 import Link from 'next/link'
 import { useAuth0 } from '../auth0-components'
 import nookies from 'nookies'
+import Router from 'next/router'
 
 const TriggerBlock = styled.div`
   display: inline-block;
@@ -35,7 +36,7 @@ const HeaderBlock = styled(TriggerBlock)`
 `
 
 const MyMenu = () => {
-  const { logout } = useAuth0()
+  const { logout, user } = useAuth0()
   return (
     <Menu
       onClick={item => {
@@ -49,9 +50,16 @@ const MyMenu = () => {
           })
           nookies.destroy({}, 'auth0.is.authenticated')
           nookies.destroy({}, 'accessToken')
+        } else if (item.key == 'profile') {
+          Router.push('/users/id/[id]', `/users/id/${user.sub}`)
         }
       }}
     >
+      <Menu.Item key="profile">
+        <Icon type="user" />
+        Profile
+      </Menu.Item>
+      <Menu.Divider style={{ marginTop: -5, marginBottom: 0 }} />
       <Menu.Item key="logout">
         <Icon type="logout" />
         Logout

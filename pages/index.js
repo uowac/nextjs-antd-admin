@@ -121,8 +121,8 @@ const Dashboard = () => {
       try {
         const past = startDate.format('YYYY-MM-DD')
         const today = endDate.format('YYYY-MM-DD')
-        console.log('past', past)
-        console.log('today', today)
+        // console.log('past', past)
+        // console.log('today', today)
 
         const likesPromise = api.get(
           `/stats/likes?fromDate=${past}&toDate=${today}`

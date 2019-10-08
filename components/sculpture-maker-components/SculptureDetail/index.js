@@ -34,6 +34,7 @@ const SculptureDetail = () => {
         ])
 
         setComments(rawComments.data)
+        console.log('hhhh', rawComments.data)
         setSculpture(rawSculpture.data)
       } catch (e) {
         const { statusCode, message } = e.response.data
@@ -54,6 +55,10 @@ const SculptureDetail = () => {
       ...x,
       totalComments: x.totalComments - 1
     }))
+  }
+
+  const addComment = comment => {
+    setComments(c => [comment, ...c])
   }
 
   const router = useRouter()
@@ -251,7 +256,12 @@ const SculptureDetail = () => {
             </List>
           </CardStyled>
 
-          <SculptureComment comments={comments} deleteComment={deleteComment} />
+          <SculptureComment
+            comments={comments}
+            deleteComment={deleteComment}
+            addComment={addComment}
+            sculptureId={id}
+          />
         </ColStyled>
       </Row>
     </>

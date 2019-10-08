@@ -185,6 +185,10 @@
   padding-right: 4px !important;
 }
 
+.admin-comment .ant-comment-content-author {
+  margin-bottom: 0px !important;
+}
+
 body {
   margin: 0;
   line-height: normal;
