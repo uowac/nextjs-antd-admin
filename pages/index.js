@@ -16,7 +16,7 @@ const { RangePicker } = DatePicker
 import moment from 'moment'
 import { useAuth0 } from '../components/auth0-components'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Auth from '../components/AuthPage'
 import Loading from '../components/Loading'
 import Error from 'next/error'
@@ -44,6 +44,7 @@ const Dashboard = () => {
   const [state, setState] = useState({})
   const [sculptures, setSculptures] = useState([])
   const [users, setUsers] = useState([])
+  const init = useRef(false)
   const [loading, setLoading] = useState(0)
   const [error, setError] = useState(null)
 
@@ -173,19 +174,26 @@ const Dashboard = () => {
 
         setState(state => ({
           ...state,
-          DAILY_USERS,
-          DAILY_USERS_CHANGE,
-          DAILY_VISITS,
-          DAILY_VISITS_CHANGE,
-          DAILY_LIKES,
-          DAILY_LIKES_CHANGE,
-          DAILY_COMMENTS,
-          DAILY_COMMENTS_CHANGE,
           USER_DATA,
           VISIT_DATA,
           LIKE_DATA,
           COMMENT_DATA
         }))
+
+        if (!init.current) {
+          init.current = true
+          setState(state => ({
+            ...state,
+            DAILY_USERS,
+            DAILY_USERS_CHANGE,
+            DAILY_VISITS,
+            DAILY_VISITS_CHANGE,
+            DAILY_LIKES,
+            DAILY_LIKES_CHANGE,
+            DAILY_COMMENTS,
+            DAILY_COMMENTS_CHANGE
+          }))
+        }
       } catch (e) {
         const { statusCode, message } = e.response.data
         setError({

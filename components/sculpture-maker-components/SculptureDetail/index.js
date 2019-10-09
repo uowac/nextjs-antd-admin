@@ -53,12 +53,16 @@ const SculptureDetail = () => {
     setComments(c => c.filter(x => x.commentId !== commentId))
     setSculpture(x => ({
       ...x,
-      totalComments: x.totalComments - 1
+      totalComments: +x.totalComments - 1
     }))
   }
 
   const addComment = comment => {
     setComments(c => [comment, ...c])
+    setSculpture(x => ({
+      ...x,
+      totalComments: +x.totalComments + 1
+    }))
   }
 
   const router = useRouter()

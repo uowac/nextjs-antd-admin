@@ -10,7 +10,7 @@ import { Row, Spin, Dropdown, Icon, Menu, DatePicker } from 'antd'
 const { RangePicker } = DatePicker
 
 import moment from 'moment'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Loading from '../../Loading'
 import Error from 'next/error'
 import api from '../../../api'
@@ -40,8 +40,9 @@ const SculptureTrend = ({
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  const defaultEndDate = moment(new Date())
-  const defaultStartDate = moment(defaultEndDate).subtract(7, 'days')
+  const defaultEndDate = useRef(moment(new Date())).current
+  const defaultStartDate = useRef(moment(defaultEndDate).subtract(7, 'days'))
+    .current
 
   const [startDate, setStartDate] = useState(defaultStartDate)
   const [endDate, setEndDate] = useState(defaultEndDate)
@@ -51,8 +52,6 @@ const SculptureTrend = ({
       try {
         const past = startDate.format('YYYY-MM-DD')
         const today = endDate.format('YYYY-MM-DD')
-        // console.log('past', past)
-        // console.log('today', today)
 
         const likesPromise = api.get(
           `/stats/likes/sculpture-id/${sculptureId}?fromDate=${past}&toDate=${today}`
@@ -64,28 +63,54 @@ const SculptureTrend = ({
           `/stats/visits/sculpture-id/${sculptureId}?fromDate=${past}&toDate=${today}`
         )
 
+        const defaultLikesPromise = api.get(
+          `/stats/likes/sculpture-id/${sculptureId}?fromDate=${past}&toDate=${defaultEndDate}`
+        )
+        const defaultCommentsPromise = api.get(
+          `/stats/comments/sculpture-id/${sculptureId}?fromDate=${past}&toDate=${defaultEndDate}`
+        )
+        const defaultVisitsPromise = api.get(
+          `/stats/visits/sculpture-id/${sculptureId}?fromDate=${past}&toDate=${defaultEndDate}`
+        )
+
         const [
           { data: rawLikes },
           { data: rawComments },
-          { data: rawVisits }
-        ] = await Promise.all([likesPromise, commentsPromise, visitPromise])
+          { data: rawVisits },
+          { data: rawDefaultLikes },
+          { data: rawDefaultComments },
+          { data: rawDefaultVisits }
+        ] = await Promise.all([
+          likesPromise,
+          commentsPromise,
+          visitPromise,
+          defaultLikesPromise,
+          defaultCommentsPromise,
+          defaultVisitsPromise
+        ])
 
         // format daily data statistics
         const LIKE_DATA = formatDailyData(rawLikes)
         const COMMENT_DATA = formatDailyData(rawComments)
         const VISIT_DATA = formatDailyData(rawVisits)
 
-        const DAILY_VISITS = VISIT_DATA[VISIT_DATA.length - 1].y
+        const DEFAULT_LIKE_DATA = formatDailyData(rawDefaultLikes)
+        const DEFAULT_COMMENT_DATA = formatDailyData(rawDefaultComments)
+        const DEFAULT_VISIT_DATA = formatDailyData(rawDefaultVisits)
+
+        const DAILY_VISITS = DEFAULT_VISIT_DATA[DEFAULT_VISIT_DATA.length - 1].y
         const DAILY_VISITS_CHANGE =
-          DAILY_VISITS - VISIT_DATA[VISIT_DATA.length - 2].y
+          DAILY_VISITS - DEFAULT_VISIT_DATA[DEFAULT_VISIT_DATA.length - 2].y
 
-        const DAILY_LIKES = LIKE_DATA[LIKE_DATA.length - 1].y
+        const DAILY_LIKES = DEFAULT_LIKE_DATA[DEFAULT_LIKE_DATA.length - 1].y
         const DAILY_LIKES_CHANGE =
-          DAILY_LIKES - LIKE_DATA[LIKE_DATA.length - 2].y
+          DAILY_LIKES - DEFAULT_LIKE_DATA[DEFAULT_LIKE_DATA.length - 2].y
 
-        const DAILY_COMMENTS = COMMENT_DATA[COMMENT_DATA.length - 1].y
+        const DAILY_COMMENTS =
+          DEFAULT_COMMENT_DATA[DEFAULT_COMMENT_DATA.length - 1].y
         const DAILY_COMMENTS_CHANGE =
-          DAILY_COMMENTS - COMMENT_DATA[COMMENT_DATA.length - 2].y
+          DAILY_COMMENTS -
+          DEFAULT_COMMENT_DATA[DEFAULT_COMMENT_DATA.length - 2].y
 
         setState(state => ({
           ...state,
@@ -112,7 +137,7 @@ const SculptureTrend = ({
       setLoading(false)
     }
     fetchData()
-  }, [endDate, sculptureId, startDate, totalComments, totalLikes, totalVisits])
+  }, [defaultEndDate, endDate, sculptureId, startDate, totalComments, totalLikes, totalVisits])
 
   const dateFormat = 'MMM D YYYY'
   const staticToday = moment(new Date())
