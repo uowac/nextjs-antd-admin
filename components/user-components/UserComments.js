@@ -9,7 +9,8 @@ import {
   Icon,
   message,
   Menu,
-  Modal
+  Modal,
+  Empty
 } from 'antd'
 
 const { confirm } = Modal
@@ -149,6 +150,14 @@ const UserComments = ({ comments, deleteComment }) => {
         itemLayout="horizontal"
         dataSource={formattedComments}
         className="comment-list"
+        locale={{
+          emptyText: (
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description="No Comments"
+            />
+          )
+        }}
         renderItem={item => (
           <li>
             <Comment

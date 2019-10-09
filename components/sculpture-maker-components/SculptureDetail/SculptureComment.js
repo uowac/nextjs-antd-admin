@@ -11,7 +11,8 @@ import {
   Modal,
   message,
   Form,
-  Button
+  Button,
+  Empty
 } from 'antd'
 import Link from 'next/link'
 import api from '../../../api'
@@ -147,6 +148,14 @@ const SculptureComment = ({
         itemLayout="horizontal"
         dataSource={formattedComments}
         className="comment-list"
+        locale={{
+          emptyText: (
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description="No Comments"
+            />
+          )
+        }}
         renderItem={item => (
           <li>
             <Comment
@@ -158,7 +167,7 @@ const SculptureComment = ({
             />
           </li>
         )}
-        pagination={{ pageSize: 15, hideOnSinglePage: false }}
+        pagination={{ pageSize: 15, hideOnSinglePage: true }}
       />
       <Comment
         className="admin-comment"

@@ -19,13 +19,16 @@ export default ({
   TOTAL_VISITS,
   DAILY_VISITS,
   DAILY_VISITS_CHANGE,
-  VISIT_DATA
+  VISIT_DATA,
+  SINGLE_SCULPTURE
 }) => (
   <>
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <MainIcon type="environment" style={{ color: '#F73F3F' }} />
       <NumberInfoStyled subTitle="Total visits" total={TOTAL_VISITS} />
-      <HelperIcon title="Total number of times sculptures have been visited" />
+      {!SINGLE_SCULPTURE && (
+        <HelperIcon title="Total number of times sculptures have been visited" />
+      )}
     </div>
 
     <BarContainer>

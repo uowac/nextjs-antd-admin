@@ -230,6 +230,7 @@ const SculptureTrend = ({
             VISIT_DATA={VISIT_DATA}
             startDate={startDate}
             endDate={endDate}
+            SINGLE_SCULPTURE
           />
         </ShadowCard>
       </ColStyled>

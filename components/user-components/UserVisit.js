@@ -77,6 +77,14 @@ const UserVisit = ({ visits }) => {
         itemLayout="horizontal"
         dataSource={formattedComments}
         className="comment-list"
+        locale={{
+          emptyText: (
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description="No Visits"
+            />
+          )
+        }}
         renderItem={item => (
           <li>
             <Comment

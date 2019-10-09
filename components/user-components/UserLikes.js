@@ -78,6 +78,14 @@ const UserLikes = ({ likes }) => {
         itemLayout="horizontal"
         dataSource={formattedComments}
         className="comment-list"
+        locale={{
+          emptyText: (
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description="No Likes"
+            />
+          )
+        }}
         renderItem={item => (
           <li>
             <Comment
