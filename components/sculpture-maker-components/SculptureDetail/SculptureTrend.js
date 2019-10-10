@@ -52,6 +52,7 @@ const SculptureTrend = ({
       try {
         const past = startDate.format('YYYY-MM-DD')
         const today = endDate.format('YYYY-MM-DD')
+        const defaultToday = defaultEndDate.format('YYYY-MM-DD')
 
         const likesPromise = api.get(
           `/stats/likes/sculpture-id/${sculptureId}?fromDate=${past}&toDate=${today}`
@@ -64,13 +65,13 @@ const SculptureTrend = ({
         )
 
         const defaultLikesPromise = api.get(
-          `/stats/likes/sculpture-id/${sculptureId}?fromDate=${past}&toDate=${defaultEndDate}`
+          `/stats/likes/sculpture-id/${sculptureId}?fromDate=${past}&toDate=${defaultToday}`
         )
         const defaultCommentsPromise = api.get(
-          `/stats/comments/sculpture-id/${sculptureId}?fromDate=${past}&toDate=${defaultEndDate}`
+          `/stats/comments/sculpture-id/${sculptureId}?fromDate=${past}&toDate=${defaultToday}`
         )
         const defaultVisitsPromise = api.get(
-          `/stats/visits/sculpture-id/${sculptureId}?fromDate=${past}&toDate=${defaultEndDate}`
+          `/stats/visits/sculpture-id/${sculptureId}?fromDate=${past}&toDate=${defaultToday}`
         )
 
         const [
@@ -111,6 +112,9 @@ const SculptureTrend = ({
         const DAILY_COMMENTS_CHANGE =
           DAILY_COMMENTS -
           DEFAULT_COMMENT_DATA[DEFAULT_COMMENT_DATA.length - 2].y
+        console.log(DEFAULT_COMMENT_DATA)
+        console.log('c:', DAILY_COMMENTS)
+        console.log('change:', DAILY_COMMENTS_CHANGE)
 
         setState(state => ({
           ...state,
@@ -137,7 +141,15 @@ const SculptureTrend = ({
       setLoading(false)
     }
     fetchData()
-  }, [defaultEndDate, endDate, sculptureId, startDate, totalComments, totalLikes, totalVisits])
+  }, [
+    defaultEndDate,
+    endDate,
+    sculptureId,
+    startDate,
+    totalComments,
+    totalLikes,
+    totalVisits
+  ])
 
   const dateFormat = 'MMM D YYYY'
   const staticToday = moment(new Date())
