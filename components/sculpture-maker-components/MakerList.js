@@ -1,3 +1,8 @@
+/**
+ * Description: Primary maker list component
+ * Author: Hieu Chu
+ */
+
 import { useState, useEffect } from 'react'
 import { Row, Divider, Modal, Icon, message, notification, Button } from 'antd'
 import { ColStyled, CardStyled, StyledTable } from './style'

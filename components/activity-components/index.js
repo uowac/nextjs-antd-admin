@@ -1,12 +1,15 @@
+/**
+ * Description: Component for Recent activity page
+ * Author: Hieu Chu
+ */
+
 import { useState, useEffect } from 'react'
-import { Row, Descriptions, Col } from 'antd'
-import { ColStyled, CardStyled } from './style'
+import { Row } from 'antd'
+import { ColStyled } from './style'
 import api from '../../api'
 import Loading from '../Loading'
 import Error from 'next/error'
 import Head from 'next/head'
-import moment from 'moment'
-import { SculptureCardDescription } from '../sculpture-maker-components/SculptureGrid'
 import RecentComments from './RecentComments'
 import RecentVisits from './RecentVisits'
 import RecentLikes from './RecentLikes'

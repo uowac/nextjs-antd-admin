@@ -1,6 +1,11 @@
+/**
+ * Description: Sculpture Detail page component
+ * Author: Hieu Chu
+ */
+
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { Row, Carousel, Typography, List, Empty, Button, Tooltip } from 'antd'
+import { Row, Carousel, Typography, List, Empty, Button } from 'antd'
 import { ColStyled, CardStyled } from '../style'
 import { SculptureCardDescription } from '../SculptureGrid'
 import api from '../../../api'
@@ -10,11 +15,9 @@ import MyStaticMap from '../../map-components/StaticMap'
 import Link from 'next/link'
 import Head from 'next/head'
 import SculptureComment from './SculptureComment'
-import { format } from 'path'
-import moment from 'moment'
 import SculptureTrend from './SculptureTrend'
 
-const { Text, Title, Paragraph } = Typography
+const { Title } = Typography
 
 const SculptureDetail = () => {
   const [sculpture, setSculpture] = useState({})

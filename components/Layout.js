@@ -1,3 +1,8 @@
+/**
+ * Description: Main layout component of the app
+ * Author: Hieu Chu
+ */
+
 import React from 'react'
 import '../static/index.css'
 import { Layout } from 'antd'

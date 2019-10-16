@@ -1,5 +1,4 @@
 import {
-  CardStyled,
   MainIcon,
   CardDivider,
   NumberInfoStyled,
@@ -7,6 +6,11 @@ import {
   HelperIcon,
   BarContainer
 } from './style'
+
+/**
+ * Description: Visit statistics card, including total visits and trend graph
+ * Author: Hieu Chu
+ */
 
 import dynamic from 'next/dynamic'
 

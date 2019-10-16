@@ -1,3 +1,8 @@
+/**
+ * Description: Sculpture list component
+ * Author: Hieu Chu
+ */
+
 import { useState, useEffect } from 'react'
 import {
   Row,

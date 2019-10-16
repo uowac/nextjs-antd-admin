@@ -1,6 +1,11 @@
+/**
+ * Description: User profile component
+ * Author: Hieu Chu
+ */
+
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { Row, Descriptions, Col } from 'antd'
+import { Row, Descriptions } from 'antd'
 import { ColStyled, CardStyled } from './style'
 import api from '../../api'
 import Loading from '../Loading'

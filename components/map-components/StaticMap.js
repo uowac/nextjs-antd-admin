@@ -1,3 +1,8 @@
+/**
+ * Description: Static map view
+ * Author: Hieu Chu
+ */
+
 import ReactMapGL, {
   Marker,
   FullscreenControl,

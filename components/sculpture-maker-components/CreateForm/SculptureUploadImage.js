@@ -1,5 +1,10 @@
+/**
+ * Description: Upload image component when creating new sculpture
+ * Author: Hieu Chu
+ */
+
 import { Upload, Button, Icon, message, Row, Modal } from 'antd'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { CardStyled, ColStyled } from '../style'
 import api from '../../../api'
 import Router from 'next/router'
@@ -14,7 +19,7 @@ const SculptureUploadImage = ({ sculpture }) => {
   const { accessionId, name } = sculpture
 
   const handleRemove = file => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, _reject) => {
       confirm({
         title: 'Do you want to remove this image?',
         icon: <Icon type="exclamation-circle" style={{ color: '#ff4d4f' }} />,

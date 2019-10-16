@@ -1,3 +1,8 @@
+/**
+ * Description: Drawer for page layout
+ * Author: Hieu Chu
+ */
+
 import { Drawer } from 'antd'
 import styled from 'styled-components'
 

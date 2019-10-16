@@ -1,3 +1,8 @@
+/**
+ * Description: Stylesheet for dashboard components
+ * Author: Hieu Chu
+ */
+
 import { Card, Tooltip, Icon, Divider, Col } from 'antd'
 import { NumberInfo } from 'ant-design-pro'
 import styled from 'styled-components'

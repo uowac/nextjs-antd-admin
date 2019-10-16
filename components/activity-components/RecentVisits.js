@@ -1,4 +1,8 @@
-import { CardStyled } from './style'
+/**
+ * Description: Recent visits component
+ * Author: Hieu Chu
+ */
+
 import moment from 'moment'
 import { Tooltip, List, Comment, Card } from 'antd'
 import Link from 'next/link'

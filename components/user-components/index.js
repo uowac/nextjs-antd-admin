@@ -1,3 +1,8 @@
+/**
+ * Description: User management components
+ * Author: Hieu Chu
+ */
+
 import { useState, useEffect, useRef } from 'react'
 import { Row, Comment, Icon, Input, Button } from 'antd'
 import { ColStyled, CardStyled, StyledTable } from './style'

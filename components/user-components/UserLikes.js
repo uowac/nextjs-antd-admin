@@ -1,4 +1,8 @@
-import { CardStyled, EmptyImage } from './style'
+/**
+ * Description: User likes list component
+ * Author: Hieu Chu
+ */
+
 import moment from 'moment'
 import { Tooltip, List, Comment, Card, Empty } from 'antd'
 import Link from 'next/link'

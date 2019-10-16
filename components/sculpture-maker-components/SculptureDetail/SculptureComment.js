@@ -1,4 +1,8 @@
-import { CardStyled } from '../style'
+/**
+ * Description: Sculpture's comment list component
+ * Author: Hieu Chu
+ */
+
 import moment from 'moment'
 import {
   Tooltip,
@@ -10,13 +14,12 @@ import {
   Menu,
   Modal,
   message,
-  Form,
   Button,
   Empty
 } from 'antd'
 import Link from 'next/link'
 import api from '../../../api'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import TextArea from 'antd/lib/input/TextArea'
 const { confirm } = Modal
 

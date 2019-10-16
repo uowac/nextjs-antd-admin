@@ -1,4 +1,9 @@
-import { useState, useEffect } from 'react'
+/**
+ * Description: Sculpture edit page component
+ * Author: Hieu Chu
+ */
+
+import { useState } from 'react'
 import { Button, Form, message } from 'antd'
 import { ColStyled, FormCol, CustomFormItem } from '../style'
 import { FlyToInterpolator } from 'react-map-gl'

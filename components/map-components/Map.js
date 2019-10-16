@@ -1,10 +1,12 @@
-import { useState, useEffect, useRef } from 'react'
+/**
+ * Description: Dynamic map view with support for geolocation control and draggable marker
+ * Author: Hieu Chu
+ */
+
 import ReactMapGL, {
   Marker,
   NavigationControl,
   FullscreenControl,
-  FlyToInterpolator,
-  LinearInterpolator,
   GeolocateControl
 } from 'react-map-gl'
 

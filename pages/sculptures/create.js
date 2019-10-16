@@ -1,3 +1,8 @@
+/**
+ * Description: Sculpture Create page
+ * Author: Hieu Chu
+ */
+
 import SculptureCreate from '../../components/sculpture-maker-components/CreateForm'
 import { useAuth0 } from '../../components/auth0-components'
 import AuthPage from '../../components/AuthPage'

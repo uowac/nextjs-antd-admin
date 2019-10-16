@@ -1,14 +1,17 @@
+/**
+ * Description: Root Application component
+ * Author: Hieu Chu
+ */
+
 import NextApp from 'next/app'
 import Router, { withRouter } from 'next/router'
 import NProgress from 'nprogress'
 import Layout from '../components/Layout'
 import Error from 'next/error'
 import { Auth0Provider, useAuth0 } from '../components/auth0-components'
-import { Spin } from 'antd'
 import Loading from '../components/Loading'
 import Head from 'next/head'
 import nookies from 'nookies'
-import { useEffect } from 'react'
 
 // dev fix for css loader
 if (process.env.NODE_ENV !== 'production') {
@@ -82,8 +85,6 @@ class AppWrapper extends NextApp {
         collapsed = JSON.parse(collapsedCookie)
       }
     }
-
-    // console.log('cac to') // called every time
 
     return { pageProps, collapsed, redirect_uri }
   }

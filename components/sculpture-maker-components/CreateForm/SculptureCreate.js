@@ -1,3 +1,8 @@
+/**
+ * Description: Component for Sculpture create page
+ * Author: Hieu Chu
+ */
+
 import { useState, useEffect } from 'react'
 import { Row, Button, Form, message } from 'antd'
 import { ColStyled, CardStyled, FormCol, CustomFormItem } from '../style'

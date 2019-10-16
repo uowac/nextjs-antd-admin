@@ -1,3 +1,8 @@
+/**
+ * Description: Primary maker edit page component
+ * Author: Hieu Chu
+ */
+
 import { useState } from 'react'
 import { Input, Form, Button, Modal, message } from 'antd'
 import { CustomFormItem } from '../style'

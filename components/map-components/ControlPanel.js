@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react'
+/**
+ * Description: Helper control panel in Map view to show current co-ordinates of marker
+ * Author: Hieu Chu
+ */
 
-function round5(value) {
-  return (Math.round(value * 1e5) / 1e5).toFixed(5)
-}
+import React, { PureComponent } from 'react'
 
 export default class ControlPanel extends PureComponent {
   render() {

@@ -1,3 +1,8 @@
+/**
+ * Description: Sculpture create page component
+ * Author: Hieu Chu
+ */
+
 import { useState } from 'react'
 import SculptureCreate from './SculptureCreate'
 import SculptureUploadImage from './SculptureUploadImage'

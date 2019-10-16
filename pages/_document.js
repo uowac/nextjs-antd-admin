@@ -1,3 +1,8 @@
+/**
+ * Description: HTML Document (stylesheet) settings
+ * Author: Hieu Chu
+ */
+
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 

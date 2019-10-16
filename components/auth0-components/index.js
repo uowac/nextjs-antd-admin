@@ -1,4 +1,8 @@
-// src/react-auth0-wrapper.js
+/**
+ * Description: Auth0 component which manages authentication and admin authorization
+ * Author: Hieu Chu
+ */
+
 import React, { useState, useEffect, useContext } from 'react'
 import createAuth0Client from '@auth0/auth0-spa-js'
 

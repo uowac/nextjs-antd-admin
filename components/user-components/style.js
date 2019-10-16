@@ -1,3 +1,8 @@
+/**
+ * Description: Stylesheet for user components
+ * Author: Hieu Chu
+ */
+
 import styled from 'styled-components'
 import { Card, Col, Icon, Form, Typography, Empty, Table } from 'antd'
 

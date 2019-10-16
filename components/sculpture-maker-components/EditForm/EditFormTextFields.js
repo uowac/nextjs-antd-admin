@@ -1,5 +1,10 @@
+/**
+ * Description: Text details edit component for sculpture
+ * Author: Hieu Chu
+ */
+
 import { useState } from 'react'
-import { Input, Icon, Select, Modal, Divider, Button, Tooltip } from 'antd'
+import { Input, Icon, Select, Divider } from 'antd'
 const { TextArea } = Input
 import { FormCol, CustomFormItem } from '../style'
 import { validateLatitude, validateLongitude } from '../../shared/utils'

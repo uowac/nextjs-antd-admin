@@ -1,3 +1,8 @@
+/**
+ * Description: User proportion pie chart
+ * Author: Hieu Chu
+ */
+
 import dynamic from 'next/dynamic'
 const Pie = dynamic(import('ant-design-pro/lib/Charts').then(mod => mod.Pie), {
   ssr: false

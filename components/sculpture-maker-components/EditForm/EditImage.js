@@ -1,17 +1,22 @@
+/**
+ * Description: Image edit component for sculpture
+ * Author: Hieu Chu
+ */
+
 import { Upload, Button, Icon, message, Row, Modal } from 'antd'
-import { useState, useEffect } from 'react'
-import { CardStyled, ColStyled } from '../style'
+import { useState } from 'react'
+import { ColStyled } from '../style'
 import api from '../../../api'
 import Router from 'next/router'
 
 const { confirm } = Modal
 
-const EditImage = ({ accessionId, name, images }) => {
+const EditImage = ({ accessionId, _name, images }) => {
   const [fileList, setFileList] = useState([...images])
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleRemove = file => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, _reject) => {
       confirm({
         title: 'Do you want to remove this image?',
         icon: <Icon type="exclamation-circle" style={{ color: '#ff4d4f' }} />,

@@ -1,5 +1,9 @@
+/**
+ * Description: Like statistics card, including total likes and trend graph
+ * Author: Hieu Chu
+ */
+
 import {
-  CardStyled,
   MainIcon,
   CardDivider,
   NumberInfoStyled,

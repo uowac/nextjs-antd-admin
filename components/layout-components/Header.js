@@ -1,3 +1,8 @@
+/**
+ * Description: Header bar of page
+ * Author: Hieu Chu
+ */
+
 import { Icon, Layout, Dropdown, Menu } from 'antd'
 const { Header } = Layout
 import styled from 'styled-components'

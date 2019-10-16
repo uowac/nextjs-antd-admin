@@ -1,4 +1,8 @@
-import { CardStyled } from './style'
+/**
+ * Description: Recent comments component
+ * Author: Hieu Chu
+ */
+
 import moment from 'moment'
 import {
   Tooltip,

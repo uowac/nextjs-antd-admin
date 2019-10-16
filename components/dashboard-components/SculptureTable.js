@@ -1,3 +1,8 @@
+/**
+ * Description: Sculpture table with support for sorting according to likes, comments and visits
+ * Author: Hieu Chu
+ */
+
 import { Table } from 'antd'
 import { CardStyled } from './style'
 import styled from 'styled-components'

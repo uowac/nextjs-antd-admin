@@ -1,5 +1,9 @@
+/**
+ * Description: User statistics card, including total users and trend graph
+ * Author: Hieu Chu
+ */
+
 import {
-  CardStyled,
   MainIcon,
   CardDivider,
   NumberInfoStyled,

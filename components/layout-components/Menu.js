@@ -1,3 +1,8 @@
+/**
+ * Description: Drawer's menu list
+ * Author: Hieu Chu
+ */
+
 import { Menu, Icon } from 'antd'
 import { useRouter } from 'next/router'
 import Link from 'next/link'

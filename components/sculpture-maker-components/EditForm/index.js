@@ -1,3 +1,8 @@
+/**
+ * Description: Sculpture Edit Page component
+ * Author: Hieu Chu
+ */
+
 import { CardStyled, ColStyled } from '../style'
 import { Row, Modal, Button, Icon, message, notification } from 'antd'
 import SculptureEdit from './SculptureEdit'

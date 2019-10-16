@@ -1,3 +1,8 @@
+/**
+ * Description: Dashboard page, includes trends graph for users, likes, comments and visits
+ * Author: Hieu Chu
+ */
+
 import 'ant-design-pro/lib/Charts/style/index.less'
 import Head from 'next/head'
 import {
@@ -9,7 +14,7 @@ import {
   SculptureTable,
   UserPieChart
 } from '../components/dashboard-components'
-import { Row, Spin, Dropdown, Icon, Menu, DatePicker } from 'antd'
+import { Row, Dropdown, Icon, Menu, DatePicker } from 'antd'
 
 const { RangePicker } = DatePicker
 

@@ -1,3 +1,8 @@
+/**
+ * Description: Users Management Page
+ * Author: Hieu Chu
+ */
+
 import { useAuth0 } from '../../components/auth0-components'
 import AuthPage from '../../components/AuthPage'
 import Head from 'next/head'

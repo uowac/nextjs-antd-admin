@@ -1,5 +1,9 @@
+/**
+ * Description: Comment statistics card, including total comments and trend graph
+ * Author: Hieu Chu
+ */
+
 import {
-  CardStyled,
   MainIcon,
   CardDivider,
   NumberInfoStyled,

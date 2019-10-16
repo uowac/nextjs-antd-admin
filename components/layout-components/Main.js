@@ -1,3 +1,8 @@
+/**
+ * Description: Layout's main content component
+ * Author: Hieu Chu
+ */
+
 import { Layout } from 'antd'
 import styled, { css } from 'styled-components'
 

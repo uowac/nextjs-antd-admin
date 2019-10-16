@@ -1,3 +1,8 @@
+/**
+ * Description: Shared utility functions
+ * Author: Hieu Chu
+ */
+
 export const validateLatitude = (rule, value, callback) => {
   if (!value || !value.trim()) return callback()
   if (isNaN(value)) {

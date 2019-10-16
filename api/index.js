@@ -1,3 +1,8 @@
+/**
+ * Description: Axios instance to call back-end API with HTTP Authorization header attached to every request
+ * Author: Hieu Chu
+ */
+
 import axios from 'axios'
 import nookies from 'nookies'
 
@@ -11,7 +16,7 @@ myApi.interceptors.request.use(
     return config
   },
   error => {
-    console.log('error axios!!!!!')
+    console.log('error axios!')
     return Promise.reject(error)
   }
 )

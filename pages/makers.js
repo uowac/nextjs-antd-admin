@@ -1,3 +1,8 @@
+/**
+ * Description: Primary Makers Page
+ * Author: Hieu Chu
+ */
+
 import MakerList from '../components/sculpture-maker-components/MakerList'
 import { useAuth0 } from '../components/auth0-components'
 import AuthPage from '../components/AuthPage'

@@ -1,3 +1,8 @@
+/**
+ * Description: Sculpture's trends graph component
+ * Author: Hieu Chu
+ */
+
 import 'ant-design-pro/lib/Charts/style/index.less'
 import {
   ColStyled,
@@ -5,7 +10,7 @@ import {
   LikeCard,
   CommentCard
 } from '../../dashboard-components/'
-import { Row, Spin, Dropdown, Icon, Menu, DatePicker } from 'antd'
+import { Dropdown, Icon, Menu, DatePicker } from 'antd'
 
 const { RangePicker } = DatePicker
 
