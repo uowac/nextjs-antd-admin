@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start -p $PORT"
+    "start": "next start -p $PORT",
+	"test": "node test.js"
   },
   "keywords": [],
   "author": "",
