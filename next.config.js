@@ -18,7 +18,7 @@ module.exports = withLess(
     },
     webpack: (config, { isServer }) => {
       if (isServer) {
-        const antStyles = /antd\/.*?\/style.*?/
+		const antStyles = /(antd\/.*?\/style).*(?<![.]js)$/
         const antDesignProStyles = /ant-design-pro\/.*?\/style.*?/
         const combinedStyles = new RegExp(
           '(' + antStyles.source + ')|(' + antDesignProStyles.source + ')'
