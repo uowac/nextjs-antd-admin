@@ -27,6 +27,6 @@ jobs:
        - run: npm run dev
 
       # Runs a set of commands using the runners shell
-      - run: npm run build && npm run start
-        run: npm publish
+      - run: npm run build and npm run start
+      - run: npm publish 
          
