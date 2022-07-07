@@ -23,7 +23,7 @@
     "dotenv": "^8.1.0",
     "indexof": "0.0.1",
     "less": "^3.9.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "next": "^9.0.5-canary.3",
     "nookies": "^2.0.8",
     "nprogress": "^0.2.0",
